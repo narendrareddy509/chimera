@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute,Router} from "@angular/router";
 
 @Component({
   selector: 'app-dashboard',
@@ -52,9 +53,14 @@ export class DashboardComponent implements OnInit {
 			name:'Player 11'
 		}
 	];
-  constructor() { }
+	user:any;
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+	  this.user = this.route.snapshot.queryParams['data'];
+	  if(!this.user){
+		  this.router.navigate(['/login']);
+	  }
   }
 
 }

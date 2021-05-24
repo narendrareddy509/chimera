@@ -4,7 +4,7 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import {Router} from "@angular/router"
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -34,6 +34,8 @@ export class LoginComponent implements OnInit {
 	  if(this.regForm.invalid){
 		  return;
 	  }
-	  this.router.navigate(['/dashboard']);
+	  this.router.navigate(['/dashboard'],{queryParams: {
+        "data"   : this.regForm.controls.name.value
+	  }});
   }
 }

@@ -1,5 +1,36 @@
-<div class="row justify-content-center mt-5">
-<ul class="list-group col-5">
-  <li class="list-group-item" *ngFor="let player of playersList">{{player.name}}</li>
-</ul>
-</div>
+<div class="container-fluid">
+	<div class="row flex-nowrap">
+		<div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+			<div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+					<div class="pb-4 pt-4">
+						<a href="javascript:void(0);" class="d-flex align-items-center text-white text-decoration-none">
+							<img src="../../../assets/user.svg" alt="hugenerd" width="30" height="30" class="user-icon rounded-circle">
+							<span class="d-none d-sm-inline mx-1 text-capitalize">{{user}}</span>
+						</a>
+					</div>
+					<ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center text-white align-items-sm-start" id="menu">
+						<li class="nav-item">
+							<a href="javascript:void(0);" class="nav-link align-middle px-0">
+								<span>Home</span>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0);" class="nav-link px-0 align-middle">
+								<span>Dashboard</span>
+							</a>
+						</li>
+						<li>
+							<a href="/login" class="nav-link px-0 align-middle">
+								<span>Logout</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col py-3">
+				<ul class="list-group">
+					<li class="list-group-item" *ngFor="let player of playersList"><img src="../../../assets/user.svg" alt="hugenerd" width="20" height="20" class="user-icon rounded-circle me-2">{{player.name}}</li>
+				</ul>
+			</div>
+		</div>
+	</div>

@@ -5,6 +5,12 @@
   "projects": {
     "loginApp": {
       "projectType": "application",
+	  "i18n": {
+	  "sourceLocale": "en",
+      "locales": {
+			"ch": "src/assets/i18n/messages.ch.xlf"
+		  }
+	  },
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
@@ -60,7 +66,13 @@
                   "maximumError": "10kb"
                 }
               ]
-            }
+            },
+			"en": {
+			  "localize": ["en"]
+			},
+			"ch": {
+			  "localize": ["ch"]
+			}
           }
         },
         "serve": {
@@ -71,7 +83,13 @@
           "configurations": {
             "production": {
               "browserTarget": "loginApp:build:production"
-            }
+            },
+			"en": {
+			  "browserTarget": "loginApp:build:en"
+			},
+			"ch": {
+			  "browserTarget": "loginApp:build:ch"
+			}
           }
         },
         "extract-i18n": {
