@@ -1,0 +1,333 @@
+<section>
+  <div class="card">
+    <div class="card-header bg-light d-flex justify-content-between mb-4">
+      <div class="col-lg-10 col-md-9">
+        <div class="mb-0">
+          {{ title }}
+        </div>
+      </div>
+      <button class="btn btn-outline-primary btn-sm" (click)="onSaveValidation('IG_PRODUCT_STATUS_SAVED')">
+        <i-feather name="save" class="md"></i-feather>{{ "bundleProduct.createEditProduct.save" | translate }}
+      </button>
+      <button class="btn btn-outline-primary btn-sm" (click)="onSaveValidation('IG_PRODUCT_STATUS_PUBLISHED')">
+        <i-feather name="send" class="md"></i-feather>{{ "bundleProduct.createEditProduct.publish" | translate }}
+      </button>
+      <button class="btn btn-outline-primary btn-sm" (click)="onClose()">
+        x
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="card-content">
+        <h3 class="mb-4">
+          {{ "bundleProduct.createEditProduct.productDetails" | translate }}
+        </h3>
+        <form #productForm="ngForm">
+          <div class="row tbl-editProduct">
+            <div class="col-4">
+              <div class="column">
+                <div class="form-group" [ngClass]="{
+                    'is-invalid':
+                      saveClicked &&
+                      (productName.invalid || productName?.errors?.required)
+                  }">
+                  <label for="example-text-input" class="form-control-label">{{
+                    "bundleProduct.createEditProduct.productName" | translate
+                    }}
+                  </label>
+                  <input class="form-control" [disabled]="disableControl" type="text" [(ngModel)]="product.productName"
+                    #productName="ngModel" name="productName" required placeholder="{{
+                      'bundleProduct.createEditProduct.productName' | translate
+                    }}" />
+                  <div *ngIf="
+                      saveClicked &&
+                      (productName.invalid || productName?.errors?.required)
+                    " class="invalid-feedback d-block">
+                    {{
+                    "bundleProduct.createEditProduct.mandatoryInput"
+                    | translate
+                    }}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group" [ngClass]="{
+                  'is-invalid':
+                    saveClicked &&
+                    (productCode.invalid || productCode?.errors?.required)
+                }">
+                <label for="example-text-input" class="form-control-label">{{
+                  "bundleProduct.createEditProduct.productCode" | translate
+                  }}</label>
+                <input class="form-control" [disabled]="disableControl" type="text" [(ngModel)]="product.productCode"
+                  #productCode="ngModel" name="productCode" placeholder="{{
+                    'bundleProduct.createEditProduct.productCode' | translate
+                  }}" required />
+                <div *ngIf="
+                    saveClicked &&
+                    (productCode.invalid || productCode?.errors?.required)
+                  " class="invalid-feedback d-block">
+                  {{
+                  "bundleProduct.createEditProduct.mandatoryInput" | translate
+                  }}
+                </div>
+              </div>
+              <div class="form-group d-flex justify-content-between">
+                <label for="example-text-input" class="form-control-label">{{
+                  "bundleProduct.createEditProduct.groupProduct" | translate
+                  }}
+                </label>
+                <label
+                  style="position: relative;display: inline-block;width: 56px;height: 24px;margin: 0;vertical-align: middle;"
+                  class="switch">
+                  <input type="checkbox" [disabled]="disableControl" name="groupProduct"
+                    [(ngModel)]="product.isGroupProduct" #groupProduct="ngModel" />
+                  <span class="slider round" style="border-radius: 17px;"></span>
+                </label>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group" [ngClass]="{
+                  'is-invalid':
+                    saveClicked &&
+                    (description.invalid || description?.errors?.required)
+                }">
+                <label for="example-text-input" class="form-control-label">{{
+                  "bundleProduct.createEditProduct.description" | translate
+                  }}</label>
+                <textarea class="form-control" [disabled]="disableControl" type="text"
+                  placeholder="{{ 'plan.details.descriptionPH' | translate }}" [(ngModel)]="product.productDescription"
+                  #description="ngModel" name="description" required
+                  style="border: none;background-color: #f8f9fa;color: #495057;line-height: 25px;width: 100%;padding: 0.5rem;height: 6.75rem;"></textarea>
+                <div *ngIf="
+                    saveClicked &&
+                    (description.invalid || description?.errors?.required)
+                  " class="invalid-feedback d-block">
+                  {{
+                  "bundleProduct.createEditProduct.mandatoryInput" | translate
+                  }}
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="column">
+                <div class="form-group">
+                  <label for="example-text-input" class="form-control-label">{{
+                    "bundleProduct.createEditProduct.productCategory"
+                    | translate
+                    }}
+                  </label>
+                  <ng-select name="productCategory" bindLabel="name" bindValue="code" required
+                    [disabled]="disableControl" [items]="productCategoryList" [clearable]="false"
+                    [(ngModel)]="product.productCategory" #productCategory="ngModel"
+                    (ngModelChange)="onProductCategorySelection($event)" placeholder="{{
+                      'bundleProduct.createEditProduct.productCategory'
+                        | translate
+                    }}">
+                  </ng-select>
+                  <div *ngIf="
+                    saveClicked &&
+                    (productCategory.invalid || productCategory?.errors?.required)
+                  " class="invalid-feedback d-block">
+                    {{
+                    "bundleProduct.createEditProduct.mandatoryInput" | translate
+                    }}
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="example-text-input" class="form-control-label">{{
+                    "bundleProduct.createEditProduct.productIcon"
+                    | translate
+                    }}
+                  </label>
+                  <div class="row">
+                    <div class="col">
+                      <div class="input-group">
+                        <input type="file" accept="image/*" id="importFile"
+                          (change)="onProductIconUpload($event.target.files)"
+                          [ngClass]="showInvalid ? 'custom-file-input is-invalid': 'custom-file-input'">
+                        <div class="custom-file" [ngClass]="(showInvalid||showMaxImageSizeError) ? 'is-invalid': ''">
+                          <label style="border-radius: 0;background-color: #f8f9fa;color: #ced4da;border: none;"
+                            class="custom-file-label" #labelImport for="importFile">
+                            {{ "admin.underwriting.selectFileToUpload" | translate }}
+                          </label>
+                        </div>
+                        <div class="input-group-append">
+                          <button class="btn btn-primary btn-sm px-4" type="button">
+                            <i-feather name="folder" class="sm"></i-feather>
+                            Browse
+                          </button>
+                        </div>
+                      </div>
+                      <span class="info-text d-block">Accepted File Formats for Uploads: jpg, png.</span>
+                      <div *ngIf="showMaxImageSizeError
+                    " class="invalid-feedback d-block">
+                        {{
+                        "bundleProduct.createEditProduct.maxImageSizeAllowed" | translate
+                        }}
+                      </div>
+                    </div>
+                    <img id="productIcon" *ngIf="productIcon" class="col-3"
+                      [src]="'data:image/jpg;base64,'+ productIcon" width="75" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-4 mt-3">
+              <div class="form-group" [ngClass]="{
+                  'is-invalid': saveClicked && !basePlan
+                }">
+                <h3 for="example-text-input" class="form-control-label">
+                  {{ "bundleProduct.createEditProduct.basePlan" | translate }}
+                </h3>
+                <ng-select name="basePlan" bindLabel="name" bindValue="planGuid" [disabled]="disableControl" required
+                  [items]="basePlanList" [clearable]="false" [(ngModel)]="basePlan" placeholder="{{
+                    'bundleProduct.createEditProduct.basePlan' | translate
+                  }}">
+                </ng-select>
+                <div *ngIf="saveClicked && !basePlan" class="invalid-feedback d-block">
+                  {{
+                  "bundleProduct.createEditProduct.mandatoryInput" | translate
+                  }}
+                </div>
+              </div>
+            </div>
+            <div class="col-12 mt-3">
+              <h3 for="example-text-input" class="form-control-label">
+                {{
+                "bundleProduct.createEditProduct.additionalPlan" | translate
+                }}
+              </h3>
+              <table class="table table-ign table-border" style="border: 1px solid #e9ecef;">
+                <thead>
+                  <tr class="d-flex">
+                    <th class="col-md-1 action" style="max-width: 5.3333333333%;"></th>
+                    <th class="col-md-4">
+                      {{
+                      "bundleProduct.createEditProduct.planCategory"
+                      | translate
+                      }}
+                    </th>
+                    <th class="col-md-7">
+                      {{
+                      "bundleProduct.createEditProduct.availableActivePlan"
+                      | translate
+                      }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let cp of configuredPlans; let i = index" class="d-flex">
+                    <td class="col-md-1 action p-2" style="max-width: 5.3333333333%;">
+                      <button type="button" class="btn btn-primary btn-sm" [disabled]="disableControl"
+                        (click)="deleteAdditionalPlan(i)">
+                        <i-feather name="x"></i-feather>
+                      </button>
+                    </td>
+                    <td class="col-md-4 p-2">
+                      <ng-select name="planCategoryVal{{ i }}" #planCategoryVal="ngModel" bindLabel="name"
+                        bindValue="code" [disabled]="disableControl" [items]="productCategoryList"
+                        (ngModelChange)="getPlanList($event,i)" [clearable]="false" [(ngModel)]="cp.planCategory"
+                        placeholder="{{
+                              'bundleProduct.createEditProduct.planCategory'
+                                | translate
+                            }}">
+                      </ng-select>
+                    </td>
+                    <td class="col-md-7 p-2" *ngIf="cp.planCategory && cp.planList.length >0">
+
+                      <ng-select [items]="cp.planList" name="activePlanVal{{ i }}" #activePlanVal="ngModel"
+                        bindLabel="name" bindValue="planGuid" [disabled]="disableControl" [clearable]="false"
+                        [(ngModel)]="cp.planOID" [ngClass]="{
+                            'is-invalid':
+                              saveClicked && cp.planCategory && !cp.planOID
+                          }" placeholder="{{
+                            'bundleProduct.createEditProduct.availableActivePlan'
+                              | translate
+                          }}">
+                      </ng-select>
+                      <div *ngIf="saveClicked && cp.planCategory && !cp.planOID" class="invalid-feedback d-block">
+                        {{
+                        "bundleProduct.createEditProduct.mandatoryInput"
+                        | translate
+                        }}
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="4" class="p-2">
+                      <button type="button" class="btn btn-sm btn-primary" [disabled]="disableControl"
+                        (click)="addAdditionalPlan()">
+                        <i-feather name="plus"></i-feather>
+                      </button>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <div class="col-12 disable-box d-none">
+              <h3 for="example-text-input" class="form-control-label">
+                {{
+                "bundleProduct.createEditProduct.discount&Overides"
+                | translate
+                }}
+              </h3>
+              <div class="row">
+                <div class="col-4">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">{{
+                      "bundleProduct.createEditProduct.maximumPremiumDiscount"
+                      | translate
+                      }}</label>
+                    <div class="input-group">
+                      <input class="form-control" [disabled]="true" placeholder="{{
+                          'bundleProduct.createEditProduct.maximumPremiumDiscount'
+                            | translate
+                        }}" name="maximumPremiumDiscount" type="number" />
+                      <div class="input-group-append">
+                        <span class="input-group-text">%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">{{
+                      "bundleProduct.createEditProduct.noClaimBonus"
+                      | translate
+                      }}</label>
+                    <div class="input-group">
+                      <input class="form-control" [disabled]="true" placeholder="{{
+                          'bundleProduct.createEditProduct.noClaimBonus'
+                            | translate
+                        }}" name="noClaimBonusPercentage" type="number" />
+                      <div class="input-group-append">
+                        <span class="input-group-text">%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">{{
+                      "bundleProduct.createEditProduct.bonusPeriod"
+                      | translate
+                      }}</label>
+                    <ng-select name="bonusPeriod" bindLabel="name" bindValue="value" [disabled]="true"
+                      [(ngModel)]="basePlanList" [clearable]="false" placeholder="{{
+                        'bundleProduct.createEditProduct.bonusPeriod'
+                          | translate
+                      }}">
+                    </ng-select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

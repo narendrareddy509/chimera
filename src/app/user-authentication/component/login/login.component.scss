@@ -1,0 +1,68 @@
+@import "../../../../assets/scss/variables.scss";
+
+.login-sec {
+  border-radius: 0.75rem;
+  border: 0;
+}
+.login-form {
+  width: 100%;
+  max-width: 480px;
+  padding: 15px;
+  margin: auto;
+  .ig-logo {
+    margin: 0 auto;
+    height: 38px;
+    display: block;
+  }
+  .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+
+    &:focus {
+      z-index: 2;
+    }
+  }
+  input {
+    margin-bottom: -1px;
+    border-color: $white;
+    background-color: $gray-100;
+  }
+  label {
+    width: 100%;
+  }
+}
+.login-block {
+  width: 100%;
+}
+.banner-sec {
+  img {
+    height: calc(100vh - 50px);
+    width: 100%;
+    object-fit: cover;
+    object-position: left;
+  }
+}
+footer {
+  font-size: 18px;
+  bottom: 0;
+  position: fixed;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 0 0 3px 0;
+  z-index: 100 !important;
+  border-top: 1px solid #e3eaef;
+  width: 100%;
+  background-color: #4f4d4d;
+  color: $white;
+  p {
+    margin: 10px 0;
+  }
+}
+.copyright {
+  font-size: 13px;
+  letter-spacing: 2px;
+}

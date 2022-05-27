@@ -1,0 +1,22 @@
+@import "../../../../../assets/scss/variables.scss";
+
+.font-color {
+  color: $blue-500;
+}
+
+.font-style {
+  font-size: 0.75rem;
+}
+.guid-font {
+  font-size: 0.5625rem;
+  margin-top: 0.625rem;
+  color: $gray-600;
+}
+.tableData tr.active {
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+.scroll-div {
+  overflow: auto;
+  height: calc(100vh - 250px);
+}

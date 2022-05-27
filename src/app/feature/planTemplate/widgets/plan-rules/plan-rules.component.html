@@ -1,0 +1,151 @@
+<section>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header container-fluid py-2">
+                    <div class="d-flex align-items-center">
+                        <h4 class="card-title mr-auto">
+                            <i-feather name="pen-tool"></i-feather>
+                            {{ "plan.underwriting.title" | translate }}
+                        </h4>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-primary btn-sm" (click)="showUnderwritingRules()">
+                                <img src="../../../../../assets/images/Rules-white.svg" /> {{ "plan.rules" | translate
+                                }}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="intro-text" [innerHTML]="'plan.underwriting.widgetInfo' | translate">
+                    </div>
+                </div>
+                <div class="card-content" *ngIf="product?.screenCode !== 'vzfnlwep'">
+                    <div class="card-body">
+                        <form #UWForm="ngForm">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group" [ngClass]="{
+                      'is-invalid':
+                        saveClicked &&
+                        (minPolicyownerAge.invalid ||
+                          minPolicyownerAge?.errors?.min ||
+                          minPolicyownerAge?.errors?.max ||
+                          minPolicyownerAge?.errors?.lte || maxPolicyownerAge.invalid)
+                    }">
+                                        <label class="form-control-label">
+                                            {{ "plan.underwriting.policyOwnerAge" | translate }}
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="min-max-group">
+                                            <input class="form-control" mat-raised-button
+                                                ngbTooltip="{{'plan.underwriting.toolPolicyOwnerAge' | translate}}"
+                                                placement="top" [disabled]="disableControl" type="number"
+                                                placeholder="Min" [(ngModel)]="underwriting.minPolicyOwnerAge"
+                                                #minPolicyownerAge="ngModel" name="minPolicyownerAge" [min]="0"
+                                                [max]="120" [lt]="underwriting.maxPolicyOwnerAge" required />
+                                            <span class="seperator">-</span>
+                                            <input class="form-control" mat-raised-button
+                                                ngbTooltip="{{'plan.underwriting.toolPolicyOwnerAge' | translate}}"
+                                                placement="top" [disabled]="disableControl" type="number"
+                                                [disabled]="disableControl" type="number" placeholder="Max"
+                                                [(ngModel)]="underwriting.maxPolicyOwnerAge"
+                                                #maxPolicyownerAge="ngModel" name="maxPolicyownerAge" required [min]="0"
+                                                [max]="120" />
+                                        </div>
+                                        <div *ngIf="saveClicked && minPolicyownerAge?.errors?.required"
+                                            class="invalid-feedback">
+                                            {{ "plan.requiredField" | translate }}
+                                            {{ "plan.underwriting.minPolicyOwnerAge" | translate }}
+                                        </div>
+                                        <div *ngIf="
+                            saveClicked &&
+                            !minPolicyownerAge?.errors?.required &&
+                            (minPolicyownerAge.invalid ||
+                              minPolicyownerAge?.errors?.min ||
+                              minPolicyownerAge?.errors?.max ||
+                              minPolicyownerAge?.errors?.lte)
+                          " class="invalid-feedback d-block">
+                                            {{"plan.underwriting.minPolicyOwnerAge" | translate }} {{
+                                            (underwriting.minPolicyOwnerAge >=
+                                            underwriting.maxPolicyOwnerAge
+                                            ? "plan.underwriting.minPolicyOwnerAgeErrorlt"
+                                            : "plan.underwriting.minPolicyOwnerAgeError"
+                                            ) | translate
+                                            }}
+                                        </div>
+                                        <div *ngIf="saveClicked && maxPolicyownerAge?.errors?.required"
+                                            class="invalid-feedback">
+                                            {{ "plan.requiredField" | translate }}
+                                            {{ "plan.underwriting.maxPolicyOwnerAge" | translate }}
+                                        </div>
+                                        <div *ngIf="
+                          saveClicked &&
+                          (maxPolicyownerAge?.errors?.min ||
+                            maxPolicyownerAge?.errors?.max)
+                        " class="invalid-feedback">
+                                            {{ "plan.underwriting.maxPolicyOwnerAge" | translate }} {{
+                                            "plan.underwriting.minPolicyOwnerAgeError" |
+                                            translate }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group" [ngClass]="{
+                       'is-invalid':
+                        saveClicked && (minIssueAge.invalid ||minIssueAge?.errors?.min || minIssueAge?.errors?.max ||maxIssueAge.invalid || maxIssueAge?.errors?.min || maxIssueAge?.errors?.max)
+                       }">
+                                        <label class="form-control-label">
+                                            {{ "plan.underwriting.issueAge" | translate }}
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="min-max-group">
+                                            <input required class="form-control" mat-raised-button
+                                                ngbTooltip="{{'plan.underwriting.toolIssueAge' | translate}}"
+                                                placement="top" [disabled]="disableControl" type="number"
+                                                placeholder="Min" [(ngModel)]="underwriting.minIssueAge" [min]="0"
+                                                [max]="120" #minIssueAge="ngModel" name="minIssueAge" required />
+                                            <span class="seperator">-</span>
+                                            <input required class="form-control" mat-raised-button
+                                                ngbTooltip="{{'plan.underwriting.toolIssueAge' | translate}}"
+                                                placement="top" [disabled]="disableControl" type="number" [min]="0"
+                                                [max]="120" type="number" placeholder="Max"
+                                                [(ngModel)]="underwriting.maxIssueAge" #maxIssueAge="ngModel"
+                                                name="maxIssueAge" required />
+                                        </div>
+                                        <div *ngIf="saveClicked && minIssueAge?.errors?.required"
+                                            class="invalid-feedback">
+                                            {{ "plan.requiredField" | translate }}
+                                            {{ "plan.underwriting.minIssueAge" | translate }}
+                                        </div>
+                                        <div *ngIf="
+                            saveClicked && !minIssueAge?.errors?.required &&
+                            (minIssueAge.invalid ||
+                              minIssueAge?.errors?.min ||
+                              minIssueAge?.errors?.max)
+                          " class="invalid-feedback">
+                                            {{ "plan.underwriting.minIssueValue" | translate }}
+                                        </div>
+                                        <div *ngIf="saveClicked && maxIssueAge?.errors?.required"
+                                            class="invalid-feedback">
+                                            {{ "plan.requiredField" | translate }}
+                                            {{ "plan.underwriting.maxIssueAge" | translate }}
+                                        </div>
+                                        <div *ngIf="
+                          saveClicked && !maxIssueAge?.errors?.required &&
+                          (maxIssueAge.invalid ||
+                            maxIssueAge?.errors?.min ||
+                            maxIssueAge?.errors?.max)
+                        " class="invalid-feedback">
+                                            {{ "plan.underwriting.maxIssueValue" | translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

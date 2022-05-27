@@ -1,0 +1,112 @@
+<section class="plan-wrapper container-fluid">
+    <section class="plan-header">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <i-feather name="home"></i-feather>
+                </li>
+                <li class="breadcrumb-item"><a href="/#/">{{"dashboard.productsPage.products" | translate}}</a></li>
+                <li class="breadcrumb-item">
+                    <a href="{{'/#/planTemplate/plans/' + product?.productTemplateGuid}}">{{product?.name}}</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">{{action==='new' ? 'New Plan' : plan?.name}}
+                </li>
+            </ol>
+        </nav>
+        <div class="plan-info-header">
+            <div class="heading_info">
+                <h4>{{action==='new' ? 'New Plan' : plan?.name}}
+                    <span class="badge badge-{{statusColor}} pl-2">{{getPublishStatus(plan.publishStatus)}}</span>
+                </h4>
+                <ignatica-plan-parameters-navigation heading="premium" [plan]="plan" [surrenderView]="false"
+                    [deathBenefitView]="true" [motorView]="true" [drivertView]="true" [renewalView]="true"
+                    [noClaimDiscountView]="true">
+                </ignatica-plan-parameters-navigation>
+            </div>
+            <div class="button_group">
+                <button role="button" class="btn btn-sm rounded-circle btn-settings mx-1"
+                    (click)="disableControl? savePlanService('save') : savePlan('save')">
+                    <i-feather name="save" class="lg"></i-feather>
+                </button>
+                <button role="button" class="btn btn-sm mx-1 rounded-circle btn-settings" (click)="savePlan('publish')"
+                    [disabled]="true">
+                    <i-feather name="send" class="lg"></i-feather>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div class="card">
+        <div class="card-content">
+            <div class="card-body">
+                <div id="whole-life-plan">
+                    <!-- Form body-->
+                    <div *ngIf="product">
+                        <section class="plan-container row">
+                            <div class="col-lg-4">
+                                <ignatica-plan-detail id="details"
+                                    *ngIf="plan?.generalConfiguration && plan?.servicingEndorsementConfiguration"
+                                    [servicingEndorsementConfiguration]="plan.servicingEndorsementConfiguration"
+                                    [disableControl]="disableControl" [generalConfiguration]="plan.generalConfiguration"
+                                    [showGlobalParameters]="showGlobalParameters" [product]="product" [plan]="plan"
+                                    [eventsSubject]="eventsSubject.asObservable()">
+                                </ignatica-plan-detail>
+                                <ignatica-plan-billing id="billing"
+                                    [feesChargesConfiguration]="plan.feesChargesConfiguration"
+                                    *ngIf="plan.servicingEndorsementConfiguration && plan.servicingEndorsementConfiguration.billingOptions"
+                                    [disableControl]="disableControl" [product]="product"
+                                    [billingOptions]="plan.servicingEndorsementConfiguration.billingOptions"
+                                    [eventsSubject]="eventsSubject.asObservable()">
+                                </ignatica-plan-billing>
+                            </div>
+                            <div class="col-lg-8">
+                                <ignatica-plan-rules id="underwriting" *ngIf="plan.nbUnderwritingConfiguration"
+                                    heading="COI" [disableControl]="disableControl" [product]="product"
+                                    [underwriting]="plan.nbUnderwritingConfiguration"
+                                    [eventsSubject]="eventsSubject.asObservable()">
+                                </ignatica-plan-rules>
+                                <ignatica-plan-motor-premium id="plan-coi"
+                                    *ngIf="plan.generalConfiguration && plan.feesChargesConfiguration" [action]="action"
+                                    [eventsSubject]="eventsSubject.asObservable()"
+                                    [feesChargesConfiguration]="plan.feesChargesConfiguration"
+                                    [planModules]="plan.generalConfiguration.planModules"
+                                    [disableControl]="disableControl" [product]="product">
+                                </ignatica-plan-motor-premium>
+
+                                <ignatica-plan-motor-rate-table id="plan-motor-view"
+                                    *ngIf="plan.feesChargesConfiguration" [action]="action"
+                                    [eventsSubject]="eventsSubject.asObservable()"
+                                    [feesChargesConfiguration]="plan.feesChargesConfiguration"
+                                    [disableControl]="disableControl">
+                                </ignatica-plan-motor-rate-table>
+                                <ignatica-plan-renewal-formula id="renewal"
+                                    [eventsSubject]="eventsSubject.asObservable()"
+                                    *ngIf="plan?.servicingEndorsementConfiguration?.renewalOptions" [product]="product"
+                                    [renewalOptions]="plan.servicingEndorsementConfiguration.renewalOptions"
+                                    [modulesEventsSubject]="modulesEventsSubject.asObservable()"
+                                    [generalConfiguration]="plan.generalConfiguration"
+                                    [feesChargesConfiguration]="plan.feesChargesConfiguration"
+                                    [disableControl]="disableControl"></ignatica-plan-renewal-formula>
+                                <ignatica-plan-motor-driver-rate id="plan-driver" *ngIf="plan.feesChargesConfiguration"
+                                    [action]="action" [eventsSubject]="eventsSubject.asObservable()"
+                                    [feesChargesConfiguration]="plan.feesChargesConfiguration"
+                                    [disableControl]="disableControl"></ignatica-plan-motor-driver-rate>
+                                <ignatica-plan-benefit-configuration
+                                    *ngIf="plan.benefitConfiguration && plan.benefitConfiguration.noClaimBenefitOptions && plan.benefitConfiguration.noClaimBenefitOptions.noClaimBenefitRateTable"
+                                    id="plan-noClaimDiscount" [disableControl]="disableControl" [product]="product"
+                                    heading="plan.noClaimDiscount.title" benefitType="noClaimDiscount"
+                                    ruleCategory="IG_RULE_CATEGORY_NOCLAIM_DISCOUNT" widgetCode="plan-noClaimDiscount"
+                                    chargeType="IG_CHARGES_NOCLAIM_DISCOUNT"
+                                    [feesChargesConfiguration]="plan.feesChargesConfiguration"
+                                    [benefitsOptions]="plan.benefitConfiguration?.noClaimBenefitOptions?.noClaimBenefitRateTable"
+                                    [generalConfiguration]="plan.generalConfiguration"
+                                    [modulesEventsSubject]="modulesEventsSubject.asObservable()">
+                                </ignatica-plan-benefit-configuration>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

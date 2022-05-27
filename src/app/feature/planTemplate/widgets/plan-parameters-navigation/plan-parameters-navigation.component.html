@@ -1,0 +1,80 @@
+<nav aria-label="breadcrumb" #paramNav>
+  <ol class="breadcrumb" *ngIf="plan">
+    <li class="breadcrumb-item">
+      <a class="pointer" (click)="navigateComp('details')">
+        {{ "plan.details.title" | translate }}</a>
+    </li>
+    <li class="breadcrumb-item" *ngIf="plan.servicingEndorsementConfiguration?.billingOptions"><a class="pointer"
+        (click)="navigateComp('billing')">
+        {{ "plan.billing.title" | translate }}
+      </a></li>
+
+    <li class="breadcrumb-item" *ngIf="plan.nbUnderwritingConfiguration"><a class="pointer"
+        (click)="navigateComp('underwriting')">
+        {{ "plan.underwriting.title" | translate }}
+      </a></li>
+    <li class="breadcrumb-item" *ngIf="plan.generalConfiguration && plan.feesChargesConfiguration"><a class="pointer"
+        (click)="navigateComp('plan-coi')">
+        {{ "plan."+heading+".title" | translate }}
+      </a></li>
+    <li class="breadcrumb-item" *ngIf="plan.benefitConfiguration && plan.generalConfiguration && deathBenefitView"><a
+        class="pointer" (click)="navigateComp('deathBenefit')">
+        {{ "plan.deathBenefitModule."+benefitHeading | translate }}
+      </a></li>
+    <li class="breadcrumb-item" *ngIf="plan.generalConfiguration && plan.feesChargesConfiguration && cashValueView"><a
+        class="pointer" (click)="navigateComp('cashValue')">
+        {{ "plan.cashValue.title" | translate }}
+      </a></li>
+    <li class="breadcrumb-item" *ngIf="surrenderView"><a class="pointer" (click)="navigateComp('plan-surrender')">
+        {{ "plan.surrender.configureFormula" | translate }}
+      </a></li>
+    <li class="breadcrumb-item" *ngIf="surrenderCancellationView"><a class="pointer"
+        (click)="navigateComp('plan-surrender-cancellation')">
+        {{ "plan.surrenderCancellation.title" | translate }}
+      </a></li>
+    <li class="breadcrumb-item" *ngIf="cancellationView"><a class="pointer" (click)="navigateComp('plan-cancellation')">
+        {{ "plan.cancellation.title" | translate }}
+      </a></li>
+    <li class="breadcrumb-item" *ngIf="motorView"><a class="pointer" (click)="navigateComp('plan-motor-view')">
+        {{ "plan.motor.rate.title" | translate }}
+      </a></li>
+    <li class="breadcrumb-item" *ngIf="renewalView"><a class="pointer" (click)="navigateComp('renewal')">
+        {{ "plan.renewal.title" | translate }}
+      </a></li>
+    <li class="breadcrumb-item" *ngIf="drivertView"><a class="pointer" (click)="navigateComp('plan-driver')">
+        {{ "plan.motor.driver.title" | translate }}
+      </a></li>
+    <li class="breadcrumb-item" *ngIf="noClaimDiscountView"><a class="pointer"
+        (click)="navigateComp('plan-noClaimDiscount')">
+        {{ "plan.noClaimDiscount.title" | translate }}
+      </a></li>
+    <li class="breadcrumb-item" *ngIf="lapsationReinstatementView"><a class="pointer"
+        (click)="navigateComp('plan-lapsation-reinstatement')">
+        {{ "plan.lapsationReinstatement.title" | translate }}
+      </a></li>
+    <li class="breadcrumb-item"
+      *ngIf="!lapsationReinstatementView && plan.servicingEndorsementConfiguration?.reinstatementOptions"><a
+        class="pointer" (click)="navigateComp('plan-reinstatement')">
+        {{ "plan.reinstatement.title" | translate }}
+      </a></li>
+    <li class="breadcrumb-item" *ngIf="financialChangesView"><a class="pointer"
+        (click)="navigateComp('plan-financial-changes')">
+        {{ "plan.financialChanges.title" | translate }}
+      </a></li>
+    <li class="breadcrumb-item" *ngIf="plan.investmentConfiguration?.configuredFunds">
+      <a class="pointer" (click)="navigateComp('investment')"> {{ "fund.title" | translate }}</a>
+    </li>
+    <li class="breadcrumb-item" *ngIf="endowmentView"><a class="pointer" (click)="navigateComp('plan-endowment')">
+        {{ "plan.endowment.title" | translate }}
+      </a></li>
+    <li class="breadcrumb-item" *ngIf="commissionView"><a class="pointer" (click)="navigateComp('plan-commission')">
+        {{ "plan.commission.title" | translate }}
+      </a></li>
+  </ol>
+</nav>
+
+<section class="scroll-top" *ngIf="windowScrolled">
+  <a class="btn btn-primary" (click)="scrollToTop()">
+    <i-feather name="arrow-up"></i-feather>
+  </a>
+</section>

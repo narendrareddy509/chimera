@@ -1,0 +1,46 @@
+<section>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">
+             <i-feather name="dollar-sign"></i-feather>
+              {{ "plan.adminCharge.heading" | translate }}
+            </h4>
+          </div>
+          <div class="card-content">
+            <div class="card-body">              
+                <div class="row">
+                  <div class="col-12">
+                    <div
+                      class="form-group"                      
+                    >
+                      <label for="example-text-input" class="form-control-label"
+                        >{{ "plan.adminCharge.title" | translate }}</label>
+                      <div class="input-group">                        
+                        <input
+                        class="form-control"
+                        [disabled]="disableControl"
+                        type="number"
+                        name="name"
+                        [(ngModel)]="adminCharge"
+                        #name="ngModel"
+                        required
+                        placeholder="{{ 'plan.adminCharge.title' | translate }}"
+                      />        
+                        <div class="input-group-prepend currency-symbol">
+                          <span class="input-group-text">Per Month</span>
+                        </div>
+
+                             
+                    </div>
+                  </div>
+                </div>  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  

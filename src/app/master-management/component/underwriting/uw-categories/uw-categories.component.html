@@ -1,0 +1,65 @@
+<div class="mt4">
+  <section class="admin-alerts mb-2">
+    <ngb-alert *ngIf="showCategoryAlert" [type]="action" [dismissible]="dismissible"
+      (closed)="showCategoryAlert = false">
+      <div [innerHtml]="safeHtml(categoryMessage)"></div>
+    </ngb-alert>
+  </section>
+  <div class="card card-radius">
+    <div class="card-header bg-light pb-3 pt2">
+      <nav class="navbar p-0">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-light mb-0 pt-2">
+            <li class="breadcrumb-item">
+              <a href="/#/admin">
+                <i-feather name="home"></i-feather>
+              </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              Underwriting
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              Categories
+            </li>
+          </ol>
+        </nav>
+      </nav>
+    </div>
+    <div class="bg-light category-style">Categories</div>
+  </div>
+  <div class="card-content">
+    <section>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card content-card-radius">
+            <div class="card-content">
+              <div class="card-body">
+                <div *ngIf="categories.length > 0">
+                  <div *ngFor="let category of categories">
+                    <div class="p-3">{{ category.name }}</div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="form-group m-3 ">
+                    <div class="input-group">
+                      <input class="form-control" type="text" [(ngModel)]="categoryName" placeholder="New Category" />
+                      <div class="input-group-append">
+                        <a class="btn btn-primary btn-sm pointer rounded-0" role="button"
+                          (click)="addUnderwritingCategory()">
+                          <i-feather name="plus" class="md"></i-feather>
+                        </a>
+                      </div>
+                      <div *ngIf="saveCategory && !categoryName" class="invalid-feedback d-block">
+                        {{ "admin.underwriting.categoryName" | translate }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

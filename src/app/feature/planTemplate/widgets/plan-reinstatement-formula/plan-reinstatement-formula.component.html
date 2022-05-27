@@ -1,0 +1,101 @@
+<section class="mt-2" *ngIf="reinstatement">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <h4 class="card-title mr-auto">
+              <i-feather name="rotate-cw"></i-feather>
+              {{ "plan.reinstatement.title" | translate }}
+            </h4>
+            <div class="btn-group" role="group">
+
+              <button class="btn btn-primary btn-sm" (click)="showFormulas()"
+                [disabled]="reinstatementFormulaOptions?.length === 0">
+                <img src="../../../../../assets/images/formulas-icon-white.svg" /> Formulas
+              </button>
+             <!-- <i-feather name="info" class="md m-1" *ngIf="reinstatementFormulaOptions?.length === 0"
+                ngbTooltip="{{'plan.disabledInfoText' | translate }}">
+              </i-feather>-->
+              <button class="btn btn-primary btn-sm ml-1" (click)="showUnderwritingRules()">
+                <img src="../../../../../assets/images/Rules-white.svg" /> {{ "plan.rules" | translate
+                }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-content">
+          <div class="card-body">
+            <form #RIForm="ngForm">
+              <!--<div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group" [ngClass]="{
+                        'is-invalid':
+                          saveClicked &&
+                            reinstatementFee?.errors?.required
+                      }">
+                    <label class="form-control-label">{{
+                      "plan.reinstatement.reinstatementFee" | translate
+                      }}</label>
+                    <input class="form-control" [disabled]="disableControl" type="text" placeholder="1"
+                      name="reinstatementFee" [(ngModel)]="reinstatementFeeVal" #reinstatementFee="ngModel" required
+                      IsDecimal />
+                    <div *ngIf="saveClicked && reinstatementFee?.errors?.required" class="invalid-feedback">
+                      {{ "plan.requiredField" | translate
+                      }}{{ "plan.reinstatement.reinstatementFee" | translate }}
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="col-lg-6">
+                  <div class="form-group" [ngClass]="{
+                        'is-invalid':
+                          saveClicked 
+                          && (reinstatementDuration.invalid || reinstatementDuration?.errors?.required ||  reinstatementDuration?.errors?.min  
+                          || reinstatementDuration?.errors?.max)
+                      }">
+                    <label class="form-control-label">{{
+                      "plan.reinstatement.reinstatementAllowedDuration" | translate
+                      }}
+                      <span class="text-danger">*</span>
+                    </label>
+                    <div class="input-group mb-3">
+                      <input type="number" class="form-control" name="reinstatementDuration" [min]="0" [max]="999"
+                        [(ngModel)]="reinstatement.reinstatementDuration" #reinstatementDuration="ngModel" required
+                        [disabled]="disableControl" placeholder="Enter duration…">
+                      <div class="input-group-append">
+                        <select name="reinstatementDurationFrequency"
+                          [(ngModel)]="reinstatement.reinstatementDurationFrequency" [disabled]="disableControl"
+                          [ngClass]="{
+                            'is-invalid': saveClicked && (!reinstatement?.reinstatementDurationFrequency || reinstatement?.reinstatementDurationFrequency?.length <= 0 )
+                          }">
+                          <option value="IG_DURATION_MONTHS">Months</option>
+                        </select>
+                      </div>
+                      <div *ngIf="saveClicked && reinstatementDuration?.errors?.required" class="invalid-feedback">
+                        {{ "plan.requiredField" | translate
+                        }}{{ "plan.reinstatement.reinstatementAllowedDuration" | translate }}
+                      </div>
+                      <div
+                        *ngIf="saveClicked && !reinstatementDuration?.errors?.required && reinstatementDuration?.invalid"
+                        class="invalid-feedback">
+                        {{ "plan.reinstatement.reinstatementAllowedDurationError" | translate }}
+                      </div>
+                      <div
+                        *ngIf="saveClicked && (!reinstatement?.reinstatementDurationFrequency || reinstatement?.reinstatementDurationFrequency?.length <= 0 )"
+                        class="invalid-feedback">
+                        {{ "plan.requiredField" | translate
+                        }}{{ "plan.reinstatement.reinstatementAllowedDurationType" | translate }}
+                      </div>
+                    </div>
+
+                  </div>
+                </div> 
+              </div>-->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

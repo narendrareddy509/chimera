@@ -1,0 +1,6 @@
+<a class="nav-link text-uppercase pointer rounded-circle" ngbDropdownToggle id="lang-selection" data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false"><i-feather name="globe" class="lang-select"></i-feather></a>
+<div ngbDropdownMenu class="shadow-lg lang-selection" aria-labelledby="lang-selection">
+    <a ngbDropdownItem class="pointer" *ngFor="let language of languages" (click)="onChangeLang(language.value)"
+        [ngClass]="{'active':selectedValue===language.value}">{{language.viewValue}}</a>
+</div>

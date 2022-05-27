@@ -1,0 +1,111 @@
+<section class="prm-mod-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <h4 class="card-title mr-auto">
+              <i-feather name="command"></i-feather>
+              {{ "plan."+heading+".title" | translate }}
+            </h4>
+            <div class="btn-group" role="group">
+              <button class="btn btn-primary btn-sm" (click)="showFormulas()">
+                <img src="../../../../../assets/images/formulas-icon-white.svg" /> {{"plan.coi.formulasPlaceHolder" |
+                translate}}
+              </button>
+            </div>
+          </div>
+          <div class="intro-text" [innerHTML]="'plan.'+heading+'.widgetInfo' | translate">
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="!coiSelectedModule">
+            {{"plan.noFormulaSelected" | translate: {title: ("plan."+heading+".title" | translate) } }} <a
+              class="text-reset" (click)="showFormulas()">Formulas</a>.
+          </div>
+        </div>
+        <div class="card-content" [ngClass]="{'disabled':!coiSelectedModule}">
+          <div class="card-body px-0 pb-0">
+            <form #modifierForm="ngForm">
+              <div class="row px-2 m-0">
+                <div class="col-lg-6" *ngIf="product.screenCode !== 'retjegem'">
+                  <div class="form-group" [ngClass]="{
+       'is-invalid':
+         saveClicked && ( (minFaceAmount.invalid) || (underwriting.minFaceAmount <= 0 || underwriting.minFaceAmount >= underwriting.maxFaceAmount) || ( maxFaceAmount.invalid || underwriting.maxFaceAmount <= 0 )  )
+        }">
+                    <label class="form-control-label">Sum Assured
+                      <span class="text-danger">*</span></label>
+                    <div class="min-max-group">
+                      <input required class="form-control"
+                      mat-raised-button
+                      ngbTooltip="{{'plan.coi.toolSumAssured' | translate}}" placement="top"
+                        [disabled]="disableControl" type="number" placeholder="Min"
+                        [(ngModel)]="underwriting.minFaceAmount" [min]="1" [max]="underwriting.maxFaceAmount"
+                        #minFaceAmount="ngModel" name="minFaceAmount" />
+                      <span class="seperator">-</span>
+                      <input required class="form-control" [disabled]="disableControl" type="number" placeholder="Max"
+                        [(ngModel)]="underwriting.maxFaceAmount" #maxFaceAmount="ngModel" name="maxFaceAmount" />
+                    </div>
+                    <div *ngIf="
+              saveClicked &&
+              (minFaceAmount.invalid ||
+                underwriting.minFaceAmount <= 0 ||
+                underwriting.minFaceAmount >=
+                  underwriting.maxFaceAmount)
+            " class="invalid-feedback d-block">
+                      {{"plan.underwriting.minFaceAmt" | translate }} {{
+                      "plan.underwriting.faceValue" |
+                      translate }}
+                    </div>
+                    <div *ngIf="
+            saveClicked &&
+            (maxFaceAmount.invalid ||
+              underwriting.maxFaceAmount <= 0)
+          " class="invalid-feedback d-block">
+                      {{"plan.underwriting.maxFaceAmt" | translate }} {{
+                      "plan.underwriting.faceMaxValue" |
+                      translate }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="pr-4 m-0">
+                    <div class="form-group" [ngClass]="{
+                         'is-invalid':
+                           saveClicked 
+                           && (taxRate.invalid ||  taxRate?.errors?.min  
+                           || taxRate?.errors?.max)
+                          }">
+                      <label class="form-control-label">{{"plan.coi.taxRate" | translate }} </label>
+                      <div class="input-group">
+                        <input class="form-control" 
+                        mat-raised-button
+                        ngbTooltip="{{'plan.coi.toolTaxRate' | translate}}" placement="top"
+                         [disabled]="disableControl" placeholder="0"
+                          [(ngModel)]="taxPercentage" name="taxRate" type="number" [min]="0" [max]="100"
+                          #taxRate="ngModel" />
+                        <div class="input-group-append">
+                          <span class="input-group-text">%</span>
+                        </div>
+                      </div>
+                      <div *ngIf="
+                         saveClicked &&
+                         (taxRate.invalid ||  taxRate?.errors?.min  || taxRate?.errors?.max)                        "
+                        class="invalid-feedback d-block">
+                        {{ "plan.coi.taxRateErrorMessage" | translate }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <ignatica-plan-coi-rate-summary [heading]="heading" [coiRateTableKeys]="coiRateTableKeys"
+              [coiRateTableRows]="coiRateTableRows">
+            </ignatica-plan-coi-rate-summary>
+            <ignatica-plan-coi-rate [heading]="heading" [product]="product"
+              (coiRateChangesEmit)="coiRateChangesEmit($event.param1, $event.param2)" [disableControl]="disableControl"
+              [coiRateTableKeys]="coiRateTableKeys" [coiRateTableRows]="coiRateTableRows"></ignatica-plan-coi-rate>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

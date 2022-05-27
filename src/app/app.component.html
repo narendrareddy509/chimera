@@ -1,0 +1,46 @@
+<header id="ignatica-header" class="fixed-top bg-primary flex-md-nowrap shadow" *ngIf="currentUser  && showSideBar">
+	<nav class="navbar navbar-dark p-0 pr-3">
+		<div class="navbar-brand col-md-3 col-lg-2 mr-0 px-3">
+			<img class="ig-logo" src="../../assets/images/ig-logo-white.svg" alt="Ignatica" title="Ignatica" />
+		</div>
+		<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse"
+			data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<ul class="navbar-nav px-3">
+			<!-- <li ngbDropdown class="nav-item nav-text dropdown px-2 lang-selection">
+				<ignatica-lang-select></ignatica-lang-select>
+			</li> -->
+			<li ngbDropdown class="nav-item nav-text dropdown px-2">
+				<a class="nav-link pointer rounded-circle" id="user-dropdown" ngbDropdownToggle aria-haspopup="true"
+					aria-expanded="false">
+					<i-feather name="user" class="rounded-circle"></i-feather>
+					<i-feather name="chevron-down" class="text-white user-arrow ml-2"></i-feather>
+				</a>
+				<div ngbDropdownMenu class="shadow-lg" aria-labelledby="dropdown04">
+					<!-- <a ngbDropdownItem class="pointer" href="#" *ngIf="isProdManager"><i-feather name="user"></i-feather>
+						User Settings</a>
+					<a ngbDropdownItem class="pointer" href="#/admin" *ngIf="isAdmin"><i-feather name="settings"></i-feather> Admin
+						Settings</a> -->
+					<a ngbDropdownItem class="pointer" (click)="logout()">
+						<i-feather name="log-out"></i-feather>
+						Logout
+					</a>
+				</div>
+			</li>
+		</ul>
+	</nav>
+</header>
+
+<div class="container-fluid app-wrapper" *ngIf="currentUser && showSideBar">
+	<div class="row">
+		<ignatica-sidebar *ngIf="currentUser  && showSideBar"></ignatica-sidebar>
+		<div class="col-md-9 ml-sm-auto col-lg-10 px-0 main-bg">
+			<ignatica-toast-container aria-live="polite" aria-atomic="true"></ignatica-toast-container>
+
+			<router-outlet></router-outlet>
+		</div>
+	</div>
+</div>
+
+<router-outlet *ngIf="!currentUser || !showSideBar"></router-outlet>

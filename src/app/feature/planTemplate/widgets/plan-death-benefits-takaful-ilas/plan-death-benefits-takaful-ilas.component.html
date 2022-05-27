@@ -1,0 +1,33 @@
+<section class="mt-2" *ngIf="moduleList.length > 0">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card header-only">
+                <div class="card-header">
+                    <div class="d-flex align-items-center">
+                        <h4 class="card-title mr-auto">
+                            <i-feather name="award"></i-feather>
+                            {{ "plan.deathBenefitModule.benefitTitle" | translate }}
+                        </h4>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-primary btn-sm" (click)="showFormulas()">
+                                <img src="../../../../../assets/images/formulas-icon-white.svg" /> Formulas
+
+                            </button>
+                            <button *ngIf="product?.screenCode !== 'zezcudih'" class="btn btn-primary btn-sm ml-1"
+                                (click)="showUnderwritingRules()">
+                                <img src="../../../../../assets/images/Rules-white.svg" /> {{ "plan.rules" | translate
+                                }}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="intro-text" [innerHTML]="'plan.deathBenefitModule.widgetInfo' | translate">
+                    </div>
+                    <div class="alert alert-danger" role="alert" *ngIf="!selectedDeathModule">
+                        {{"plan.noFormulaSelected" | translate: {title: ("plan.deathBenefitModule.benefitTitle" |
+                        translate) } }} <a class="text-reset" (click)="showFormulas()">Formulas</a>.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

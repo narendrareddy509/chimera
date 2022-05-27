@@ -1,0 +1,314 @@
+<section class="prm-mod-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">
+            <i-feather name="command"></i-feather>
+            {{ "plan.medical.benefit.title" | translate }}
+          </h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body px-0 pb-0">
+            <form #medicalBenefitForm="ngForm">
+            </form>
+              <div class="row px-2 m-0">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label">
+                      {{"plan.medical.benefit.benefitId" | translate }}</label
+                    >
+                    <div class="input-group">
+                      <input
+                        class="form-control"
+                        type="string"
+                        [(ngModel)]="medicalBenefitGroupName"
+                        [disabled]="disableControl"
+                        name="medicalBenefitGroupName"
+                      />
+                      <div class="input-group-append">
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-primary"
+                          [disabled]="disableControl"
+                          (click)="addMedicalBenefitGroup()"
+                        >
+                          <i-feather name="plus"></i-feather>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="medicalBenefitGrouprequired && (!medicalBenefitGroupName)"
+                      class="invalid-feedback d-block"
+                    >
+                     {{"plan.requiredField" | translate}}{{ "plan.medical.benefit.benefitId" | translate }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row px-2 m-0">
+                <div class="col-12">
+                  <div *ngFor="let mb of medicalBenefits;let i = index">
+                    <div class="card mb-1">
+                      <div class="card-header">
+                        <h4 class="card-title  float-left">{{mb.benefitId}}
+                         
+                        </h4>
+                        <button
+                        type="button"
+                        class="btn btn-sm btn-primary float-right"
+                        [disabled]="disableControl"
+                        (click)="deleteMedicalBenefitGroup(index)"
+                      >
+                        <i-feather name="x"></i-feather>
+                      </button>
+                      </div>
+                      <div class="card-content">
+                        <div class="card-body px-0 pb-0">
+                          <div class="row px-2 m-0">
+                            <div class="col-3">
+                              <div
+                                class="form-group"
+                                
+                              >
+                                <label
+                                  for="example-text-input"
+                                  class="form-control-label"
+                                  >{{ "plan.medical.benefit.benefitName" |
+                                  translate }}
+                                  <span class="text-danger">*</span></label
+                                >
+                                <input
+                                  class="form-control"
+                                  [disabled]="disableControl"
+                                  type="text"
+                                  name="benefitName{{index}}"
+                                  [(ngModel)]="mb.benefitName"
+                                  #benefitName="ngModel"
+                                  [ngClass]="{
+                                    'is-invalid': saveClicked && !mb.benefitName
+                                  }"
+                                  required
+                                  placeholder="{{ 'plan.medical.benefit.benefitName' | translate }}"
+                                />
+                                <div
+                                  *ngIf="saveClicked && !mb.benefitName"
+                                  class="invalid-feedback"
+                                >
+                                {{"plan.requiredField" | translate}}{{ "plan.medical.benefit.benefitName" |
+                                  translate }}
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-6">
+                              <div
+                                class="form-group"
+                               
+                              >
+                                <label
+                                  for="example-text-input"
+                                  class="form-control-label"
+                                  >{{ "plan.medical.benefit.benefitDescription"
+                                  | translate }}
+                                  <span class="text-danger">*</span></label
+                                >
+                                <input
+                                  class="form-control"
+                                  [disabled]="disableControl"
+                                  type="text"
+                                  name="benefitDescription{{index}}"
+                                  [(ngModel)]="mb.benefitDescription"
+                                  #benefitDescription="ngModel"
+                                  required
+                                  [ngClass]="{
+                                    'is-invalid': saveClicked && !mb.benefitDescription
+                                  }"
+                                  placeholder="{{ 'plan.medical.benefit.benefitDescription' | translate }}"
+                                />
+                                <div
+                                  *ngIf="saveClicked && !mb.benefitDescription"
+                                  class="invalid-feedback"
+                                >
+                                  {{ "plan.medical.benefit.benefitDescription" |
+                                  translate }}
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-3">
+                              <div
+                                class="form-group"
+                               
+                              >
+                                <label
+                                  for="example-text-input"
+                                  class="form-control-label"
+                                  >{{ "plan.medical.benefit.benefitExclusion" |
+                                  translate }}
+                                  <span class="text-danger">*</span></label
+                                >
+                                <input
+                                  class="form-control"
+                                  [disabled]="disableControl"
+                                  type="text"
+                                  name="benefitExclusion{{index}}"
+                                  [(ngModel)]="mb.benefitExclusion"
+                                  #benefitExclusion="ngModel"
+                                  required
+                                  [ngClass]="{
+                                    'is-invalid': saveClicked && !mb.benefitExclusion
+                                  }"
+                                  placeholder="{{ 'plan.medical.benefit.benefitExclusion' | translate }}"
+                                />
+                                <div
+                                  *ngIf="saveClicked && !mb.benefitExclusion"
+                                  class="invalid-feedback"
+                                >
+                                  {{ "plan.medical.benefit.benefitExclusion" |
+                                  translate }}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row px-2 m-0">
+                            <div class="col-4">
+                              <div
+                                class="form-group"
+                                
+                              >
+                                <label class="form-control-label"
+                                  >{{"plan.medical.benefit.limitClaimOccurence"
+                                  | translate }}<span class="text-danger">*</span></label
+                                >
+                                <div class="input-group">
+                                  <input class="form-control" 
+                                  [disabled]="disableControl" type="number"
+                                  [(ngModel)]="mb.benefitDurationLimits.benefitLimitPerOccuranceAmount"
+                                  #benefitLimitPerOccuranceAmount="ngModel"
+                                   name="benefitLimitPerOccuranceAmount{{index}}" 
+                                  [min]="0"
+                                  [ngClass]="{
+                                    'is-invalid': saveClicked && !mb.benefitDurationLimits.benefitLimitPerOccuranceAmount}"
+                                  required />                                  
+                                  <div class="input-group-append ml-0" [ngClass]="{
+                                    'is-invalid': saveClicked && !mb.benefitDurationLimits.benefitLimitPerOccuranceAmount}">
+                                    <ng-select
+                                      class="disabled-select-container"
+                                      [readonly]="true"
+                                      name="currency"
+                                      [(ngModel)]="policyCurrencyOID"
+                                      [disabled]="disableControl"
+                                      bindLabel="currencyId"
+                                      bindValue="currencyOID"
+                                      [clearable]="false"
+                                      [items]="product.policyCurrencies"
+                                      placeholder="{{'plan.billing.currenciesPH' | translate }}">
+                                    </ng-select>
+                                  </div>
+                                  <div *ngIf="saveClicked && !mb.benefitDurationLimits.benefitLimitPerOccuranceAmount"
+                                  class="invalid-feedback d-block">
+                                  {{ "plan.requiredField" | translate }}
+                                  {{ "plan.medical.benefit.limitClaimOccurence" | translate }}
+                              </div>               
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-4">
+                              <div
+                                class="form-group"
+                               
+                              >
+                                <label class="form-control-label"
+                                  > {{"plan.medical.benefit.deductibleClaimOccurence"
+                                  | translate }}<span class="text-danger">*</span></label
+                                >
+                                <div class="input-group">
+                                  <input class="form-control"
+                                   [disabled]="disableControl" 
+                                  type="number"
+                                  [(ngModel)]="deductibleOccurance"                                
+                                  name="deductibleOccurance"                                   
+                                  [min]="0"
+                                  required 
+                                  [ngClass]="{
+                                    'is-invalid': saveClicked && (!deductibleOccurance)}"/>
+
+                                 
+                                  <div class="input-group-append ml-0"  [ngClass]="{
+                                    'is-invalid': saveClicked && (!deductibleOccurance)}">
+                                    <ng-select
+                                      class="disabled-select-container"
+                                      [readonly]="true"
+                                      name="currency"
+                                      [(ngModel)]="policyCurrencyOID"
+                                      [disabled]="disableControl"
+                                      bindLabel="currencyId"
+                                      bindValue="currencyOID"
+                                      [clearable]="false"
+                                      [items]="product.policyCurrencies"
+                                      placeholder="{{'plan.billing.currenciesPH' | translate }}">
+                                    </ng-select>
+                                  </div>
+                                  <div *ngIf="saveClicked && !deductibleOccurance"
+                                  class="invalid-feedback d-block">
+                                  {{ "plan.requiredField" | translate }}
+                                  {{ "plan.medical.benefit.deductibleClaimOccurence" | translate }}
+                              </div>                               
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-4">
+                              <div
+                                class="form-group"
+                               
+                              >
+                                <label class="form-control-label"
+                                  >{{"plan.medical.benefit.agrregatedBenefitLimit"
+                                  | translate }}<span class="text-danger">*</span></label
+                                >
+                                <div class="input-group">
+                                  <input class="form-control" [disabled]="disableControl" 
+                                  type="number"
+                                  [(ngModel)]="mb.benefitDurationLimits.benefitLimitPerMaxLimitAmount"
+                                  #benefitLimitPerMaxLimitAmount="ngModel"
+                                   name="benefitLimitPerMaxLimitAmount{{index}}" 
+                                  [min]="0"
+                                  required
+                                  [ngClass]="{
+                                    'is-invalid': saveClicked && (!mb.benefitDurationLimits.benefitLimitPerMaxLimitAmount)}" />  
+                                
+                                  <div class="input-group-append ml-0" [ngClass]="{
+                                    'is-invalid': saveClicked && (!mb.benefitDurationLimits.benefitLimitPerMaxLimitAmount)}" >
+                                    <ng-select
+                                      class="disabled-select-container"
+                                      [readonly]="true"
+                                      name="currency"
+                                      [(ngModel)]="policyCurrencyOID"
+                                      [disabled]="disableControl"
+                                      bindLabel="currencyId"
+                                      bindValue="currencyOID"
+                                      [clearable]="false"
+                                      [items]="product.policyCurrencies"
+                                      placeholder="{{'plan.billing.currenciesPH' | translate }}">
+                                    </ng-select>
+                                  </div>
+                                </div>
+                                <div *ngIf="saveClicked && !mb.benefitDurationLimits.benefitLimitPerMaxLimitAmount"
+                                class="invalid-feedback d-block">
+                                {{ "plan.requiredField" | translate }}
+                                {{ "plan.medical.benefit.agrregatedBenefitLimit" | translate }}
+                            </div>                               
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>           
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

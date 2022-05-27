@@ -1,0 +1,112 @@
+@import '../../../../../assets/scss/variables.scss';
+@import '../../../../../assets/scss/card.scss';
+
+.search-wrapper {
+    .form-control {
+        height: 40px;
+        border: 1px solid $gray-300;
+        color: $gray-700;
+        border-radius: 0;
+    }
+    button {
+        border-radius: 0;
+    }
+}
+.admin-alerts {
+    min-height: unset !important;
+    ::ng-deep .alert {
+        p,div {color: inherit;}
+        a {text-decoration: underline;}
+    }
+}
+.card .card-body .tbl-underwriting{
+    td {
+        vertical-align: top;
+        textarea {
+            border:none;
+            background-color: $gray-100;
+            color: $gray-700;
+            line-height: 25px;
+            width: 100%;
+            padding: 0.5rem;
+            resize: none;
+        }
+        table {
+            background: $white;
+            thead {
+                th {
+                    border-bottom-width: 1px;
+                    font-weight: $font-medium;
+                    font-size: 0.7rem;
+                }
+                background-color: $gray-100;
+            }
+            td {
+                vertical-align: middle;
+                input,select {
+                    background: $gray-100;
+                    padding: 0 10px;
+                    border: 0;
+                    height: 35px;
+                }
+                select option{
+                    &:hover{
+                        background: #f8f8f8;
+                    }
+                    line-height: 25px;
+                }
+            }
+            border: 1px solid $gray-200;
+        }
+        input:focus,textarea:focus {
+            background: $white !important;
+            outline: 1px solid $gray-300;
+        }
+    }
+}
+.underwriting-wrapper {
+    ::ng-deep .pagination {
+        margin-bottom: 0;
+        .page-item{
+             &.disabled {
+                 .page-link *{
+                     color: $gray-500;
+                 }
+            }
+            &.active {
+                .page-link {
+                    background-color: $color-primary;
+                    border-color: $color-primary;
+                    color: $white;
+                }
+           }
+        }
+        .page-link {
+            border: none;
+            background: transparent;
+            color: $color-primary;
+            margin: 0 0.5rem;
+        }
+    }
+    .custom-select {
+        font-size: 0.65rem;
+    }
+}
+.card-radius {
+    border-radius: 0.75rem 0.75rem 0 0
+}
+
+.content-card-radius {
+   border-radius: 0 0 0.75rem 0.75rem
+}
+
+.mt4 {
+    margin-top: 4rem
+}
+.category-style {
+   font-weight: bold;
+   padding: 1rem 1rem 0.75rem 1rem;
+}
+.pt2 {
+    padding-top: 2rem !important;
+}

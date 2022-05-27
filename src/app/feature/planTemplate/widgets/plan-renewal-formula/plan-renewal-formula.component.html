@@ -1,0 +1,68 @@
+<section class="mt-2" *ngIf="renewalOptions">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex align-items-center">
+                        <h4 class="card-title mr-auto">
+                            <i-feather name="refresh-ccw"></i-feather>
+                            {{"plan.renewal.title" | translate }}
+                        </h4>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-primary btn-sm" (click)="showFormulas()"
+                                [disabled]="renewalPremiumFormulas?.length === 0">
+                                <img src="../../../../../assets/images/formulas-icon-white.svg" />
+                                {{formulaText}}
+                            </button>
+                            <!-- <i-feather name="info" class="md m-1" *ngIf="renewalPremiumFormulas?.length === 0"
+                                ngbTooltip=" {{'plan.disabledInfoText' |
+                                translate }}">
+                            </i-feather>-->
+                            <button class="btn btn-primary btn-sm ml-1" (click)="showUnderwritingRules()">
+                                <img src="../../../../../assets/images/Rules-white.svg" /> {{ "plan.rules" | translate
+                                }}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="intro-text" [innerHTML]="'plan.renewal.widgetInfo' | translate">
+                    </div>
+                    <div class="alert alert-danger" role="alert" *ngIf="!renewalFormulaSelected">
+                        {{"plan.noFormulaSelected" | translate: {title: ("plan.renewal.title" | translate) } }} <a
+                            class="text-reset" (click)="showFormulas()">Formulas</a>.
+                    </div>
+                </div>
+                <div class="card-sub-header pt-0" *ngIf="product?.screenCode !== 'mjdkyidf'">
+                    <h6>Activate</h6>
+                </div>
+                <div class="card-content" [ngClass]="{'disabled':!renewalFormulaSelected}">
+                    <div class="card-body px-0 pb-0">
+                        <form #RFForm="ngForm">
+                            <div class="row mx-0 px-4 pb-4 mb-4" *ngIf="product?.screenCode !== 'mjdkyidf'">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="switch">
+                                            <input type="checkbox" [(ngModel)]="renewalOptions.isAutoRenewAllowed"
+                                                #autoRenewAllowed="ngModel" name="autoRenewAllowed"
+                                                [disabled]="disableControl">
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <label class="form-control-label">{{"plan.renewal.autoRenewAllowed" | translate
+                                            }}</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <ignatica-plan-coi-rate-summary heading="renewal" [coiRateTableKeys]="renewalRateTableKeys"
+                                [coiRateTableRows]="renewalRateTableRows">
+                            </ignatica-plan-coi-rate-summary>
+                            <ignatica-plan-coi-rate heading="renewal" [product]="product"
+                                (coiRateChangesEmit)="renewalRateChangesEmit($event.param1, $event.param2)"
+                                [disableControl]="disableControl" [coiRateTableKeys]="renewalRateTableKeys"
+                                [coiRateTableRows]="renewalRateTableRows"></ignatica-plan-coi-rate>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

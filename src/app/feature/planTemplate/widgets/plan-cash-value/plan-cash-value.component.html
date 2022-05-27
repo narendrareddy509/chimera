@@ -1,0 +1,38 @@
+<section class="prm-mod-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex align-items-center">
+                        <h4 class="card-title mr-auto">
+                            <i-feather name="command"></i-feather>
+                            {{ "plan.cashValue.title" | translate }}
+                        </h4>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-primary btn-sm" (click)="showFormulas()"
+                                [disabled]="cashValueModules?.length === 0">
+                                <img src="../../../../../assets/images/formulas-icon-white.svg" />
+                                {{ "plan.cashValue.formulas" | translate }}
+                            </button>
+                            <button class="btn btn-primary btn-sm ml-1" (click)="showRules()" [disabled]="true">
+                                <img src="../../../../../assets/images/Rules-white.svg" />
+                                {{ "plan.cashValue.rules" | translate }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-body px-0 pb-0">
+                        <ignatica-plan-coi-rate-summary [heading]="'cashValue'"
+                            [coiRateTableKeys]="cashValueRateTableKeys" [coiRateTableRows]="cashValueRateTableRows">
+                        </ignatica-plan-coi-rate-summary>
+                        <ignatica-plan-coi-rate [heading]="'cashValue'"
+                            (coiRateChangesEmit)="cashValueRateChangesEmit($event.param1, $event.param2)"
+                            [disableControl]="disableControl" [coiRateTableKeys]="cashValueRateTableKeys"
+                            [coiRateTableRows]="cashValueRateTableRows"></ignatica-plan-coi-rate>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

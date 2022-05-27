@@ -1,0 +1,9 @@
+<ngb-toast *ngFor="let toast of toastService.toasts" [class]="toast.classname || 'warning'" [autohide]="true"
+    [delay]="toast.delay || 4000" (hidden)="toastService.remove()">
+    <ng-template ngbToastHeader>
+        <div class="custom-header" *ngIf="toast.title">
+            <strong class="mr-auto">{{ toast.title }}</strong>
+        </div>
+    </ng-template>
+    {{ toast.description }}
+</ngb-toast>

@@ -1,0 +1,193 @@
+<section class="mt-2">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        <i-feather name="bookmark"></i-feather>
+                        {{"plan.terms.title" | translate }}
+                    </h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <form #GPForm="ngForm">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group" [ngClass]="{
+                               'is-invalid':
+                               saveClicked && (effectiveStartDate.invalid || (generalConfiguration.effectiveEndDate && generalConfiguration.effectiveStartDate  && generalConfiguration.effectiveStartDate >= generalConfiguration.effectiveEndDate))
+                             }">
+                                        <label class="form-control-label">{{"plan.terms.effectiveDate" | translate }}
+                                            <span class="text-danger">*</span></label>
+                                        <div class="datePicker min-max-group">
+                                            <div class="input-group">
+                                                <input class="form-control" placeholder="yyyy-mm-dd"
+                                                    name="effectiveStartDate" [(ngModel)]="effectiveStartDateDisplay"
+                                                    ngbDatepicker required #ds="ngbDatepicker"
+                                                    #effectiveStartDate="ngModel" [disabled]="disableControl"
+                                                    onkeydown="return false">
+                                                <div class="input-group-append"
+                                                    (click)="!disableControl ? ds.toggle():null">
+                                                    <i-feather name="calendar"></i-feather>
+                                                </div>
+                                            </div>
+                                            <span class="seperator">-</span>
+                                            <div class="input-group">
+                                                <input class="form-control" placeholder="yyyy-mm-dd"
+                                                    name="effectiveEndDate" [(ngModel)]="effectiveEndDateDisplay"
+                                                    ngbDatepicker #de="ngbDatepicker" #effectiveEndDate="ngModel"
+                                                    [disabled]="disableControl" onkeydown="return false">
+                                                <div class="input-group-append"
+                                                    (click)="!disableControl ? de.toggle():null">
+                                                    <i-feather name="calendar"></i-feather>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="saveClicked && (effectiveStartDate.invalid)"
+                                            class="invalid-feedback d-block">
+                                            {{ "plan.requiredField" | translate
+                                            }}{{"plan.terms.effectiveStartDate" |
+                                            translate }}
+                                        </div>
+                                        <div *ngIf="saveClicked && generalConfiguration.effectiveEndDate && generalConfiguration.effectiveStartDate  && generalConfiguration.effectiveStartDate >= generalConfiguration.effectiveEndDate "
+                                            class="invalid-feedback d-block">
+                                            {{"plan.terms.effectiveEndDateError" | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="product?.screenCode === 'kfbtvvcl'">
+                                <div class="col-12">
+                                    <div class="form-group justify-content-between d-flex">
+                                        <label class="switch">
+                                            <input type="checkbox" [(ngModel)]="nonExpiryTerm" name="nonExpiryTerm"
+                                                [disabled]="disableControl"
+                                                (ngModelChange)="onNonExpiryTermChange($event)">
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <label class="form-control-label">{{"plan.terms.nonExpiryTerm" | translate
+                                            }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group" [ngClass]="{
+                        'is-invalid':
+                        saveClicked && policyTermYears.invalid
+                      }">
+                                        <label class="form-control-label"
+                                            [ngClass]="{'disabled':nonExpiryTerm}">{{"plan.terms.policyTerm" | translate
+                                            }} <span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <input class="form-control" [disabled]="disableControl || nonExpiryTerm"
+                                                type="number" placeholder="1"
+                                                [(ngModel)]="generalConfiguration.policyTermYears"
+                                                #policyTermYears="ngModel" name="policyTermYears" required [min]="0"
+                                                [max]="120">
+                                            <div class="input-group-append" [ngClass]="{'disabled':nonExpiryTerm}">
+                                                <span class="input-group-text">Year(s)</span>
+                                            </div>
+                                            <div *ngIf="saveClicked && policyTermYears?.errors?.required"
+                                                class="invalid-feedback">
+                                                {{ "plan.requiredField" | translate }}{{"plan.terms.policyTerm" |
+                                                translate
+                                                }}
+                                            </div>
+                                            <div *ngIf="saveClicked && (policyTermYears?.errors?.min || policyTermYears?.errors?.max)"
+                                                class="invalid-feedback">
+                                                {{ "plan.terms.policyTermError" | translate }}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group" [ngClass]="{
+                       'is-invalid':
+                       saveClicked && ( (!generalConfiguration.policyCurrencies) ||generalConfiguration.policyCurrencies?.length <= 0)
+                     }">
+                                        <label class="form-control-label">{{"plan.terms.policyCurrencies" | translate
+                                            }}<span class="text-danger">*</span></label>
+                                        <ng-select [(ngModel)]="policyCurrencies" name="policyCurrencies"
+                                            [multiple]="false" bindLabel="name" [disabled]="disableControl" required
+                                            bindValue="value" [items]="currencies"
+                                            (ngModelChange)="onPolicyCurrencyChanged($event)"
+                                            placeholder="{{'plan.terms.policyCurrencies' | translate }}"
+                                            [clearable]="false">
+                                        </ng-select>
+                                        <div *ngIf="saveClicked && ( (!generalConfiguration.policyCurrencies) ||generalConfiguration.policyCurrencies?.length <= 0)"
+                                            class="invalid-feedback d-block">
+                                            {{ "plan.requiredField" | translate }}{{"plan.terms.policyCurrencies"
+                                            |
+                                            translate }}
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12" *ngIf="product.category == 'IG_CATEGORY_GROUP'">
+                                    <div class="form-group">
+                                        <label class="switch">
+                                            <input type="checkbox" [(ngModel)]="generalConfiguration.isContributionPlan"
+                                                [disabled]="disableControl" #isContributionPlan="ngModel"
+                                                name="isContributionPlan">
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <label class="form-control-label">{{"plan.terms.isContributionPlan" | translate
+                                            }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-12" *ngIf="product.category == 'IG_CATEGORY_GROUP'">
+                                    <div class="form-group"
+                                        [ngClass]="{'is-invalid':saveClicked && MinNumberInsured?.errors?.required}">
+                                        <label class="form-control-label">{{"plan.terms.minNumberInsured" | translate
+                                            }} <span class="text-danger">*</span></label>
+                                        <input required class="form-control" [disabled]="disableControl" type="number"
+                                            placeholder="1" [(ngModel)]="generalConfiguration.minNumberInsured"
+                                            #MinNumberInsured="ngModel" name="MinNumberInsured">
+                                        <div *ngIf="saveClicked && MinNumberInsured.errors.required"
+                                            class="invalid-feedback">
+                                            {{ "plan.requiredField" | translate
+                                            }}{{"plan.terms.minNumberInsured" |
+                                            translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group" [ngClass]="{
+                     'is-invalid':
+                     saveClicked && (coolingOffPeriodDays.invalid || coolingOffPeriodDays?.errors?.min || coolingOffPeriodDays?.errors?.max)
+                   }">
+                                        <label for="example-text-input"
+                                            class="form-control-label">{{"plan.terms.coolOffPeriod"
+                                            |
+                                            translate }}</label>
+                                        <div class="input-group">
+
+                                            <input class="form-control" type="number" name="coolingOffPeriodDays"
+                                                [disabled]="disableControl" [(ngModel)]="coolingOffPeriodDaysVal"
+                                                #coolingOffPeriodDays="ngModel" [min]="0" [max]="150" placeholder="0" />
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">Day(s)</span>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="saveClicked && (coolingOffPeriodDays.invalid || coolingOffPeriodDays?.errors?.min || coolingOffPeriodDays?.errors?.max)"
+                                            class="invalid-feedback">
+                                            {{ "plan.terms.coolOffPeriodError" | translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

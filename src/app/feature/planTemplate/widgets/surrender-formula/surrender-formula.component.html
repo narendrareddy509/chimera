@@ -1,0 +1,135 @@
+<section *ngIf="filterFormulas?.length > 0">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">
+            <i-feather name="x-circle"></i-feather>
+            {{ "plan.surrender.configureFormula" | translate }}
+          </h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body px-0">
+            <div class="row px-4">
+              <div class="col-12 mt-2" *ngIf="filterFormulas?.length > 0">
+                <div class="form-group" [ngClass]="{
+                         'is-invalid':
+                        saveClicked && !surrenderFormulas}
+                      ">
+                  <label for="example-text-input" class="form-control-label">{{"plan.surrender.formulas" | translate
+                    }} <span class="text-danger">*</span></label>
+                  <ng-select name="formulas" bindLabel="name" bindValue="code" [disabled]="disableControl"
+                    [items]="filterFormulas" [clearable]="false" [(ngModel)]="surrenderFormulas"
+                    placeholder="{{'plan.surrender.formulas' | translate }}"
+                    (ngModelChange)="changeSurrenderEvent($event)">
+                  </ng-select>
+                  <div *ngIf="saveClicked && !surrenderFormulas" class="invalid-feedback d-block">
+                    {{ "plan.requiredField" | translate }}{{"plan.surrender.formulas" | translate }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row px-4" *ngIf="surrenderFormulas && surrenderFormulas === 'IG_CAL_SURRENDER_FORMULA_003'">
+              <div class="col-12 mt-2">
+                <form #FormUpdate="ngForm">
+                  <div class="form-group" [ngClass]="{
+                         'is-invalid':
+                           saveClicked 
+                           && (surrenderRate.invalid || surrenderRate?.errors?.required ||  surrenderRate?.errors?.min  
+                           || surrenderRate?.errors?.max)
+                       }">
+                    <label class="form-control-label">{{ "plan.surrender.surrenderRatePercentage" | translate }}</label>
+                    <div class="input-group">
+                      <input class="form-control" [disabled]="disableControl" placeholder="0"
+                        [(ngModel)]="surrenderRatePercentage" name="surrenderRate" type="number" [min]="0" [max]="100"
+                        #surrenderRate="ngModel" required />
+                      <div class="input-group-append">
+                        <span class="input-group-text">%</span>
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="
+                         saveClicked &&
+                         (surrenderRate.invalid || surrenderRate?.errors?.required ||  surrenderRate?.errors?.min  || surrenderRate?.errors?.max)                        "
+                      class="invalid-feedback d-block">
+                      {{ "plan.surrender.surrenderRatePercentageError" | translate }}
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div *ngIf="surrenderFormulas && surrenderFormulas === 'IG_CAL_SURRENDER_FORMULA_001'">
+              <div class="row px-4">
+                <div class="col">
+                  <form novalidate [formGroup]="formImport">
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" [attr.disabled]="disableControl ? '' : null"
+                          accept=".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                          [ngClass]="
+                        showInvalid
+                          ? 'custom-file-input is-invalid'
+                          : 'custom-file-input'
+                      " formControlName="importFile" id="importFile" (change)="onFileChange($event.target.files)" />
+                        <label class="custom-file-label" #labelImport for="importFile">
+                          <i-feather name="search"></i-feather>{{ "plan.surrender.choosefile" | translate }}
+                        </label>
+                      </div>
+
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary btn-sm" type="button" (click)="import()"
+                          [disabled]="disableControl">
+                          <span *ngIf="uploadLoading" class="spinner-border spinner-border-sm mr-1"></span>
+                          <i-feather *ngIf="!uploadLoading" name="upload"></i-feather>
+                          {{ "plan.surrender.upload" | translate }}
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="saveClicked &&  surrenderFormulas === 'IG_CAL_SURRENDER_FORMULA_001' && SurrenderFormulaData?.length <= 0"
+                      class="invalid-feedback d-block">
+                      {{ "plan.surrender.uploadCSVError" | translate }}
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="row mt-4" *ngIf="SurrenderFormulaData?.length > 0">
+                <div class="col">
+                  <table class="table table-ign table-l">
+                    <thead class="thead-info bg-secondary">
+                      <tr class="text-center">
+                        <th scope="col" class="col-id">#</th>
+                        <th scope="col" class="col-coverageYear">
+                          {{ "plan.surrender.yearofCoverage" | translate }}
+                        </th>
+                        <th scope="col" class="col-surrenderChargeAmount">
+                          {{ "plan.surrender.surrenderChargeAmount" | translate }}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody class="tableData" *ngIf="SurrenderFormulaData && SurrenderFormulaData[0].charge">
+                      <tr class="text-center" *ngFor="let surrenderFormula of SurrenderFormulaData; let i = index">
+                        <td class="col-id">{{ i + 1 }}</td>
+                        <td *ngFor="let key of formulaCols" [ngClass]="'col-' + key">
+                          {{ surrenderFormula.charge[key] }}
+                        </td>
+                      </tr>
+                    </tbody>
+                    <tbody class="tableData" *ngIf="SurrenderFormulaData && !SurrenderFormulaData[0].charge">
+                      <tr class="text-center" *ngFor="let surrenderFormula of SurrenderFormulaData; let i = index">
+                        <td class="col-id">{{ i + 1 }}</td>
+                        <td *ngFor="let key of formulaCols" [ngClass]="'col-' + key">
+                          {{ surrenderFormula[key] }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

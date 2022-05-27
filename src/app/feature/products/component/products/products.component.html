@@ -1,0 +1,110 @@
+<div class="row px-2 mx-0 mt-5">
+  <div class="col-6">
+    <section class="container-fluid p-0">
+      <div class="row d-flex justify-content-between">
+        <div class="col-lg-9 col-md-8">
+          <h3 class="mb-0">{{ "bundleProduct.prodTitle" | translate }}</h3>
+          <h6>
+            {{ "bundleProduct.prodTagline" | translate }}
+          </h6>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header bg-light d-flex justify-content-between">
+          <div class="col-md-8 p-0 align-items-center d-flex">
+            <h6 class="mb-0">
+              {{ "bundleProduct.youHave" | translate }}{{ products.length }}
+              {{ "bundleProduct.productsLaunched" | translate }}
+            </h6>
+          </div>
+          <button class="btn btn-outline-primary btn-sm font-style" (click)="addEditProduct()">
+            <i-feather name="plus" class="md"></i-feather>
+            {{ "bundleProduct.newProduct" | translate }}
+          </button>
+        </div>
+        <div class="card-content scroll-div" *ngIf="products && products.length > 0">
+          <table class="table table-hover table-l">
+            <tbody class="tableData" *ngFor="let prod of products">
+              <tr [ngClass]="prod.toggle ? 'active' : ''">
+                <ng-container>
+                  <td class="pl-4 pointer font-color" (click)="triggerPlanDetails(prod); scrollToTop()">
+                    {{ prod.productName }}
+                    <h6 class="font-color">{{ prod.productCode }}</h6>
+                  </td>
+                  <td class="text-center" *ngIf="prod.productStatus === 'IG_PRODUCT_STATUS_SAVED'">
+                    <button class="
+                        btn btn-outline-primary btn-sm
+                        font-style
+                        button-width
+                      " (click)="addEditProduct(prod)">
+                      <i-feather name="edit-3" class="md"></i-feather>
+                      {{
+                      "bundleProduct.createEditProduct.editProduct"
+                      | translate
+                      }}
+                    </button>
+                  </td>
+                  <td class="text-center button-width" *ngIf="prod.productStatus === 'IG_PRODUCT_STATUS_PUBLISHED'">
+                    <button class="btn btn-outline-primary btn-sm font-style"
+                      (click)="viewProduct(prod.insuranceProductGuid)">
+                      <i-feather name="eye" class="md"></i-feather>
+                      {{ "bundleProduct.viewProduct" | translate }}
+                    </button>
+                  </td>
+                </ng-container>
+              </tr>
+              <!-- <tr *ngIf="prod.toggle">
+                <td colspan="2"> -->
+              <ng-container *ngIf="prod.toggle">
+                <div class="mt-n3 container-width">
+                  <div class="p-4">
+                    <div class="card-content">
+                      <div class="form-group">
+                        <h6 class="form-control-h6">
+                          {{
+                          "bundleProduct.createEditProduct.description"
+                          | translate
+                          }}
+                        </h6>
+                        <div class="font-default">
+                          {{ prod.productDescription }}
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <h6 for="example-text-input" class="form-control-label">
+                          {{
+                          "bundleProduct.createEditProduct.basePlan"
+                          | translate
+                          }}
+                        </h6>
+                        <span class="badge badge-info">{{ basePlan }}</span>
+                      </div>
+
+                      <h6 for="example-text-input" class="form-control-label">
+                        {{
+                        "bundleProduct.createEditProduct.additionalPlan"
+                        | translate
+                        }}
+                      </h6>
+                      <div class="row d-flex justify-content-between pr-8">
+                        <div *ngFor="let addnPlan of configuredAdditinalPlans">
+                          <span class="badge badge-info">{{ addnPlan }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <!-- </td>
+              </tr> -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="col-6">
+    <ignatica-published-plans [triggerPlan]="triggerPlan" [plans]="allPlans"></ignatica-published-plans>
+  </div>
+</div>

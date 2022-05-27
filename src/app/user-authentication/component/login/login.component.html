@@ -1,0 +1,57 @@
+<section class="login-block">
+    <div class="container-fluid">
+    <div class="row">
+       <div class="col-md-6 bg-white" style="display: flex; flex-direction: column;">
+        <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <img class="mb-5 ig-logo" src="../../assets/images/ig-logo.svg" alt="Ignatica" title="Ignatica" />
+          <div class="card p-5 shadow-lg text-left login-sec">
+              <h1 class="h3 mb-3 font-weight-normal text-left">Login</h1>
+             <div class="form-group">
+                <div class="form-group">
+                  <label for="userName" class="col-form-label-sm">User Name</label>
+                <input type="text" placeholder="Username *" id="userName" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+              </div>
+                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                  <div *ngIf="f.username.errors.required">Username is required</div>
+                </div>
+             </div>
+             <div class="form-group">
+                <div class="form-group">
+                  <label for="password" class="col-form-label-sm">Password</label>
+                <input type="password" placeholder="Password *" id="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                </div>
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                  <div *ngIf="f.password.errors.required">Password is required</div>
+                </div>
+             </div>
+             
+            <div class="form-group" style="display: flex; justify-content: space-between;">
+              <!-- <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" >
+            <label class="col-form-label-sm pointer">
+            Remember Me
+            </label>
+            </div>
+              <div class="col-form-label-sm pointer" (click)="forgotPassword()">Forgot Password ?</div> -->
+            </div>
+             <div>
+                <button [disabled]="loading" type="submit" class="btn btn-primary btn-block btn-login rounded-0">
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 text-white"></span>Sign in</button>
+             </div>
+             <div *ngIf="error" class="text-danger mt-3 mb-0">{{error}}</div>
+             </div>
+          </form>
+       </div>
+       <div class="col-md-6 px-0 d-none d-md-block banner-sec">
+        <img src="../../assets/images/ignatica-login.jpg" alt="Banner Image" title="Banner Image" />
+       </div>
+    </div>
+    </div>
+  </section>
+  
+  <footer>
+    <p>
+      <span class="copyright text-white">Copyright © 2021 <i class="bullet"></i> Powered by Ignatica ®</span>
+    </p>
+  </footer>
+  

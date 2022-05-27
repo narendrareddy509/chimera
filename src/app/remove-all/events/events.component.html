@@ -1,0 +1,52 @@
+<section class="admin-alerts">
+  <ngb-alert *ngIf="showAlert" [type]="action" [dismissible]="false">{{ message }}</ngb-alert>
+</section>
+<div class="admin-header mb-4">
+  <h4>Events</h4>
+  <small class="subtitle">Toggle button switch to activate events available for company products.</small>
+</div>
+<div class="card">
+  <div class="card-header bg-light">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb bg-light">
+        <li class="breadcrumb-item"><a href="/#/admin">
+            <i-feather name="home"></i-feather>
+          </a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{"admin.events.title" | translate}}</li>
+      </ol>
+    </nav>
+  </div>
+  <div class="card-content">
+    <div class="card-body">
+      <div *ngIf="events && events.length > 0">
+        <table class="table table-hover table-l">
+          <thead class="bg-light">
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col" class="text-center">Activate</th>
+            </tr>
+          </thead>
+          <tbody class="tableData">
+            <tr *ngFor="let key of events; let i = index">
+              <td>
+                {{ key.name }}
+              </td>
+              <td class="text-center">
+                <label class="c-switch c-switch-pill c-switch-opposite-primary">
+                  <input type="checkbox" class="c-switch-input" [(ngModel)]="key['isRequired']"
+                    (change)="updateEvent(key,$event, i)">
+                  <span class="c-switch-slider"></span>
+                </label>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer d-flex justify-content-end p-4 bg-light">
+        <button type="submit" class="btn btn-primary rounded-0 btn-sm btn-stretch" (click)="onSubmit()">
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

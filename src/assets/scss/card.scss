@@ -1,0 +1,29 @@
+@import 'variables.scss';
+
+.card{
+    border-radius: $border-radius-lg;
+    box-shadow: -8px 8px 14px 0 rgba(25,42,70,0.11);
+    overflow: hidden;
+    .card-header{
+        padding: 1rem;
+        padding-bottom: 0;
+        border-bottom: none;
+        background-color: transparent;
+          }
+    .card-body{
+        padding: 0;
+        table{
+            thead{
+                color: $color-primary;
+                th{
+                    border-top: none;
+                }
+            }
+            color: $blue-700;
+            th, td{
+                vertical-align: middle;
+            }
+        }
+    }
+}
+

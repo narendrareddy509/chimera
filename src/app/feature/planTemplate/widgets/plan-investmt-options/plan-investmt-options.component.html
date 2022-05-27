@@ -1,0 +1,58 @@
+<section>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        <i>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22.092" height="19.442"
+                                viewBox="0 0 22.092 19.442">
+                                <g transform="translate(0.999 0.999)">
+                                    <path class="funds"
+                                        d="M20.238,5.274H18.87v1.71H2.795V5.274H1.426L10.832,1ZM2.795,18.443H18.87V15.792H2.795Zm-1.8,0H21.093M8.78,6.985v8.551M12.8,6.985v8.551m4.019-8.551v8.551M4.847,6.985v8.551"
+                                        transform="translate(-0.999 -0.999)" />
+                                </g>
+                            </svg>
+                        </i>
+                        {{ "plan.investmentConfiguration.investmentOptions" | translate }}
+                    </h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body px-0 pt-0">
+                        <section class="pb-0">
+                            <table class="table table-ign table-sm">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" [attr.width]="head.width ? head.width:''"
+                                            *ngFor="let head of headers">{{head.name}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let key of fundList; let i = index">
+                                        <td>{{i+1}}</td>
+                                        <td>
+                                            <label class="switch">
+                                                <input type="checkbox" [(ngModel)]="key['IsSelected']"
+                                                    [disabled]="disableControl">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            {{ key.FundName }}
+                                        </td>
+                                        <td>
+                                            {{ key.FundRiskCategory }}
+                                        </td>
+                                        <td>
+                                            {{ key.FundId }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,149 @@
+$white: #fff !default;
+$indigo: #6610f2 !default;
+$purple: #6f42c1 !default;
+$pink: #e83e8c !default;
+$red: #e65248 !default;
+$orange: #fd7e14 !default;
+$yellow: #fdd935 !default;
+$green: #a4d486 !default;
+$teal: #20c997 !default;
+$spray: #7acedc !default;
+
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+
+$grays: () !default;
+$grays: map-merge(
+  (
+    "100": $gray-100,
+    "200": $gray-200,
+    "300": $gray-300,
+    "400": $gray-400,
+    "500": $gray-500,
+    "600": $gray-600,
+    "700": $gray-700,
+    "800": $gray-800,
+    "900": $gray-900,
+  ),
+  $grays
+);
+
+$blue: #153c65 !default;
+$blue-50: #e3eff4 !default;
+$blue-100: #bad7e6 !default;
+$blue-200: #91bed6 !default;
+$blue-300: #6da5c5 !default;
+$blue-400: #5493bc !default;
+$blue-500: #3f83b2 !default;
+$blue-600: #3577a7 !default;
+$blue-700: #2a6796 !default;
+$blue-800: #225784 !default;
+$blue-900: #153c65 !default;
+
+$blues: () !default;
+$blues: map-merge(
+  (
+    "50": $blue-50,
+    "100": $blue-100,
+    "200": $blue-200,
+    "300": $blue-300,
+    "400": $blue-400,
+    "500": $blue-500,
+    "600": $blue-600,
+    "700": $blue-700,
+    "800": $blue-800,
+    "900": $blue-900,
+  ),
+  $blues
+);
+
+$cyan-50: #e1f6f6 !default;
+$cyan-100: #b4e7e9 !default;
+$cyan-200: #87d8db !default;
+$cyan-300: #5fc7ce !default;
+$cyan-400: #4abcc4 !default;
+$cyan-500: #41b1bc !default;
+$cyan-600: #3da1aa !default;
+$cyan-700: #388c92 !default;
+$cyan-800: #33787b !default;
+$cyan-900: #285554 !default;
+
+$cyans: () !default;
+$cyans: map-merge(
+  (
+    "50": $cyan-50,
+    "100": $cyan-100,
+    "200": $cyan-200,
+    "300": $cyan-300,
+    "400": $cyan-400,
+    "500": $cyan-500,
+    "600": $cyan-600,
+    "700": $cyan-700,
+    "800": $cyan-800,
+    "900": $cyan-900,
+  ),
+  $cyans
+);
+
+$colors: () !default;
+$colors: map-merge(
+  (
+    "blue": $blue-900,
+    "indigo": $indigo,
+    "purple": $purple,
+    "pink": $pink,
+    "red": $red,
+    "orange": $orange,
+    "yellow": $yellow,
+    "green": $green,
+    "teal": $teal,
+    "spray": $spray,
+    "cyan": $cyan-400,
+    "gray": $gray-600,
+    "gray-dark": $gray-800,
+  ),
+  $colors
+);
+
+$color-primary: $blue-900 !default;
+$color-secondary: $cyan-400 !default;
+$color-success: $green !default;
+$color-info: $spray !default;
+$color-warning: $yellow !default;
+$color-danger: $red !default;
+$color-light: $gray-100 !default;
+$color-dark: $gray-800 !default;
+
+$theme-colors: () !default;
+$theme-colors: map-merge(
+  (
+    "primary": $color-primary,
+    "secondary": $color-secondary,
+    "success": $color-success,
+    "info": $color-info,
+    "warning": $color-warning,
+    "danger": $color-danger,
+    "light": $color-light,
+    "dark": $color-dark,
+  ),
+  $theme-colors
+);
+
+$base-font-size: 16px;
+$font-bold: 700;
+$font-medium: 500;
+$font-light: 300;
+$border-radius-lg: 0.75rem;
+$color-error: #d55c4f;
+$yellow-900: #f57f17;
+$red-200: #ea9894;
+$red-50: #feeaed;
+$green-200: #bae0aa;
+$green-50: #eef8ea;

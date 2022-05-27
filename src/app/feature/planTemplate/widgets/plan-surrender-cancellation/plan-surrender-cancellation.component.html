@@ -1,0 +1,72 @@
+<section>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <h4 class="card-title mr-auto">
+              <i-feather name="x-circle"></i-feather>
+              {{ "plan.surrenderCancellation.title" | translate }}
+            </h4>
+            <div class="btn-group" role="group">
+              <button class="btn btn-primary btn-sm" (click)="showFormulas()">
+                <img src="../../../../../assets/images/formulas-icon-white.svg" /> Formulas
+              </button>
+              <button class="btn btn-primary btn-sm ml-1" (click)="showUnderwritingRules()">
+                <img src="../../../../../assets/images/Rules-white.svg" /> {{ "plan.rules" | translate
+                }}
+              </button>
+            </div>
+          </div>
+          <div class="intro-text" [innerHTML]="'plan.surrenderCancellation.widgetInfo' | translate">
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="selectedModules?.length===0">
+            {{"plan.noFormulaSelected" | translate: {title: ("plan.surrenderCancellation.title" | translate) } }} <a
+              class="text-reset" (click)="showFormulas()">Formulas</a>.
+          </div>
+        </div>
+                <div class="card-content">
+                    <div class="card-body px-0 pb-0">
+                      <div class="row px-2 mx-0">
+                        <form #SCForm = "ngForm">
+                        <div class="col-12">
+                             <div class="form-group" [ngClass]="{
+                                'is-invalid': saveClicked
+                              }">
+                              <label for="example-text-input" class="form-control-label">{{"plan.terms.coolOffPeriod"
+                                |
+                                translate }}</label>
+                              <div class="input-group">
+          
+                                <input class="form-control"
+                                mat-raised-button
+                                ngbTooltip="{{'plan.surrender.coolingOffPeriod' | translate}}" placement="top"
+                                  type="number" name="coolingOffPeriodDays" [disabled]="disableControl"
+                                  [(ngModel)]="coolingOffPeriodDaysVal" #coolingOffPeriodDays="ngModel"
+                                   [min]="0" [max]="150"
+                                   required
+                                  placeholder="0" />
+                                <div class="input-group-append">
+                                  <span class="input-group-text">Day(s)</span>
+                                </div>
+                              </div>
+                              <div
+                                *ngIf="saveClicked && (coolingOffPeriodDays.invalid || coolingOffPeriodDays?.errors?.min || coolingOffPeriodDays?.errors?.max)"
+                                class="invalid-feedback">
+                                {{ "plan.terms.coolOffPeriodError" | translate }}
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>                  
+                      <ignatica-plan-charge-rate-table *ngIf="product?.screenCode !== 'kfbtvvcl' && feesChargesOID" [chargerates]="getDataByType()"
+                      [feesChargesOID]="feesChargesOID" (saveChargesEmit)="saveChargesEmit($event.param1,$event.param2)"
+                      [chargeType]="chargeType" [planGuid]="planGuid" [disableControl]="disableControl">
+                    </ignatica-plan-charge-rate-table>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    
+</section>

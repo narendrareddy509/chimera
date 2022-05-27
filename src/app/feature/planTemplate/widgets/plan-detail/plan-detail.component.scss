@@ -1,0 +1,27 @@
+$primary-color: #476a9e;
+.details {
+  .mat-form-field {
+    width: 232px !important;
+    margin: 5px 10px !important;
+  }
+  .details__header {
+    display: inline-flex;
+    color: $primary-color;
+    margin: 5px 10px;
+    border-bottom: 1px solid $primary-color;
+  }
+
+  .grace-period {
+    display: inline-flex;
+    flex-direction: column;
+
+    input {
+      flex-basis: 65%;
+      width: 65%;
+    }
+
+    mat-select {
+      width: 35%;
+    }
+  }
+}

@@ -1,0 +1,166 @@
+<section>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <h4 class="card-title mr-auto">
+              <i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="22.092" height="19.442" viewBox="0 0 22.092 19.442">
+
+                  <g transform="translate(0.999 0.999)">
+                    <path class="funds"
+                      d="M20.238,5.274H18.87v1.71H2.795V5.274H1.426L10.832,1ZM2.795,18.443H18.87V15.792H2.795Zm-1.8,0H21.093M8.78,6.985v8.551M12.8,6.985v8.551m4.019-8.551v8.551M4.847,6.985v8.551"
+                      transform="translate(-0.999 -0.999)" />
+                  </g>
+                </svg>
+              </i>
+              {{ "plan.investmentConfiguration.withdrawal" | translate }}
+            </h4>
+            <div class="btn-group" role="group"
+              *ngIf="product?.screenCode !== 'zezcudih' && product?.screenCode !== 'ugbtofih'">
+              <button [disabled]="true" class="btn btn-primary btn-sm" (click)="showUnderwritingRules()">
+                <img src="../../../../../assets/images/Rules-white.svg" /> {{ "plan.rules" | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="card-body px-0 pb-0">
+            <form #FWForm="ngForm">
+              <div class="row px-2 mx-0">
+                <div class="col-lg-12">
+                  <div class="form-group" [ngClass]="{
+                    'is-invalid': saveClicked && (minAmount?.invalid)}">
+                    <label class="form-control-label">{{"plan.investmentConfiguration.withdrawalAmount" | translate
+                      }}</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend currency-symbol" *ngIf="product?.screenCode !== 'kfbtvvcl'">
+                        <span class="input-group-text">Minimum</span>
+                      </div>
+                      <input required [hidden]="product?.screenCode === 'kfbtvvcl'" type="text" class="form-control"
+                        name="minAmount" #minAmount="ngModel" [(ngModel)]="withdrawalOptions.minWithdrawalAmount"
+                        [disabled]="disableControl" IsDecimal>
+                      <div class="input-group-prepend currency-symbol">
+                        <span class="input-group-text">Maximum</span>
+                      </div>
+                      <input required type="text" class="form-control" name="maxAmount" #maxAmount="ngModel"
+                        [(ngModel)]="withdrawalOptions.maxWithdrawalAmount" [disabled]="disableControl" IsDecimal>
+                      <div class="input-group-append">
+                        <ng-select class="disabled-select-container" [readonly]="true" name="currency"
+                          [(ngModel)]="withdrawalOptions.withdrawalCurrencyOID" [disabled]="disableControl"
+                          bindLabel="currencyId" bindValue="currencyOID" [clearable]="false"
+                          [items]="product.policyCurrencies" placeholder="{{'plan.billing.currenciesPH' | translate }}">
+                        </ng-select>
+                      </div>
+                    </div>
+                    <div *ngIf="saveClicked && ( minAmount?.errors?.required || validateMinMaxFund())"
+                      class="invalid-feedback d-block">
+                      {{"plan.investmentConfiguration.minWithdrawalAmount" | translate }} {{
+                      "plan.investmentConfiguration.withdrawalValue" | translate }}
+                    </div>
+                    <div
+                      *ngIf="saveClicked && ( maxAmount.errors?.required || withdrawalOptions.maxWithdrawalAmount <= 0 )"
+                      class="invalid-feedback d-block">
+                      {{"plan.investmentConfiguration.maxWithdrawalAmount" | translate }} {{
+                      "plan.investmentConfiguration.withdrawalError" | translate
+                      }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row px-2 mx-0">
+                <div class="col-lg-6">
+                  <div class="form-group" [ngClass]="{
+                    'is-invalid': saveClicked && (!freeWithdrawalAllowed   || !freeWithdrawalFrequency)}">
+                    <label class="form-control-label">{{"plan.investmentConfiguration.numFreeWithdrawal" | translate
+                      }}</label>
+                    <div class="input-group mb-3">
+                      <input type="text" class="form-control" name="freeWithdrawalAllowed"
+                        [(ngModel)]="freeWithdrawalAllowed" [disabled]="disableControl" IsDecimal>
+                      <div class="input-group-append">
+                        <span class="input-group-text">time(s)</span>
+                      </div>
+                      <div class="input-group-append">
+                        <select name="freeWithdrawalFrequency" class="p-0" [(ngModel)]="freeWithdrawalFrequency"
+                          [disabled]="disableControl">
+                          <option [ngValue]="undefined" hidden>-select-</option>
+                          <option value="freeWithdrawalPerDayCount">Per Day</option>
+                          <option value="freeWithdrawalPerWeekCount">Per Week</option>
+                          <option value="freeWithdrawalPerPolicyMonthCount">Per Month</option>
+                          <option value="freeWithdrawalPerPolicyQuarterCount">Per Quarter</option>
+                          <option value="freeWithdrawalPerPolicyYearCount">Per Year</option>
+                        </select>
+                      </div>
+                      <div *ngIf="saveClicked && (!freeWithdrawalAllowed)" class="invalid-feedback">
+                        {{ "plan.requiredField" | translate}} {{ "plan.investmentConfiguration.numFreeWithdrawal" |
+                        translate }}
+                      </div>
+                      <div *ngIf="saveClicked && (!freeWithdrawalFrequency && freeWithdrawalAllowed)"
+                        class="invalid-feedback">
+                        {{ "plan.investmentConfiguration.frequencyError" | translate }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group" [ngClass]="{
+                    'is-invalid': saveClicked && (!lockInPeriod  ||  !lockInFrequency)}">
+                    <label class="form-control-label">{{"plan.investmentConfiguration.lockInPeriod" | translate
+                      }}</label>
+                    <div class="input-group mb-3">
+                      <input type="text" class="form-control" name="lockInPeriod" [(ngModel)]="lockInPeriod"
+                        [disabled]="disableControl" IsDecimal>
+                      <div class="input-group-append">
+                        <select name="lockInFrequency" [(ngModel)]="lockInFrequency" [disabled]="disableControl">
+                          <option [ngValue]="undefined" hidden>-select-</option>
+                          <option value="lockPeriodInMonths">Month</option>
+                          <option value="lockPeriodInYears">Year</option>
+                        </select>
+                      </div>
+                      <div *ngIf="saveClicked && (!lockInPeriod)" class="invalid-feedback">
+                        {{ "plan.requiredField" | translate}} {{ "plan.investmentConfiguration.lockInPeriod" | translate
+                        }}
+                      </div>
+                      <div *ngIf="saveClicked && (!lockInFrequency && lockInPeriod)" class="invalid-feedback">
+                        {{ "plan.investmentConfiguration.frequencyError" | translate }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row px-2 mx-0">
+                <div class="col-lg-6">
+                  <div class="form-group" [ngClass]="{
+                    'is-invalid': saveClicked && (minAccountBalance?.errors?.required || minAccountBalance?.errors?.min)
+                  }">
+                    <label class="form-control-label">{{ "plan.investmentConfiguration.minAccountBalance" | translate }}
+                    </label>
+                    <input required class="form-control" [disabled]="disableControl" type="number" placeholder="1"
+                      [(ngModel)]="investmentConfiguration.minAccountBalance" #minAccountBalance="ngModel"
+                      name="minAccountBalance" [min]="0" />
+                    <div
+                      *ngIf="saveClicked && minAccountBalance?.errors?.min && investmentConfiguration.minAccountBalance"
+                      class="invalid-feedback d-block">
+                      {{ "plan.investmentConfiguration.minAccountBalanceValue" | translate }}
+                    </div>
+                    <div *ngIf="saveClicked && (minAccountBalance?.errors?.required)" class="invalid-feedback d-block">
+                      {{ "plan.requiredField" | translate}} {{ "plan.investmentConfiguration.minAccountBalance" |
+                      translate }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ignatica-plan-charge-rate-table *ngIf="product?.screenCode !== 'kfbtvvcl'"
+                [chargerates]="getDataByType()" [feesChargesOID]="feesChargesOID"
+                (saveChargesEmit)="saveChargesEmit($event.param1,$event.param2)" [chargeType]="chargeType"
+                [planGuid]="planGuid" [disableControl]="disableControl">
+              </ignatica-plan-charge-rate-table>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

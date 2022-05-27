@@ -1,0 +1,33 @@
+@import "../../../../../../assets/scss/variables.scss";
+
+label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 0.2rem;
+}
+
+.list-group-item {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+.pm-label {
+  font-size: 0.875rem;
+}
+.rate-summary {
+  ul {
+    padding: 0;
+    li {
+      display: inline-block;
+      color: $gray-800;
+      padding-right: 20px;
+      padding-bottom: 10px;
+      span {
+        border: 1px solid #f8f8f8;
+        color: #083c63;
+        padding: 10px;
+        display: inline-block;
+      }
+    }
+  }
+}

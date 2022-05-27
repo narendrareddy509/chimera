@@ -1,0 +1,45 @@
+@import "../../../../../assets/scss/plan.scss";
+
+label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 0.2rem;
+}
+
+.table {
+  border: 1px solid #e9ecef;
+  td {
+    padding: 0.5rem;
+    .form-group {
+      margin-bottom: 0;
+    }
+  }
+}
+
+::ng-deep {
+  .table-ign {
+    color: $color-primary;
+    thead th {
+      background-color: $gray-100;
+      font-weight: 500;
+      border: none;
+      font-size: 0.75rem;
+    }
+    td {
+      border-bottom: 1px solid $gray-200;
+      border-top: unset;
+      vertical-align: middle;
+    }
+    .btn-group .btn {
+      border-radius: unset !important;
+    }
+  }
+}
+.font-color {
+  color: $gray-800;
+}
+
+.disable-box {
+  opacity: 0.5;
+}

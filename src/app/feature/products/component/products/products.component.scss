@@ -1,0 +1,26 @@
+@import "../../../../../assets/scss/variables.scss";
+
+.font-color {
+  color: $blue-500;
+}
+.font-style {
+  font-size: 0.75rem;
+}
+
+.pr-8 {
+  padding: 0 0.8rem;
+}
+
+.button-width {
+  width: 115px;
+}
+.container-width {
+  width: min-content;
+}
+.scroll-div {
+  overflow: auto;
+  height: calc(100vh - 250px);
+}
+.tableData tr.active {
+  background-color: rgba(0, 0, 0, 0.075);
+}

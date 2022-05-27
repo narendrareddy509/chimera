@@ -1,0 +1,26 @@
+@import "../../../../../../assets/scss/plan.scss";
+
+label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 0.2rem;
+}
+
+.pm-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.input-group-text {
+  font-size: 0.8rem;
+}
+.prm-mod-wrapper table {
+  border: 1px solid #e9ecef;
+  td {
+    padding: 0.5rem;
+    .form-group {
+      margin-bottom: 0;
+    }
+  }
+}

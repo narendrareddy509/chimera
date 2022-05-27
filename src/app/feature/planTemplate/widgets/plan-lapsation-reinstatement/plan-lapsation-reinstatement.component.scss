@@ -1,0 +1,48 @@
+.card {
+  box-shadow: -8px 8px 14px 0 rgb(25 42 70 / 11%);
+}
+
+.card-header {
+  padding: 1.5rem;
+  padding-bottom: 0;
+  border-bottom: none;
+  background-color: transparent;
+}
+.card-header:first-child {
+  border-radius: 0.35rem 0.35rem 0 0;
+}
+
+.card-title {
+  letter-spacing: 0.03rem;
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 0.2rem;
+}
+.reinstate-formula-description {
+  font-size: 0.85rem;
+  font-weight: 300 !important;
+  margin: 0.25rem;
+  line-height: 17px;
+}
+.grace-period {
+  display: inline-flex;
+  flex-direction: column;
+
+  input {
+    flex-basis: 65%;
+    width: 65%;
+  }
+
+  mat-select {
+    width: 35%;
+  }
+}
+.input-group-text {
+  font-size: 0.8rem;
+}

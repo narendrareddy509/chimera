@@ -1,0 +1,100 @@
+<div class="prem-rate-wrapper collapsible-border-radius">
+  <div class="card-sub-header d-flex justify-content-between align-items-center">
+    <h5> <a (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample"
+        role="button">
+        <i-feather name="chevron-right" [ngClass]="{'open' : !isCollapsed}"></i-feather>
+        {{"plan."+heading+".rate" | translate }}
+      </a>
+    </h5>
+    <div>
+      <button *ngIf="product?.screenCode === 'mjdkyidf'" (click)="downloadSampleCSV()"
+        class="btn btn-link download-link">{{"plan.downloadSampleFile" | translate}}</button>
+      <button class="btn btn-outline-primary btn-sm" type="button" (click)="uploadCsv()">
+        <span *ngIf="uploadLoading" class="spinner-border spinner-border-sm mr-1"></span>
+        <i-feather *ngIf="!uploadLoading" name="upload"></i-feather> Upload
+      </button>
+    </div>
+  </div>
+  <div class="row" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+    <div class="col-12">
+      <table class="table table-l table-ign table-sm" *ngIf="filterRateTableData.length > 0">
+        <!-- table Head -->
+        <thead class="bg-light">
+          <tr class="text-center">
+            <th scope="col" *ngFor="let key of orderRateTableKeys()"
+              [ngClass]="key == 'sourceFileName' || key == 'id' ? 'hidden' : key">
+              <span *ngIf="key == 'selected'">
+                <div class="custom-checkbox"><input type="checkbox" [(ngModel)]="selectedAll"
+                    (change)="$event ? selectAllChange() : null" /></div>
+              </span>
+              <span *ngIf="key !== 'selected'">
+                {{getColumnHeader(key)}}
+              </span>
+            </th>
+          </tr>
+        </thead>
+        <tbody class="tableData">
+          <tr class="text-center" *ngFor="let rate of filterRateTableData;let i = index">
+            <td *ngFor="let key of orderRateTableKeys()" [ngSwitch]="key.toLowerCase()"
+              [ngClass]="key == 'sourceFileName' || key == 'id' ? 'hidden' : key+' word-space-break'">
+              <ng-container *ngSwitchCase="'selected'">
+                <div class="custom-checkbox"><input type="checkbox" [(ngModel)]="rate['selected']" /></div>
+              </ng-container>
+              <ng-container *ngSwitchCase="'rowguid'">
+                <span>{{("00" + (i+1)).slice(-3)}}</span>
+              </ng-container>
+              <ng-container *ngSwitchCase="'isactive'">
+
+
+                <label class="switch">
+                  <input type="checkbox" [(ngModel)]="rate['isActive']"
+                    (ngModelChange)="toggleIsActive(rate[key],rate['rowGuid'])">
+                  <span class="slider round"></span>
+                </label>
+
+
+              </ng-container>
+              <ng-container *ngSwitchCase="'isdeleted'">
+                <button type="button" class="btn btn-sm btn-outline-primary" [disabled]="isPublished"
+                  (click)="delete(i,rate['rowGuid'])">
+                  <i-feather name="x"></i-feather>
+
+                </button>
+              </ng-container>
+
+
+              <ng-container *ngSwitchDefault>
+                {{ rate[key] }}
+              </ng-container>
+            </td>
+
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="10">
+              <div class="d-flex justify-content-between align-items-center">
+                {{getSelectedCount()}}
+
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <button class="btn btn-sm btn-outline-primary" (click)="batchActivate()">
+                    <i-feather name="check-circle"></i-feather>
+                    {{ "plan.coi.rateTableBatchActivate" | translate}}
+                  </button>
+                  <button class="btn btn-sm btn-outline-primary" (click)="batchDeactivate()">
+                    <i-feather name="minus-circle"></i-feather>
+                    {{ "plan.coi.rateTableBatchDeactivate" | translate}}
+                  </button>
+                  <button class="btn btn-sm btn-outline-primary" [disabled]="disableControl" (click)="removeSelectedRows()">
+                    <i-feather name="x"></i-feather>
+                    {{ "plan.coi.rateTableBatchDelete" | translate}}
+                  </button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>

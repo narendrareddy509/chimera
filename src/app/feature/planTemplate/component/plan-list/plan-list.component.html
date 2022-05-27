@@ -1,0 +1,79 @@
+<section class="container-fluid plan-list">
+    <div class="row d-flex justify-content-between">
+        <div class="col-lg-9 col-md-8">
+            <h4 class="mb-0">{{planTemplateCategory}}</h4>
+        </div>
+    </div>
+    <div class="my-4 plan-tab-list">
+        <ul class="nav nav-tabs" *ngIf="planTemplateList?.length > 0">
+            <li class="nav-item" *ngFor="let planTemplate of planTemplateList">
+                <a class="nav-link" (click)="onSelectplanTemplate(planTemplate)"
+                    [ngClass]="{'active':(selectedPlanTemplate.name === planTemplate.name)}">{{planTemplate.name}}</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card">
+        <div class="card-header bg-light d-flex justify-content-between">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-light">
+                    <li class="breadcrumb-item">
+                        <i-feather name="home"></i-feather>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">{{planTemplateCategory}}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{selectedPlanTemplate?.name}}</li>
+                </ol>
+            </nav>
+            <button class="btn btn-outline-primary btn-sm" (click)="addPlan()">
+                <i-feather name="plus" class="md"></i-feather> New {{selectedPlanTemplate?.name}} Plan
+            </button>
+        </div>
+        <div class="card-content">
+            <div class="card-body">
+                <table class="table table-hover table-sm">
+                    <thead class="bg-light">
+                        <tr>
+                            <th scope="col" class="pl-4">Plan </th>
+                            <th scope="col">Status</th>
+                            <!-- <th scope="col">Code</th> -->
+                            <th scope="col" class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tableData">
+                        <tr *ngIf="!plans">
+                            <td align=" center" colspan="3" style="background-color: #fff !important;"><img
+                                    src="../../../../../assets/images/loader.gif" alt="Loading plans...."
+                                    height="200" /></td>
+                        </tr>
+                        <tr *ngFor="let plan of (plans); trackBy: checkForPlanChange">
+                            <td class="pl-4 pointer" (click)="editPlan(plan.planGuid)">
+                                {{plan.name}}
+                            </td>
+                            <td>
+                                <span
+                                    class="badge badge-{{(plan.publishStatus | publishStatus)['type']}}">{{(plan.publishStatus
+                                    | publishStatus)['text']}}</span>
+                            </td>
+                            <!-- <td>
+                                    {{plan.code}}
+                                </td> -->
+                            <td class="text-center">
+                                <a class="btn btn-outline-primary btn-sm mr-1 pointer" role="button"
+                                    ngbTooltip="{{'plan.tooltipMessages.editPlan' | translate }}"
+                                    [ngClass]="{'disabled': plan.publishStatus === 'PUBLISHED' || plan.publishStatus === 'PUBLISH_STARTED' || plan.publishStatus === 'PUBLISH_IN_PROGRESS'}"
+                                    (click)="editPlan(plan.planGuid)">
+                                    <i-feather name="edit-3"></i-feather>
+                                </a>
+                                <a class="btn btn-outline-primary btn-sm pointer" role="button"
+                                    ngbTooltip="{{'plan.tooltipMessages.clonePlan' | translate }}"
+                                    (click)="clonePlan(plan.planGuid)">
+                                    <i-feather name="copy" aria-hidden="false" aria-label="copy">
+                                    </i-feather>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

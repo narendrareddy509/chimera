@@ -1,0 +1,108 @@
+<section class="prm-mod-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <h4 class="card-title mr-auto">
+              <i-feather name="command"></i-feather>
+              {{ "plan.coi.title" | translate }}
+            </h4>
+            <div class="btn-group" role="group">
+              <button class="btn btn-primary btn-sm" (click)="showFormulas()">
+                <img src="../../../../../assets/images/formulas-icon-white.svg" /> Formulas
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="card-body px-0 pb-0">
+            <form #modifierForm="ngForm">
+              <div class="row px-2 m-0">
+                <div class="col-12">
+                  <label>{{ "plan.coi.heading" | translate }}</label>
+                </div>
+              </div>
+              <div class="row px-2 m-0">
+                <div class="col-4" *ngIf="product.screenCode == 'ugbtofih'">
+                  <div class="pr-4 m-0">
+                    <div class="form-group" [ngClass]="{
+               'is-invalid':
+                 saveClicked 
+                 && (ujrahChargeRate.invalid ||  ujrahChargeRate?.errors?.min  
+                 || ujrahChargeRate?.errors?.max)
+                }">
+                      <label class="form-control-label">{{"plan.coi.ujrahChargeRate" | translate }} </label>
+                      <div class="input-group">
+                        <input class="form-control" [disabled]="disableControl" placeholder="0" [min]="0" [max]="100"
+                          [(ngModel)]="ujrahChargePercentage" name="ujrahChargeRate" type="number" [min]="0" [max]="100"
+                          #ujrahChargeRate="ngModel" (ngModelChange)="ujrahChargePercentageChange($event)" />
+                        <div class="input-group-append">
+                          <span class="input-group-text">%</span>
+                        </div>
+                      </div>
+                      <div
+                        *ngIf="
+               saveClicked &&
+               (ujrahChargeRate.invalid ||  ujrahChargeRate?.errors?.min  || ujrahChargeRate?.errors?.max)                        "
+                        class="invalid-feedback d-block">
+                        {{ "plan.coi.taxRateErrorMessage" | translate }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4" *ngIf="product.screenCode == 'ugbtofih'">
+                  <div class="pr-4 m-0">
+                    <div class="form-group">
+                      <label class="form-control-label">{{"plan.coi.tabaruChargeRate" | translate }} </label>
+                      <div class="input-group">
+                        <input class="form-control" [disabled]="true" placeholder="0"
+                          [(ngModel)]="tabaruChargePercentage" name="tabaruChargeRate" type="number" [min]="0"
+                          [max]="100" #tabaruChargeRate="ngModel" />
+                        <div class="input-group-append">
+                          <span class="input-group-text">%</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="pr-4 m-0">
+                    <div class="form-group" [ngClass]="{
+               'is-invalid':
+                 saveClicked 
+                 && (taxRate.invalid ||  taxRate?.errors?.min  
+                 || taxRate?.errors?.max)
+                }">
+                      <label class="form-control-label">{{"plan.coi.taxRate" | translate }} </label>
+                      <div class="input-group">
+                        <input class="form-control" [disabled]="disableControl" placeholder="0"
+                          [(ngModel)]="taxPercentage" name="taxRate" type="number" [min]="0" [max]="100"
+                          #taxRate="ngModel" />
+                        <div class="input-group-append">
+                          <span class="input-group-text">%</span>
+                        </div>
+                      </div>
+                      <div *ngIf="
+               saveClicked &&
+               (taxRate.invalid ||  taxRate?.errors?.min  || taxRate?.errors?.max)                        "
+                        class="invalid-feedback d-block">
+                        {{ "plan.coi.taxRateErrorMessage" | translate }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <ignatica-plan-coi-rate-summary heading="coi" [coiRateTableKeys]="coiRateTableKeys"
+              [coiRateTableRows]="coiRateTableRows">
+            </ignatica-plan-coi-rate-summary>
+            <ignatica-plan-coi-rate heading="coi"
+              (coiRateChangesEmit)="coiRateChangesEmit($event.param1, $event.param2)" [disableControl]="disableControl"
+              [coiRateTableKeys]="coiRateTableKeys" [coiRateTableRows]="coiRateTableRows"></ignatica-plan-coi-rate>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

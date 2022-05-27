@@ -1,0 +1,91 @@
+<section class="plan-wrapper container-fluid">
+    <section class="plan-header">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <i-feather name="home"></i-feather>
+                </li>
+                <li class="breadcrumb-item"><a href="/#/">{{"dashboard.productsPage.products" | translate}}</a></li>
+                <li class="breadcrumb-item">
+                    <a href="{{'/#/planTemplate/plans/' + product?.productTemplateGuid}}">{{product?.name}}</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">{{action==='new' ? 'New Plan' : plan?.name}}
+                </li>
+            </ol>
+        </nav>
+        <div class="plan-info-header">
+            <div class="heading_info">
+                <h4>{{action==='new' ? 'New Plan' : plan?.name}}
+                    <span class="badge badge-{{statusColor}} pl-2">{{getPublishStatus(plan.publishStatus)}}</span>
+                </h4>
+                <ignatica-plan-parameters-navigation heading="premium" [plan]="plan" [deathBenefitView]="true">
+                </ignatica-plan-parameters-navigation>
+            </div>
+            <div class="button_group">
+                <button role="button" class="btn btn-sm rounded-circle btn-settings mx-1"
+                    (click)="disableControl? savePlanService('save') : savePlan('save')">
+                    <i-feather name="save" class="lg"></i-feather>
+                </button>
+                <button role="button" class="btn btn-sm mx-1 rounded-circle btn-settings" (click)="savePlan('publish')"
+                    [disabled]="disableControl">
+                    <i-feather name="send" class="lg"></i-feather>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div class="card">
+        <div class="card-content">
+            <div class="card-body">
+                <div id="whole-life-plan">
+                    <!-- Form body-->
+                    <div *ngIf="product">
+                        <section class="plan-container row">
+                            <div class="col-lg-4">
+                                <ignatica-plan-detail id="details"
+                                    *ngIf="plan?.generalConfiguration && plan?.servicingEndorsementConfiguration"
+                                    [servicingEndorsementConfiguration]="plan.servicingEndorsementConfiguration"
+                                    [disableControl]="disableControl" [generalConfiguration]="plan.generalConfiguration"
+                                    [showGlobalParameters]="showGlobalParameters" [product]="product" [plan]="plan"
+                                    [eventsSubject]="eventsSubject.asObservable()">
+                                </ignatica-plan-detail>
+                                <ignatica-plan-billing id="billing"
+                                    [feesChargesConfiguration]="plan.feesChargesConfiguration"
+                                    *ngIf="plan.servicingEndorsementConfiguration && plan.servicingEndorsementConfiguration.billingOptions"
+                                    [disableControl]="disableControl" [product]="product"
+                                    [billingOptions]="plan.servicingEndorsementConfiguration.billingOptions"
+                                    [eventsSubject]="eventsSubject.asObservable()">
+                                </ignatica-plan-billing>
+
+                            </div>
+                            <div class="col-lg-8">
+                                <ignatica-plan-rules id="underwriting" *ngIf="plan.nbUnderwritingConfiguration"
+                                    heading="COI" [disableControl]="disableControl" [product]="product"
+                                    [underwriting]="plan.nbUnderwritingConfiguration"
+                                    [feesChargesConfiguration]="plan.feesChargesConfiguration"
+                                    [eventsSubject]="eventsSubject.asObservable()">
+                                </ignatica-plan-rules>
+                                <ignatica-plan-coi-term-life id="plan-coi"
+                                    *ngIf="plan.generalConfiguration && plan.feesChargesConfiguration" [action]="action"
+                                    [eventsSubject]="eventsSubject.asObservable()"
+                                    [feesChargesConfiguration]="plan.feesChargesConfiguration"
+                                    [planModules]="plan.generalConfiguration.planModules"
+                                    [underwriting]="plan.nbUnderwritingConfiguration" [disableControl]="disableControl"
+                                    [product]="product">
+                                </ignatica-plan-coi-term-life>
+                                <ignatica-plan-death-benefits-takaful-ilas id="deathBenefit"
+                                    *ngIf="plan.benefitConfiguration && plan.feesChargesConfiguration && plan.benefitConfiguration.deathBenefitOptions"
+                                    [product]="product" [modules]="plan.benefitConfiguration.deathBenefitOptions"
+                                    [feesChargesConfiguration]="plan.feesChargesConfiguration"
+                                    [modulesEventsSubject]="modulesEventsSubject.asObservable()"
+                                    [generalConfiguration]="plan.generalConfiguration"
+                                    [disableControl]="disableControl">
+                                </ignatica-plan-death-benefits-takaful-ilas>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

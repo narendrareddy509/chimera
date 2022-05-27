@@ -1,0 +1,162 @@
+<div class="modal-header">
+  <h2 class="modal-title mb-0">
+    {{ "fund.createFundPrice" | translate }}
+  </h2>
+</div>
+<div class="modal-body">
+  <div class="card-content">
+    <div class="card-body">
+      <form #fundPriceForm="ngForm">
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="form-group" [ngClass]="{
+                        'is-invalid':
+                        saveClicked &&
+                        !fundPrice.fundId                        
+                      }">
+                    <label class="form-control-label"
+                      >{{ "fund.fundId" | translate }}
+                      <span class="text-danger">*</span>
+                      </label
+                    >
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="fundID"
+                      [(ngModel)]="fundPrice.fundId"
+                      #fundID="ngModel"
+                      required
+                      [ngClass]="{
+                        'is-invalid':
+                        saveClicked &&
+                        !fundPrice.fundId                        
+                      }"
+                    />
+                    <div class="invalid-feedback">
+                      {{ "fund.requiredField" | translate }}{{"fund.fundId" | translate }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-group" [ngClass]="{
+                     'is-invalid':
+                     saveClicked && fundPriceEffectiveDate.invalid
+                   }">
+                    <label class="form-control-label"
+                      >{{ "fund.fundPriceEffectiveDate" | translate }}
+                      <span class="text-danger">*</span>
+                      </label
+                    >
+                    <input [ngModel]="fundPrice.fundPriceEffectiveDate | date:'yyyy-MM-dd'" 
+                    class="form-control" 
+                    #fundPriceEffectiveDate="ngModel"
+                    onkeydown="return false"
+                    (ngModelChange)="fundPrice.fundPriceEffectiveDate = $event" 
+                  required
+                  [ngClass]="{
+                     'is-invalid':
+                     saveClicked && fundPriceEffectiveDate.invalid
+                   }"
+                  type="date" name="fundPriceEffectiveDate"/>
+
+      
+                    <div class="invalid-feedback" *ngIf="saveClicked && (!fundPrice.fundPriceEffectiveDate)">
+                      {{ "fund.requiredField" | translate }}{{"fund.fundPriceEffectiveDate" | translate }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <label class="form-control-label"
+                      >{{ "fund.fundPriceExpiryDate" | translate }}                      
+                      </label
+                    >
+                    <input [ngModel]="fundPrice.fundPriceExpiryDate | date:'yyyy-MM-dd'" 
+                    class="form-control"
+                    #fundPriceExpiryDate="ngModel"
+                    onkeydown="return false"
+                    (ngModelChange)="fundPrice.fundPriceExpiryDate = $event" 
+                    type="date" name="fundPriceExpiryDate"/>    
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="form-group" [ngClass]="{
+                      'is-invalid':
+                      saveClicked && buyPrice.invalid
+                    }">
+                    <label  class="form-control-label"
+                      >{{ "fund.buyPrice" | translate }}
+                      <span class="text-danger">*</span>
+                      </label
+                    >
+                    <input class="form-control" 
+                     type="number" placeholder="0" 
+                     [(ngModel)]="fundPrice.buyPrice"
+                    #buyPrice="ngModel" name="buyPrice"                    
+                    required
+                    [ngClass]="{
+                      'is-invalid':
+                      saveClicked && buyPrice.invalid
+                    }"
+                    [min]="0"
+                    [max]="9999"
+                    >
+                    <div class="invalid-feedback" *ngIf="saveClicked && (!fundPrice.buyPrice)">
+                      {{ "fund.requiredField" | translate }}{{"fund.buyPrice" | translate }}
+                    </div>
+                        <div *ngIf="saveClicked &&  fundPrice.buyPrice && buyPrice.invalid" 
+                        class="invalid-feedback d-block">
+                          {{ "fund.buyPriceValue" | translate }}
+                        </div>
+                       
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-group"  [ngClass]="{
+                     'is-invalid':
+                     saveClicked && sellPrice.invalid
+                   }">
+                    <label  class="form-control-label"
+                      >{{ "fund.sellPrice" | translate }}
+                      <span class="text-danger">*</span></label
+                    >
+                    <input class="form-control" 
+                    type="number" placeholder="0" 
+                    [(ngModel)]="fundPrice.sellPrice"
+                   #sellPrice="ngModel" name="sellPrice"
+                   [min]="0"
+                   [max]="9999"                    
+                   required
+                   [ngClass]="{
+                     'is-invalid':
+                     saveClicked && sellPrice.invalid
+                   }"
+                   [min]="0"
+                   [max]="9999"
+                   >
+                   <div class="invalid-feedback" *ngIf="saveClicked && (!fundPrice.sellPrice)">
+                    {{ "fund.requiredField" | translate }}{{"fund.sellPrice" | translate }}
+                  </div>
+
+                  <div *ngIf="saveClicked && fundPrice.sellPrice && sellPrice.invalid" class="invalid-feedback d-block">
+                    {{ "fund.sellPriceValue" | translate }}
+                  </div>
+                     
+                    
+                  </div>
+                </div>     
+              </div>  
+              </form>  
+            </div>
+          </div>
+        </div>    
+        <div class="modal-footer">
+          <button class="btn btn-outline-secondary" (click)="close()">Cancel</button>
+          <button class="btn btn-primary" (click)="onSave()">
+            Save
+          </button>
+        </div>      
+  

@@ -1,0 +1,68 @@
+<section>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="d-flex align-items-center">
+              <h4 class="card-title mr-auto">
+                <i-feather name="x-circle"></i-feather>
+                Dividend
+              </h4>
+              <div class="btn-group" role="group">
+                <button class="btn btn-primary btn-sm"  [disabled]="modules?.length === 0" (click)="showFormulas()">
+                  <img src="../../../../../assets/images/formulas-icon-white.svg" /> Formulas
+                </button>
+                <button class="btn btn-primary btn-sm ml-1" disabled="true" (click)="showUnderwritingRules()">
+                  <img src="../../../../../assets/images/Rules-white.svg" /> {{ "plan.rules" | translate }}
+               </button>
+              </div>
+            </div>
+          </div>
+  
+          <div class="card-content">
+            <div class="card-body">
+                <div class="row">                
+                <div class="col-4">
+                    <div class="pr-4 m-0">
+                      <div class="form-group">
+                        <label class="form-control-label">Dividend Rate </label>
+                        <div class="input-group">
+                          <input class="form-control" [disabled]="disableControl" placeholder="0"
+                            [(ngModel)]="participatingPlan.dividendRate" name="dividendRate" type="number" [min]="0"
+                            [max]="100" #dividendRate="ngModel" />
+                          <div class="input-group-append">
+                            <span class="input-group-text">%</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="form-group">
+                        <label for="example-text-input" class="form-control-label">Participating Plan
+                        </label>
+                        <label class="switch">
+                          <input type="checkbox" [disabled]="disableControl" name="isParticipating" [(ngModel)]="participatingPlan.isParticipating"
+                            #isParticipating="ngModel" />
+                          <span class="slider round"></span>
+                        </label>
+                      </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="form-group">
+                        <label for="example-text-input" class="form-control-label">Dividend Withdrawal Allowed
+                        </label>
+                        <label class="switch">
+                          <input type="checkbox" [disabled]="disableControl" name="isDividendWithdrawalAllowed" [(ngModel)]="cashWithdrawalOptions.isDividendWithdrawalAllowed"
+                            #isDividendWithdrawalAllowed="ngModel" />
+                          <span class="slider round"></span>
+                        </label>
+                      </div>
+                </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

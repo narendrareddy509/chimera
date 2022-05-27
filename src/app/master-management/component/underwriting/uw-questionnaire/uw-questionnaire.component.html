@@ -1,0 +1,164 @@
+
+    <section class="admin-alerts mb-2">
+        <ngb-alert *ngIf="showAlert" [type]="action" [dismissible]="dismissible" (closed)="showAlert=false;">
+            <div [innerHtml]="safeHtml(message)"></div>
+        </ngb-alert>
+    </section>
+    <div class="admin-header mb-4 row">
+        <div class="col-md-9 col-md-8">
+            <h4>Underwriting</h4>
+            <small class="subtitle">{{total}} configurable underwriting questions & validation
+                rules.</small>
+        </div>
+        <div class="col-lg-3 col-md-4 text-right">
+            <a role="button" class="btn btn-sm rounded-circle btn-info btn-settings mx-1"
+            [ngClass]="{disabled:underwritingTableData?.length === 0}" (click)="downloadAllQuestions()">
+                <i-feather name="download" class="lg"></i-feather>
+            </a>
+            <a role="button" class="btn btn-sm rounded-circle btn-info btn-settings mx-1" (click)="uploadCsv()">
+                <i-feather name="upload" class="lg"></i-feather>
+            </a>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header bg-light pb-3">
+            <nav class="navbar p-0">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-light mb-0 p-0">
+                        <li class="breadcrumb-item"><a href="/#/admin">
+                                <i-feather name="home"></i-feather>
+                            </a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Underwriting</li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Questions & Validation
+                          </li>
+                    </ol>
+                </nav>
+                <div class="input-group col-5 pr-0 search-wrapper">
+                    <input type="search" class="form-control" placeholder="Search" aria-label="Username"
+                        aria-describedby="addon-wrapping" [(ngModel)]="_state.searchTerm" (ngModelChange)="onSearch()" />
+                </div>
+            </nav>
+        </div>
+        <div class="card-content">
+            <div class="card-body p-0">
+                <table class="table table-hover tbl-underwriting" *ngIf="underwritingTableData.length > 0">
+                    <!-- table Head -->
+                    <thead class="bg-light">
+                        <tr>
+                            <th scope="col" *ngFor="let key of tableHeaders">
+                                {{key}}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="tableData">
+                        <tr *ngFor="let rate of underwritingTableData;let i = index">
+                            <td *ngFor="let key of tableHeaders" [ngSwitch]="key.toLowerCase()">
+                                <ng-container *ngSwitchCase="'#'">
+                                    <span>{{i+1}}</span>
+                                </ng-container>
+                                <ng-container *ngSwitchCase="'activate'">
+                                    <label class="c-switch c-switch-pill c-switch-opposite-primary">
+                                        <input type="checkbox" class="c-switch-input" [(ngModel)]="rate['isRequired']"
+                                            (ngModelChange)="toggleIsActive(rate)">
+                                        <span class="c-switch-slider"></span>
+                                    </label>
+                                </ng-container>
+                                <ng-container *ngSwitchCase="'action'">
+                                    <a class="btn btn-outline-primary btn-sm ml-1 pointer rounded-0" role="button"
+                                        (click)="rate.isEdit = true" *ngIf="!rate.isEdit">
+                                        <i-feather name="edit-3" class="md"></i-feather>
+                                    </a>
+                                    <a class="btn btn-outline-primary btn-sm ml-1 pointer rounded-0" role="button"
+                                        (click)="rate.isEdit = false" *ngIf="rate.isEdit">
+                                        <i-feather name="check" class="md"></i-feather>
+                                    </a>
+                                </ng-container>
+                                <ng-container *ngSwitchCase="'question'">
+                                    <span *ngIf="!rate.isEdit">{{ rate[getKeys(key)] }}</span>
+
+                                    <textarea type="text" [ngModel]='rate[getKeys(key)]' *ngIf="rate.isEdit"></textarea>
+
+                                    <table class="table mt-3 mb-0 {{rate.isEdit ? '':'hidden'}}">
+                                        <thead>
+                                            <tr>
+                                                <th *ngFor="let head of editTableHeaders">
+                                                    {{(head !== 'AddRemove' && head !== 'Arrows') ? head : ''}}
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let row of rate.caRules;let j=index">
+                                                <td *ngFor="let head of editTableHeaders"
+                                                    [ngSwitch]="head.toLowerCase()">
+                                                    <ng-container *ngSwitchCase="'addremove'">
+                                                        <a class="btn btn-primary btn-sm pointer rounded-0"
+                                                            role="button" (click)="removeCondition(rate.caRules,j)">
+                                                            <i-feather name="minus" class="md"></i-feather>
+                                                        </a>
+                                                    </ng-container>
+                                                    <ng-container *ngSwitchCase="'condition'">
+                                                        <input
+                                                            *ngIf='!(row["condition"+(j+1)]["conditionType"]==="Range")'
+                                                            type="text" [ngModel]='row["condition"+(j+1)]' />
+                                                        <input
+                                                            *ngIf='(row["condition"+(j+1)]["conditionType"]==="Range")'
+                                                            type="text" [ngModel]='getRangeData(row["condition"+(j+1)])'
+                                                            (change)='updateRangeData($event,row["condition"+(j+1)])' />
+                                                    </ng-container>
+                                                    <ng-container *ngSwitchCase="'arrows'">
+                                                        <i-feather name="chevrons-right" class="md"></i-feather>
+                                                    </ng-container>
+                                                    <ng-container *ngSwitchCase="'action'">
+                                                        <select [(ngModel)]='row["action"+(j+1)]'>
+                                                            <option *ngFor="let option of globalActions">{{option}}
+                                                            </option>
+                                                        </select>
+                                                    </ng-container>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="4">
+                                                    <a class="btn btn-primary btn-sm pointer rounded-0" role="button"
+                                                        [ngClass]="{'disabled':!(rate.caRules.length < globalActions.length)}"
+                                                        (click)="addCondition(rate)">
+                                                        <i-feather name="plus" class="md"></i-feather>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </ng-container>
+                                <ng-container *ngSwitchDefault>
+                                    <span [ngClass]="{'font-light' : key === 'Type'}">{{ rate[getKeys(key)] }}</span>
+                                </ng-container>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="text-center m-0 py-4" *ngIf="underwritingTableData.length === 0">
+                    No data found.
+                </p>
+            </div>
+            <div class="card-footer d-flex justify-content-between p-4 bg-light align-items-center">
+                <div>
+                    <!-- <select class="custom-select" style="width: auto" [(ngModel)]="_state.pageSize"
+                        (ngModelChange)="pageSizeChanged($event,_state.pageSize)">
+                        <option [ngValue]="10">10 items per page</option>
+                        <option [ngValue]="15">15 items per page</option>
+                        <option [ngValue]="20">20 items per page</option>
+                    </select> -->
+                </div>
+                <div>
+                    <ngb-pagination [collectionSize]="total" [(page)]="_state.page" [maxSize]="5" [boundaryLinks]="true"
+                        [pageSize]="_state.pageSize" (pageChange)="pageChanged($event)">
+                    </ngb-pagination>
+                </div>
+                <button type="submit" class="btn btn-primary rounded-0 btn-sm btn-stretch" (click)="onSubmit()">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>

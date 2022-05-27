@@ -1,0 +1,20 @@
+@import '../../../../../assets/scss/variables.scss';
+
+.lang-selection.dropdown-menu {
+    position: absolute;
+    left: auto;
+    right: 0;
+  }
+  #lang-selection {
+    width: 40px;
+    height: 40px;  
+    display: inline-block;
+    background-color: $white;
+    padding: 5px;
+    
+  }
+.lang-select {
+  width: 30px !important;
+  height: 30px !important;
+  color: $color-primary;
+}

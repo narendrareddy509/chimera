@@ -1,0 +1,66 @@
+@import "../../../../../../assets/scss/variables.scss";
+table {
+  margin: 0;
+  border-radius: 0 0 20px 20px;
+  overflow: hidden;
+  th {
+    vertical-align: middle;
+    padding-top: 0;
+  }
+  tfoot {
+    background-color: $gray-100;
+    td {
+      padding: 0.75rem 24px;
+    }
+    .btn i-feather {
+      vertical-align: top;
+      margin-top: -1px;
+    }
+  }
+}
+tbody {
+  display: block;
+  max-height: calc(100vh - 400px);
+  overflow: auto !important;
+}
+
+thead,
+tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  vertical-align: middle;
+}
+
+.rowguid {
+  width: 9%;
+}
+.selected {
+  width: 8%;
+  text-align: center;
+}
+.hidden {
+  display: none !important;
+}
+
+.word-space-break {
+  white-space: normal !important;
+  word-wrap: break-word;
+}
+.date {
+  width: 95px;
+  text-align: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+.active {
+  width: 60px;
+  padding-left: 0;
+  padding-right: 0;
+}
+.Gender {
+  width: 10%;
+}
+.Age {
+  width: 8%;
+}

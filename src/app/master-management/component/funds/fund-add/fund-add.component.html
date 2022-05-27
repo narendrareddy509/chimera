@@ -1,0 +1,170 @@
+<form #addFundForm="ngForm">
+<div class="modal-header">
+  <h2 class="modal-title mb-0 mt-2" id="modal-basic-title">
+    {{ "fund.addFund" | translate }}
+  </h2>
+</div>
+<div class="modal-body">
+  <div class="card-content">
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+            <div class="row">
+              <div class="col-lg-3">
+                <div class="form-group" [ngClass]="{
+                      'is-invalid': !fund.FundID && saveClicked
+                    }"  >
+                  <label for="example-text-input" class="form-control-label"
+                    >{{ "fund.fund_ID" | translate }}
+                    <span class="text-danger">*</span></label
+                  >
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="FundID"
+                    [(ngModel)]="fund.FundID"
+                    #FundID="ngModel"
+                    required
+                    [ngClass]="{
+                      'is-invalid': !fund.FundID && saveClicked
+                    }"                   
+                  />
+                  <div class="invalid-feedback" *ngIf="!fund.FundID && saveClicked">
+                    {{ "fund.requiredField" | translate }}{{"fund.fund_ID" | translate }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="form-group" [ngClass]="{
+                      'is-invalid': saveClicked && !fund.FundName
+                    }">
+                  <label for="example-text-input" class="form-control-label"
+                    >{{ "fund.fund_Name" | translate }}
+                    <span class="text-danger">*</span></label
+                  >
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="FundName"
+                    [(ngModel)]="fund.FundName"
+                    #FundName="ngModel"
+                    required
+                    [ngClass]="{
+                      'is-invalid': saveClicked && !fund.FundName
+                    }"
+                  />
+                  <div class="invalid-feedback" *ngIf="!fund.FundName && saveClicked">
+                    {{ "fund.requiredField" | translate }}{{"fund.fund_Name" | translate }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group" [ngClass]="{
+                    'is-invalid': !fund.FundCurrency && saveClicked
+                  }">
+                  <label for="example-text-input" class="form-control-label"
+                    >{{ "fund.fund_Currency" | translate }}
+                    <span class="text-danger">*</span>
+                  </label>
+                  <ng-select [items]="currencies"  [(ngModel)]="fund.FundCurrency"
+                  name="FundCurrency"
+                  bindLabel="name"
+                  #FundCurrency="ngModel"
+                  class="custom"
+                  [ngClass]="{
+                    'is-invalid': !fund.FundCurrency && saveClicked
+                  }"
+                  required
+                  bindValue="code"   placeholder="{{'fund.fund_Currency' | translate }}"
+                  >
+                 <ng-template ng-option-tmp let-item="item">
+                  <b>{{item.name}}</b> ({{item.code}})
+                 </ng-template>                
+                  </ng-select>
+
+                  <div class="invalid-feedback"  *ngIf="!fund.FundCurrency && saveClicked">
+                    {{ "fund.requiredField" | translate }}{{"fund.fund_Currency" | translate }}
+                  </div>
+                </div>
+              </div>
+              <div></div>
+              <div class="col-lg-3">
+                <div class="form-group">
+                  <label for="example-text-input" class="form-control-label">{{
+                    "fund.fund_Service_URL" | translate
+                  }}</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="ServiceURL"
+                    [(ngModel)]="fund.ServiceURL"
+                    #ServiceURL="ngModel"                    
+                  />                  
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="form-group" [ngClass]="{
+                      'is-invalid':
+                      buyFee.invalid && saveClicked
+                    }">
+                  <label for="example-text-input" class="form-control-label">{{
+                    "fund.fund_Buy_Fee" | translate
+                  }}</label>
+                  <input
+                    class="form-control"
+                    type="number"
+                    name="buyFee"
+                    [(ngModel)]="fund.buyFee"
+                    [min]="0"
+                    #buyFee="ngModel"
+                    [ngClass]="{
+                      'is-invalid':
+                      buyFee.invalid && saveClicked
+                    }"
+                  />
+                  <div *ngIf="buyFee.invalid && saveClicked" class="invalid-feedback">                    
+                      {{ "fund.validBuySellFees" | translate }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="form-group" [ngClass]="{
+                      'is-invalid':
+                        saveClicked &&
+                        sellFee.invalid
+                    }">
+                  <label for="example-text-input" class="form-control-label">{{
+                    "fund.fund_Sell_Fee" | translate
+                  }}</label>
+                  <input
+                    class="form-control"
+                    type="number"
+                    name="sellFee"
+                    [(ngModel)]="fund.sellFee"
+                    #sellFee="ngModel"
+                    [min]="0"
+                    [ngClass]="{
+                      'is-invalid':
+                        saveClicked &&
+                        sellFee.invalid
+                    }"
+                  />
+                  <div *ngIf="saveClicked &&
+                  sellFee.invalid" class="invalid-feedback">                    
+                      {{ "fund.validBuySellFees" | translate }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-outline-secondary" (click)="close()">Cancel</button>
+    <button class="btn btn-primary" (click)="saveFund()">
+      Save
+    </button>
+  </div>
+</form>

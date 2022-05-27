@@ -1,0 +1,52 @@
+<div class="collapsible-border-radius">
+    <div class="card-sub-header d-flex justify-content-between align-items-center">
+        <h5> <a (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample"
+                role="button">
+                <i-feather name="chevron-right" [ngClass]="{'open' : !isCollapsed}"></i-feather>
+                {{ "plan.investmentConfiguration.charges" | translate}}
+            </a></h5>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button class="btn btn-outline-primary btn-sm" type="button" [disabled]="disableControl"
+                (click)="uploadCsv()">
+                <span *ngIf="uploadLoading" class="spinner-border spinner-border-sm mr-1"></span>
+                <i-feather *ngIf="!uploadLoading" name="upload"></i-feather> Upload
+            </button>
+            <button class="btn btn-sm btn-outline-primary" [disabled]="disableControl" *ngIf="chargerates.length > 0"
+                (click)="removeSelectedRows()">
+                <i-feather name="x"></i-feather>
+                {{ "plan.investmentConfiguration.deleteCharges" | translate}}
+            </button>
+        </div>
+    </div>
+    <div class="row" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+        <div class="col-12">
+            <table class="table table-l table-ign table-sm">
+                <thead class="thead-info">
+                    <tr>
+                        <th scope="col" class="selected"> <span>
+                                <div class="custom-checkbox"><input type="checkbox" [(ngModel)]="selectedAll"
+                                        (change)="$event ? selectAllChange() : null" /></div>
+                            </span></th>
+                        <th scope="col" class="col-id">#</th>
+                        <th scope="col" class="col-coverageYear">Coverage Year</th>
+                        <th scope="col" class="col-chargePercentage">Charge Percentage</th>
+                        <!--<th scope="col" class="col-action">Actions</th>-->
+                    </tr>
+                </thead>
+                <tbody class="tableData">
+                    <tr *ngFor="let charge of chargerates; let i = index">
+                        <td class="selected">
+                            <div class="custom-checkbox"><input type="checkbox" (change)="onChargeSelect(i, $event)"
+                                    [ngModel]="charge['isDeleted']" /></div>
+                        </td>
+                        <td class="col-id">{{ ("00" + (i+1)).slice(-3) }}</td>
+                        <td *ngFor="let key of chargeCols" [ngClass]="'col-' + key">
+                            {{ key=='rate' ? valueReadability((charge[key] * 100)) : charge[key]}}
+                        </td>
+                        <!--<td class="col-action"> edit</td>-->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

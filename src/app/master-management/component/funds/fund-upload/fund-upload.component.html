@@ -1,0 +1,123 @@
+<div class="px-3 pt-4">
+  <section class="admin-alerts" *ngIf="showAlert">
+    <ngb-alert *ngIf="showAlert" [type]="action" [dismissible]="false">{{ message }}</ngb-alert>
+  </section>
+
+  <div class="d-flex justify-content-between">
+
+    <!-- <div>
+    <a role="button" class="btn btn-sm rounded-circle btn-info btn-settings ml-1" 
+    (click)="addFund()">
+      <i-feather name="plus" class="lg"></i-feather>
+    </a>
+  </div>-->
+  </div>
+
+  <div class="card">
+    <div class="card-header bg-light">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+          <li class="breadcrumb-item">
+            <i-feather name="crosshair"></i-feather>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">{{"fund.fundManagement" | translate}}</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="card-content">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <form novalidate [formGroup]="formImport">
+              <!---<div class="input-group">
+              <div class="custom-file">
+                <input type="file"
+                  accept=".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                  [ngClass]="showInvalid ? 'custom-file-input is-invalid': 'custom-file-input'"
+                  formControlName="importFile" id="importFile" disabled="true" (change)="onFileChange($event.target.files)">
+
+                <label class="custom-file-label" #labelImport for="importFile"><i-feather name="search"></i-feather>
+                  {{ "fund.chooseFile" | translate }}</label>
+              </div>
+
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary btn-sm" disabled="true" type="button" (click)="import()">
+                  <span *ngIf="uploadLoading" class="spinner-border spinner-border-sm mr-1"></span>
+       <i-feather *ngIf="!uploadLoading" name="upload"></i-feather>
+       {{ "fund.uploadAndSave" | translate }}
+
+                </button>
+                <button class="btn btn-outline-secondary btn-sm" disabled="true" type="button" (click)="downloadTemplate()">
+                  {{ "fund.downloadTemplate" | translate }}
+                </button>
+              </div>
+            </div>-->
+
+            </form>
+          </div>
+        </div>
+        <div class="row" *ngIf="fundData.length > 0">
+          <div class="col">
+            <table class="table table-hover table-l">
+              <thead class="bg-light">
+                <tr class="d-flex">
+                  <th scope="col" class="col-md-1">
+                    <span> Fund ID</span>
+                  </th>
+                  <th scope="col" class="col-md-2">
+                    <span> Fund Name</span>
+                  </th>
+                  <th scope="col" class="col-md-2">
+                    <span> Fund Category</span>
+                  </th>
+                  <th scope="col" class="col-md-2">
+                    <span> Fund ISIN</span>
+                  </th>
+                  <th scope="col" class="col-md-3">
+                    <span> Description</span>
+                  </th>
+                  <th scope="col" class="col-md-1">
+                    <span> Buy Price</span>
+                  </th>
+                  <th scope="col" class="col-md-1">
+                    <span> Sell Price</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="tableData">
+                <tr *ngFor="let fund of fundData;let i = index" class="d-flex">
+
+                  <td class="col-md-1">
+                    {{fund['fundId']}}
+                  </td>
+                  <td class="col-md-2">
+                    {{fund['fundName']}}
+                  </td>
+                  <td class="col-md-2">
+                    {{fund['fundCategory']}}
+                  </td>
+                  <td class="col-md-2">
+                    {{fund['fundISIN']}}
+                  </td>
+                  <td class="col-md-3">
+                    {{fund['description']}}
+                  </td>
+                  <td class="col-md-1">
+                    {{fund['buyPrice']}}
+                  </td>
+                  <td class="col-md-1">
+                    {{fund['sellPrice']}}
+                  </td>
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,109 @@
+<section class="mt-2" *ngIf="moduleList.length > 0">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex align-items-center">
+                        <h4 class="card-title mr-auto">
+                            <i-feather name="award"></i-feather>
+                            {{ heading | translate }}
+                        </h4>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-primary btn-sm" (click)="showFormulas()">
+                                <img src="../../../../../assets/images/formulas-icon-white.svg" /> Formulas
+
+                            </button>
+                            <button [disabled]="true" class="btn btn-primary btn-sm ml-1"
+                                (click)="showBenefitRules()">
+                                <img src="../../../../../assets/images/Rules-white.svg" /> {{ "plan.rules" | translate
+                                }}
+                            </button>
+                            <i-feather name="info" class="md m-1" ngbTooltip="{{'plan.disabledInfoText' | translate }}">
+                            </i-feather>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <form #benefitForm="ngForm">
+                            <div class="row mt-2">
+
+                                <div class="col-4">
+                                    <div class="form-group" [ngClass]="{
+                        'is-invalid':
+                          saveClicked &&
+                          (deathBenefitPercent.invalid ||
+                            deathBenefitPercent?.errors?.min)
+                      }">
+                                        <label class="form-control-label">{{
+                                            percentageTitle
+                                            | translate
+                                            }}
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" [disabled]="disableControl"
+                                                [(ngModel)]="benefitPercentage" name="deathBenefitPercent"
+                                                #deathBenefitPercent="ngModel" required [min]="1" placeholder="{{
+                            'plan.deathBenefitModule.placeholder' | translate
+                          }}" />
+
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">%</span>
+                                            </div>
+                                            <div *ngIf="
+                            saveClicked &&
+                            (deathBenefitPercent.invalid ||
+                              deathBenefitPercent?.errors?.min)
+                          " class="invalid-feedback d-block">
+                                                {{
+                                                "plan.deathBenefitModule.deathBenefitError"
+                                                | translate
+                                                }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label
+                                          for="example-text-input"
+                                          class="form-control-label"
+                                          > Benefit Description</label
+                                        >
+                                        <textarea
+                                          class="form-control"
+                                          [disabled]="disableControl"
+                                          type="text"
+                                          placeholder="Description"
+                                          [(ngModel)]="description"
+                                          name="description"
+                                        ></textarea>
+                                      </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label
+                                          for="example-text-input"
+                                          class="form-control-label"
+                                          >Benefit Exclusions</label
+                                        >
+                                        <textarea
+                                          class="form-control"
+                                          [disabled]="disableControl"
+                                          type="text"
+                                          placeholder="Exclusions"
+                                          [(ngModel)]="exclusions"
+                                          name="description"
+                                        ></textarea>
+                                      </div>
+                                </div>
+                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

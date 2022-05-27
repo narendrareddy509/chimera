@@ -1,0 +1,112 @@
+<section class="mt-2" *ngIf="moduleList.length > 0">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">
+            <i-feather name="award"></i-feather>
+            {{ "plan.deathBenefitModule.title" | translate }}
+          </h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <form #deathBenefitForm="ngForm">
+              <div class="row mt-2">
+                <div class="col-12">
+                  <div
+                    class="form-group"
+                    [ngClass]="{
+                      'is-invalid': saveClicked && !selectedDeathModuleOID
+                    }"
+                  >
+                    <label for="example-text-input" class="form-control-label"
+                      >{{
+                        "plan.deathBenefitModule.deathBenefitModuleTitle"
+                          | translate
+                      }}<span class="text-danger">*</span></label
+                    >
+                    <ng-select
+                      name="moduleList"
+                      bindLabel="uiDisplayElement"
+                      bindValue="moduleOID"
+                      [disabled]="disableControl"
+                      (ngModelChange)="onModuleSelection($event)"
+                      [items]="moduleList"
+                      [clearable]="false"
+                      [(ngModel)]="selectedDeathModuleOID"
+                      placeholder="{{
+                        'plan.deathBenefitModule.modules' | translate
+                      }}"
+                    >
+                    </ng-select>
+                    <div class="formula-description">
+                      {{ selectedModuleDescription }}
+                    </div>
+                    <div
+                      *ngIf="saveClicked && !selectedDeathModuleOID"
+                      class="invalid-feedback d-block"
+                    >
+                      {{ "plan.deathBenefitModule.requiredField" | translate
+                      }}{{ "plan.deathBenefitModule.modules" | translate }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div
+                    class="form-group"
+                    [ngClass]="{
+                      'is-invalid':
+                        saveClicked &&
+                        (deathBenefitPercent.invalid ||
+                          deathBenefitPercent?.errors?.min)
+                    }"
+                  >
+                    <label class="form-control-label"
+                      >{{
+                        "plan.deathBenefitModule.deathBenefitPercentage"
+                          | translate
+                      }}
+                      <span class="text-danger">*</span>
+                    </label>
+                    <div class="input-group">
+                      <input
+                        type="number"
+                        class="form-control"
+                        [disabled]="disableControl"
+                        [(ngModel)]="deathBenefitPercentage"
+                        name="deathBenefitPercent"
+                        #deathBenefitPercent="ngModel"
+                        required
+                        [min]="1"
+                        placeholder="{{
+                          'plan.deathBenefitModule.placeholder' | translate
+                        }}"
+                      />
+
+                      <div class="input-group-append">
+                        <span class="input-group-text">%</span>
+                      </div>
+                      <div
+                        *ngIf="
+                          saveClicked &&
+                          (deathBenefitPercent.invalid ||
+                            deathBenefitPercent?.errors?.min)
+                        "
+                        class="invalid-feedback d-block"
+                      >
+                        {{
+                          "plan.deathBenefitModule.deathBenefitError"
+                            | translate
+                        }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

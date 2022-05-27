@@ -1,0 +1,22 @@
+<section class="prm-mod-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">
+            <i-feather name="command"></i-feather>
+            {{ "plan.motor.noClaimDiscount.title" | translate }}
+          </h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body px-0 pb-0 pt-0">
+            <ignatica-plan-coi-rate heading="motor.noClaimDiscount"
+              (coiRateChangesEmit)="noClaimDiscountRateChangesEmit($event.param1, $event.param2)"
+              [disableControl]="disableControl" [coiRateTableKeys]="noClaimDiscountRateTableKeys"
+              [coiRateTableRows]="noClaimDiscountRateTableRows"></ignatica-plan-coi-rate>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

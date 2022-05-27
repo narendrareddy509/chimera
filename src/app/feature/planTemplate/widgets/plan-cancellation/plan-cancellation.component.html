@@ -1,0 +1,30 @@
+<section>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex align-items-center">
+                        <h4 class="card-title mr-auto">
+                            <i-feather name="x-circle"></i-feather>
+                            {{ "plan.cancellation.title" | translate }}
+                        </h4>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-primary btn-sm" [disabled]="cancellationModules?.length === 0"
+                                (click)="showFormulas()">
+                                <img src="../../../../../assets/images/formulas-icon-white.svg" /> Formulas
+                            </button>
+                            <button class="btn btn-primary btn-sm ml-1" (click)="showUnderwritingRules()">
+                                <img src="../../../../../assets/images/Rules-white.svg" /> {{ "plan.rules" | translate
+                                }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

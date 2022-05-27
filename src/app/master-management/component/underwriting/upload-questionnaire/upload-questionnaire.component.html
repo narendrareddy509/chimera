@@ -1,0 +1,18 @@
+<div class="upload-csv-wrapper">
+    <form novalidate [formGroup]="formImport">
+        <div class="input-group">
+            <div class="custom-file">
+                <input type="file"
+                    accept=".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    [ngClass]="showInvalid ? 'custom-file-input is-invalid': 'custom-file-input'"
+                    formControlName="importFile" id="importFile" (change)="onFileChange($event.target.files)">
+
+                <label class="custom-file-label" #labelImport for="importFile">
+                    {{ "admin.underwriting.selectFileToUpload" | translate }}
+                </label>
+            </div>
+        </div>
+    </form>
+    <p class="py-2 font-medium"><a class="pointer" (click)="downloadCsv()">Download</a> standard underwriting CSV file
+    </p>
+</div>

@@ -1,0 +1,120 @@
+@import "../../../../../assets/scss/variables.scss";
+.tbl-editProduct {
+  input,
+  select {
+    background: $gray-100;
+    padding: 0 10px;
+    border: 0;
+    height: 35px;
+  }
+  input:focus,
+  textarea:focus {
+    background: $white !important;
+    outline: 1px solid $gray-300;
+  }
+}
+::ng-deep {
+  .ng-select .ng-select-container {
+    background: $gray-100;
+  }
+  .tbl-editProduct {
+    .is-invalid {
+      .form-control,
+      .ng-select:not(.form-control) .ng-select-container,
+      select:not(.custom-select),
+      &.custom-file {
+        outline: 1px solid $color-error !important;
+        background-image: none !important;
+      }
+      .invalid-feedback {
+        display: block;
+        color: $color-error !important;
+      }
+      label {
+        color: $color-error;
+      }
+      .form-control:not(.ng-select) ~ .input-group-append {
+        border: 1px solid $color-error !important;
+        border-left: none;
+      }
+    }
+  }
+  .table-ign {
+    color: $color-primary;
+    thead th {
+      background-color: $gray-100;
+      font-weight: 500;
+      // padding: 0.25rem 0.75rem 0.5rem;
+      border: none;
+      font-size: 0.75rem;
+    }
+    td {
+      border-bottom: 1px solid $gray-200;
+      border-top: unset;
+      vertical-align: middle;
+    }
+    .btn-group .btn {
+      border-radius: unset !important;
+    }
+  }
+}
+.switch {
+  + label {
+    font-size: 1rem;
+    padding-left: 15px;
+    vertical-align: middle;
+  }
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $gray-500;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+input:checked + .slider {
+  background-color: $blue-900;
+}
+input:focus + .slider {
+  box-shadow: 0 0 1px $blue-900;
+}
+input:checked + .slider:before {
+  -webkit-transform: translateX(32px);
+  -ms-transform: translateX(32px);
+  transform: translateX(32px);
+}
+.slider.round:before {
+  border-radius: 50%;
+}
+.custom-file-input {
+  position: absolute;
+  z-index: 5;
+}
+.custom-file-label {
+  &::after {
+    display: none;
+  }
+}
+.btn {
+  border-radius: unset;
+}

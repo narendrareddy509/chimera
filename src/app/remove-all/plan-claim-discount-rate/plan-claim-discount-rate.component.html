@@ -1,0 +1,71 @@
+<section class="mt-2">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <h4 class="card-title">
+            <i-feather name="layers"></i-feather>
+            {{"plan.noClaimDiscount.title" | translate }}
+          </h4>
+          <button type="button" class="btn btn-outline-primary" (click)="addNoClaimDiscount()"
+            [disabled]="disableControl">
+            <i-feather name="plus"></i-feather>
+          </button>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <form #claimForm="ngForm">
+              <div class="row" *ngFor="let noClaimDiscount of noClaimDiscountRateChoices; let i = index">
+                <div class="col-lg-6">
+                  <div class="form-group" [ngClass]="{
+          'is-invalid':
+          saveClicked && (noClaimDiscountPeriodYears.invalid || noClaimDiscountPeriodYears?.errors?.min || noClaimDiscountPeriodYears?.errors?.max)
+        }" >
+                    <label for="example-text-input" class="form-control-label">{{"plan.noClaimDiscount.noClaimConsecutiveYears" |
+                      translate }}</label>
+                    <input class="form-control" type="number" placeholder=""
+                      [(ngModel)]="noClaimDiscount.noClaimDiscountPeriodYears" [disabled]="disableControl"
+                      #noClaimDiscountPeriodYears="ngModel" required name="noClaimDiscountPeriodYears{{i}}" [min]="1" [max]="100" />
+                    <div *ngIf="
+          saveClicked && (noClaimDiscountPeriodYears.invalid || noClaimDiscountPeriodYears?.errors?.min || noClaimDiscountPeriodYears?.errors?.max)
+        " class="invalid-feedback d-block">
+                      {{ "plan.noClaimDiscount.noClaimConsecutiveYearsError" | translate }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group" [ngClass]="{
+          'is-invalid':
+          saveClicked && (noClaimDiscountRate.invalid || noClaimDiscountRate?.errors?.min || noClaimDiscountRate?.errors?.max)
+        }" >
+                    <label class="form-control-label">{{"plan.noClaimDiscount.noClaimDiscountRate" | translate }}</label>
+                    <div class="input-group">
+                      <input type="number" class="form-control" [disabled]="disableControl"
+                        [(ngModel)]="noClaimDiscount.noClaimDiscountRate" #noClaimDiscountRate="ngModel"
+                        name="noClaimDiscountRate{{i}}" required [min]="0" [max]="100" />
+
+                      <div class="input-group-append">
+                        <span class="input-group-text">%</span>
+                      </div>
+                    </div>
+                    <div *ngIf="
+      saveClicked && (noClaimDiscountRate.invalid || noClaimDiscountRate?.errors?.min || noClaimDiscountRate?.errors?.max)
+      " class="invalid-feedback d-block">
+                      {{ "plan.noClaimDiscount.noClaimDiscountRateError" | translate }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-1 pt-4">
+                  <button type="button" class="btn btn-primary btn-sm" [disabled]="disableControl"
+                    (click)="deleteNoClaimDiscount(noClaimDiscount,i)">
+                    <i-feather name="x"></i-feather>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

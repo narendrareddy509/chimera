@@ -1,0 +1,7 @@
+@import "../../../../assets/scss/variables.scss";
+@import "../../../../assets/scss/card.scss";
+.tableData {
+    display:block;
+    height: calc(100vh - 250px);
+    overflow:auto;
+  }

@@ -1,0 +1,84 @@
+<section class="prm-mod-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <h4 class="card-title mr-auto">
+              <i-feather name="command"></i-feather>
+              {{ "plan.premium.title" | translate }}
+            </h4>
+            <div class="btn-group" role="group">
+              <button class="btn btn-primary btn-sm" type="button" (click)="showFormulas()">
+                <img src="../../../../../assets/images/formulas-icon-white.svg" /> Formulas
+
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <form #premiumForm="ngForm">
+              <div class="row">
+                <div class="col-6">
+                  <div class="pr-4">
+                    <div class="form-group" [ngClass]="{
+                       'is-invalid':
+                         saveClicked 
+                         && (taxRate.invalid ||  taxRate?.errors?.min  
+                         || taxRate?.errors?.max)
+                        }">
+                      <label class="form-control-label">{{"plan.coi.taxRate" | translate }} </label>
+                      <div class="input-group">
+                        <input class="form-control" [disabled]="disableControl" placeholder="0"
+                          [(ngModel)]="taxPercentage" name="taxRate" type="number" [min]="0" [max]="100"
+                          #taxRate="ngModel" />
+                        <div class="input-group-append">
+                          <span class="input-group-text">%</span>
+                        </div>
+                      </div>
+                      <div *ngIf="
+                       saveClicked &&
+                       (taxRate.invalid ||  taxRate?.errors?.min  || taxRate?.errors?.max)                        "
+                        class="invalid-feedback d-block">
+                        {{ "plan.coi.taxRateErrorMessage" | translate }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="m-0">
+                    <div class="form-group" [ngClass]="{
+                       'is-invalid':
+                         saveClicked 
+                         && (mibRate.invalid ||  mibRate?.errors?.min  
+                         || mibRate?.errors?.max)
+                        }">
+                      <label class="form-control-label">{{"plan.coi.mibRate" | translate }} </label>
+                      <div class="input-group">
+                        <input class="form-control" [disabled]="disableControl" placeholder="0"
+                          [(ngModel)]="mibPercentage" name="mibRate" type="number" [min]="0" [max]="100"
+                          #mibRate="ngModel" />
+                        <div class="input-group-append">
+                          <span class="input-group-text">%</span>
+                        </div>
+                      </div>
+                      <div *ngIf="
+                       saveClicked &&
+                       (mibRate.invalid ||  mibRate?.errors?.min  || mibRate?.errors?.max)                        "
+                        class="invalid-feedback d-block">
+                        {{ "plan.coi.mibRateErrorMessage" | translate }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

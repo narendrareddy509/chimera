@@ -1,0 +1,10 @@
+<div class="modal-header">
+  <h6 class="modal-title" id="modal-basic-title">{{data.title}}</h6>
+</div>
+<div class="modal-body">
+    <p class="message-text">{{data.message}}</p>
+</div>
+<div class="modal-footer bg-light justify-content-between">
+    <button type="button" class="btn btn-outline-secondary btn-sm" (click)="close()">{{data.cancelBtnText}}</button>
+    <button type="button" ngbAutofocus class="btn btn-primary btn-sm" (click)="confirm()">{{data.confirmBtnText}}</button>
+</div>

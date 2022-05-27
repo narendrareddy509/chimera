@@ -1,0 +1,59 @@
+<div class="px-3 pt-4">
+  <section class="admin-alerts">
+    <ngb-alert *ngIf="showAlert" [type]="action" [dismissible]="false">{{ message }}</ngb-alert>
+  </section>
+
+  <div class="card" *ngIf="formulaTypes.length > 0 && formulas.length > 0">
+    <div class="card-header bg-light">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+          <li class="breadcrumb-item"><a href="/#/admin">
+              <i-feather name="home"></i-feather>
+            </a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{"admin.formulas.title" | translate}}</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="card-content">
+      <div class="card-body p-5">
+        <h5 class="font-light">{{"admin.formulas.subTitle" | translate}}</h5>
+        <div class="row m-0 mb-2" *ngFor="let formulaType of formulaTypes;">
+          <h3 class="w-100 mt-2 mb-3">{{formulaType.name}}</h3>
+          <div *ngFor="let formula of getFormulasByCode(formulas,formulaType.code); let i = index"
+            class="col-3 pl-0 pr-4 mb-4" role="button"
+            (click)="updateFormula(formula,(!formula.isRequired), formula.formulaGuid)">
+            <div class="card h-100" [ngClass]="
+          formula.isRequired
+            ? ' bg-primary text-white'
+            : ' bg-light'">
+              <div class="card-body">
+                <h5 [ngClass]="
+              formula.isRequired
+                ? 'card-title text-white font-default'
+                : 'card-title font-default'
+            ">{{formula.code}} </h5>
+                <h6 class="card-subtitle mb-2" [ngClass]="
+                      formula.isRequired
+                        ? 'text-white'
+                        : 'text-muted'
+					 
+                    ">{{formula.description}}</h6>
+                <p class="card-text info-text" [ngClass]="
+                      formula.isRequired
+                        ? ' text-white'
+                        : ''
+					 
+                    ">{{formula.formula}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer p-4 bg-light justify-content-end d-flex">
+        <button type="submit" class="btn btn-primary btn-sm rounded-0 btn-stretch" (click)="onSubmit()">
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<section class="prm-mod-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">
+            <i-feather name="command"></i-feather>
+            {{ "plan.coi.title" | translate }}
+          </h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body px-0 pb-0">
+            <ignatica-plan-coi-premium-modifier [premiumModifiers]="premiumModifiers" [disableControl]="disableControl"
+              [coiModules]="coiModules" [coiEventsSubject]="coiEventsSubject.asObservable()"
+              [taxPercentage]="taxPercentage" [coiSelectedModule]="coiSelectedModule">
+            </ignatica-plan-coi-premium-modifier>
+            <ignatica-plan-coi-rate-summary heading="coi" [coiRateTableKeys]="coiRateTableKeys"
+              [coiRateTableRows]="coiRateTableRows">
+            </ignatica-plan-coi-rate-summary>
+            <ignatica-plan-coi-rate heading="coi"
+              (coiRateChangesEmit)="coiRateChangesEmit($event.param1, $event.param2)" [disableControl]="disableControl"
+              [coiRateTableKeys]="coiRateTableKeys" [coiRateTableRows]="coiRateTableRows"></ignatica-plan-coi-rate>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

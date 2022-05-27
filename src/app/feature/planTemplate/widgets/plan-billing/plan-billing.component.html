@@ -1,0 +1,182 @@
+<section class="mt-2">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <h4 class="card-title mr-auto">
+              <i-feather name="dollar-sign"></i-feather>
+              {{ "plan.billing.title" | translate }}
+            </h4>
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <form #billingForm="ngForm">
+              <div class="row">
+                <div class="col-12 form-group" [ngClass]="{
+                    'is-invalid': saveClicked && !currencyValue
+                  }">
+                  <label for="example-text-input" class="form-control-label">{{ "plan.billing.billingCurrencies" |
+                    translate }}
+                    <span class="text-danger">*</span></label>
+                  <ng-select class="disabled-select-container"
+                    ngbTooltip="{{'plan.billing.ToolBillingCurrencies' | translate}}" placement="top" [readonly]="true"
+                    [(ngModel)]="currencyValue" name="billingCurrencies" [disabled]="disableControl"
+                    placeholder="{{ 'plan.billing.currenciesPH' | translate }}">
+                  </ng-select>
+                  <div *ngIf="saveClicked && !currencyValue" class="invalid-feedback d-block">
+                    {{ "plan.billing.requiredField" | translate
+                    }}{{ "plan.billing.billingCurrencies" | translate }}
+                  </div>
+                </div>
+
+                <div class="col-12 form-group" [ngClass]="{
+                    'is-invalid':
+                      saveClicked &&
+                      (!billingOptions.billingMethods ||
+                        billingOptions.billingMethods?.length <= 0)
+                  }">
+                  <label class="d-block">{{ "plan.billing.billingMethods" | translate
+                    }}<span class="text-danger">*</span>
+                    <i-feather name="info" class="md float-right mb-2"
+                      *ngIf="product?.screenCode === 'mjdkyidf' || product?.screenCode === 'ugbtofih'"
+                      ngbTooltip="{{'plan.billing.billingMethodsHelpText' | translate }}">
+                    </i-feather>
+                  </label>
+                  <div *ngIf="billingMethodEnabledList?.length > 0"
+                    ngbTooltip="{{'plan.billing.toolBillingMethod' | translate}}" placement="top">
+                    <table class="table mb-0 mt-3 table-borderless tblBillingMethod">
+                      <tr *ngFor="
+                            let method of billingMethodEnabledList;
+                            let i = index,
+                          ">
+                        <td width="70">
+                          <label class="switch">
+                            <input type="checkbox" name="billingMethod{{i}}" [(ngModel)]="method['isSelected']"
+                              [disabled]="disableControl">
+                            <span class="slider round"></span>
+                          </label>
+                        </td>
+                        <td>
+                          <span>{{ method.description }}</span>
+                      </tr>
+                    </table>
+                  </div>
+                  <div *ngIf="
+                  saveClicked &&
+                  (!billingOptions.billingMethods ||
+                    billingOptions.billingMethods?.length <= 0)
+                " class="invalid-feedback d-block">
+                    {{ "plan.billing.requiredField" | translate }}
+                    {{ "plan.billing.billingMethods" | translate }}
+                  </div>
+                </div>
+
+                <div class="col-12 form-group" [ngClass]="{
+                    'is-invalid':
+                      saveClicked &&
+                      (!billingOptions.billingModes ||
+                        billingOptions.billingModes?.length <= 0)
+                  }">
+                  <label>{{ "plan.billing.billingModes" | translate }}
+                    <span class="text-danger">*</span></label>
+                  <div class="input-group">
+                    <ng-select [(ngModel)]="billingModeChoiceValue"
+                      ngbTooltip="{{'plan.billing.toolBillingModes' | translate}}" placement="top"
+                      class="form-control p-0" [disabled]="disableControl"
+                      (ngModelChange)="onBillingModeChanged($event)" name="billingModes"
+                      [items]="billingModesEnabledList" bindLabel="description" bindValue="billingModeOID"
+                      [clearable]="false" placeholder="{{ 'plan.billing.placeHolder' | translate }}">
+                    </ng-select>
+                    <div class="input-group-append">
+                      <button type="button" class="btn btn-primary" [disabled]="disableControl"
+                        (click)="addBillingModeChoice()">
+                        <i-feather name="plus"></i-feather>
+                      </button>
+                    </div>
+                  </div>
+                  <div *ngIf="
+                      saveClicked &&
+                      (!billingOptions.billingModes ||
+                        billingOptions.billingModes?.length <= 0)
+                    " class="invalid-feedback d-block">
+                    {{ "plan.billing.emptyBillingMode" | translate }}
+                  </div>
+
+                  <div *ngIf="selectBillingModeArray.length > 0">
+                    <table class="table mb-0 mt-3">
+                      <tbody>
+                        <tr *ngFor="
+                            let mode of selectBillingModeArray;
+                            let i = index
+                          ">
+                          <td class="mode-name border-top-0">
+                            <span>{{ mode.description }}</span>
+                          </td>
+                          <td class="mode-value border-top-0">
+                            <input required class="form-control" type="number" [disabled]="disableControl"
+                              placeholder="0" [(ngModel)]="mode.billingModalFactor" #billingModalFactor="ngModel"
+                              name="billingModalFactor{{ i }}" [min]="0" required [ngClass]="{
+                                'is-invalid':
+                                  saveClicked && billingModalFactor.invalid
+                              }" />
+                            <div *ngIf="saveClicked && billingModalFactor.invalid" class="invalid-feedback">
+                              {{
+                              "plan.billing.modalFactorValidation" | translate
+                              }}
+                            </div>
+                          </td>
+                          <td class="mode-action border-top-0">
+                            <button type="button" class="btn btn-primary" [disabled]="disableControl"
+                              (click)="deleteBillingModeChoices(i)">
+                              <i-feather name="x"></i-feather>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <button class="btn btn-primary btn-block btn-sm mt-2" *ngIf="product?.screenCode !== 'zezcudih' && product?.screenCode !== 'ugbtofih' "
+                    (click)="showBillingModeChangeRules()">
+                    <img src="../../../../../assets/images/Rules-white.svg" />Billing Mode Change Rule</button>
+                </div>
+                <!-- <div class="col-12 form-group" [ngClass]="{
+                    'is-invalid':
+                      saveClicked &&
+                      (gracePeriodDays.invalid ||
+                        gracePeriodDays?.errors?.min ||
+                        gracePeriodDays?.errors?.max)
+                  }">
+                  <label for="example-text-input" class="form-control-label">{{ "plan.billing.gracePeriod" | translate
+                    }}
+                    <span class="text-danger">*</span></label>
+                  <div class="input-group">
+                    <input class="form-control" [disabled]="disableControl" type="number" placeholder="0"
+                      [(ngModel)]="billingOptions.gracePeriodDays" #gracePeriodDays="ngModel"
+                       name="gracePeriodDays"
+                      required [min]="0" [max]="150" />
+                    <div class="input-group-append">
+                      <span class="input-group-text">Day(s)</span>
+                    </div>
+                  </div>
+                  <div *ngIf="saveClicked && gracePeriodDays?.errors?.required" class="invalid-feedback">
+                    {{ "plan.billing.requiredField" | translate
+                    }}{{ "plan.billing.gracePeriod" | translate }}
+                  </div>
+                  <div *ngIf="
+                      saveClicked &&
+                      (gracePeriodDays?.errors?.min ||
+                        gracePeriodDays?.errors?.max)
+                    " class="invalid-feedback d-block">
+                    {{ "plan.billing.gracePeriodError" | translate }}
+                  </div>
+                </div> -->
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

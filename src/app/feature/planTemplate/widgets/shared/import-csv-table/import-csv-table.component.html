@@ -1,0 +1,17 @@
+<div class="upload-csv-wrapper">
+    <form novalidate [formGroup]="formImport">
+        <div class="input-group">
+            <div class="custom-file" [ngClass]="{'is-invalid' : showInvalid}">
+                <input type="file"
+                    accept=".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    formControlName="importFile" id="importFile" (change)="onFileChange($event.target.files)">
+
+                <label class="custom-file-label" #labelImport for="importFile">
+                    {{ "plan.alertMessages.uploadRate" | translate }}
+                </label>
+            </div>
+            <div *ngIf="showInvalid" class="invalid-feedback d-block">
+                {{ "plan.alertMessages.invalidFile" | translate }}
+            </div>
+        </div>
+    </form>

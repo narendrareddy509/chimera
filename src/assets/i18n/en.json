@@ -1,0 +1,564 @@
+{
+	"dashboard": {
+		"productsPage": {
+			"products": "Product",
+			"title": "Hello! Product Manager",
+			"subTitle": "Here is the group of products you could manage."
+		}
+	},
+	"bundleProduct":{
+		"prodTitle": "Products",
+		"prodTagline": "A pool of multiple risk category plans",
+		"viewDetails" : "View Details",
+		"newProduct": "New Product",
+		"viewProduct": "View Product",
+		"planTitle": "Plans",
+		"newPlan":"New Plan",
+		"planTagline": "A basic coverage of insurance risk",
+		"youHave":"You have ",
+		"productsLaunched": "products launched to market",
+		"plansPublished": "plans published for bundling",
+		"search": "Search",
+		"createEditProduct": {
+			"createProduct": "Create Product",
+			"editProduct": "Edit Product",
+			"productDetails": "Product Details",
+			"productName": "Product Name",
+			"description": "Description",
+			"productCategory": "Product Category",
+			"productCode": "Product Code",
+			"groupProduct": "Group Product",
+			"basePlan": "Base Plan",
+			"additionalPlan": "Additional Plan",
+			"planCategory": "Plan Category",
+			"availableActivePlan": "Available Active Plan",
+			"save": "Save",
+			"publish": "Publish",
+			"discount&Overides": "Discounts & Overrides",
+			"maximumPremiumDiscount": "Maximum Premium Discount",
+			"noClaimBonus": "No-claim Bonus Percentage",
+			"bonusPeriod": "Bonus Period",
+			"mandatoryInput":"It is Mandatory input",
+			"prodCreationSuccess": "Successfully created the product",
+			"prodCreationError": "Error while saving the product",
+			"rules":"Rules",
+			"prodUpdateSuccess": "Successfully updated the product",
+			"prodUpdateError": "Error while updating the product",
+			"prodPublishSuccess" : "Successfully published the product",
+			"productIcon":"Product Logo",
+			"maxImageSizeAllowed":"Image size should be less than or equal to 500KB."
+		}
+		
+	},
+	"fund": {
+		"title": "Funds",
+		"fundId": "Fund ID",
+		"fundPriceEffectiveDate": "Fund price effective date",
+		"fundPriceExpiryDate": "Fund price expiry date",
+		"buyPrice": "Buy price",
+		"sellPrice": "Sell price",
+		"createFundPrice": "Add Fund Price",
+		"buyPriceValue": "The Buy price must be >=0 and <=9999",
+		"sellPriceValue": "The Sell Price must be  >=0 and <=9999",
+		"addFundPriceSuccess": "Successfully Added a Fund Price",
+		"addFund": "Add a Fund",
+		"fund_ID": "Fund ID",
+		"fund_Name": "Fund Name",
+		"fund_Currency": "Fund Currency",
+		"fund_Service_URL": "Service URL",
+		"fund_Buy_Fee": "Buy Fees",
+		"fund_Sell_Fee": "Sell Fees",
+		"downloadTemplate": "Download Template",
+		"validBuySellFees": "Please Enter Valid Fees",
+		"duplicatFundIDError": "Multiple Funds with the same Fund ID not allowed, Please enter unique Fund ID",
+		"addFundSuccess": "Successfully Added a Fund",
+		"fundManagement": "Fund Management",
+		"fundPriceManagement": "Fund Price Management",
+		"chooseFile": "Choose file",
+		"uploadAndSave": "Upload & Save",
+		"requiredField": "Enter ",
+		"fundOptions": "Fund Options"
+	},
+	"admin": {
+		"activated": "Activated",
+		"events": {
+			"title": "Events",
+			"checkStatusUpdated": "Events Required Status Updated Successfully",
+			"checkStatusError": "Error While Updating the Event's Required Status",
+			"selectOneEventError": "Please select at least one event.",
+			"noChanges": "No changes done for events to save.",
+			"eventNotAvailable": "This event will not be available for selection for products and plans in the future."
+		},
+		"billingModes": {
+			"title": "Billing Modes",
+			"checkStatusUpdated": "Billing Modes Required Status Updated Successfully",
+			"checkStatusError": "Error While Updating The Billing Modes Required Status",
+			"selectOneBillingModeError": "Please Select At Least one Billing Mode.",
+			"noChanges": "No Changes Done For Billing Modes To Save.",
+			"billingModeNotAvailable": "This Billing Mode will not be available for selection for products and plans in the future."
+		},
+		"currencies": {
+			"title": "Currencies",
+			"checkStatusUpdated": "Currencies Required Status Updated Successfully",
+			"checkStatusError": "Error While Updating the Currencies Required Status",
+			"selectOneCurrencyError": "Please select at least one Currency.",
+			"noChanges": "No changes done for currencies to save.",
+			"currencyNotAvailable": "This Currency will not be available for selection for products and plans in the future."
+		},
+		"formulas": {
+			"title": "Formulas",
+			"subTitle": "Choose at least one formula from below.",
+			"checkStatusUpdated": "Formulas Required Status Updated Successfully",
+			"checkStatusError": "Error While Updating the Formulas Required Status",
+			"noChanges": "No changes done for formulas to save.",
+			"selectOneFormulaError": "Please select at least one Formula.",
+			"formulaNotAvailable": "This Formula will not be available for selection for products and plans in the future."
+		},
+		"underwriting": {
+			"selectFileToUpload": "Select file to upload",
+			"categoryName": "Name is required"
+		}
+	},
+	"login": {
+		"forgotPwd": {
+			"rememberMe": "Remember Me",
+			"forgotPwd": "Forgot Password"
+		},
+		"resetPassword": {
+			"title": "Reset Password",
+			"usernameEmail": "Username or email address",
+			"userNameReq": "Username is required",
+			"resetPwdInfo": "Enter your username or email and we'll send a link to your registered email to reset your password",
+			"resetPwdError": "We can't find the account associated with this username/ email address",
+			"sendLink": "Send me the link",
+			"cancel": "Cancel",
+			"emailSent": "The email has been sent, Open the link we sent to continue",
+			"done": "Done"
+		},
+		"changePassword": {
+			"title": "Change Password",
+			"newPwd": "New password",
+			"pwdReset": "Password Reset",
+			"requiredEror": "Required field",
+			"renterPwd": "Re-enter your new password",
+			"pwdCriteriaError": "Password doesn't meet requirement",
+			"pwdMatchError": "Passwords do not match, Please enter the password again",
+			"pwdInfo": "In order to protect your account, make sure your password:",
+			"longer7Char": "Is longer than 7 characters.",
+			"mixtureUL": "A mixture of both uppercase and lowercase letters.",
+			"mixtureLN": "A mixture of letters and numbers.",
+			"specialChar": "Inclusion of at least one special character.",
+			"relogin": "Please login with your new password",
+			"login": "Login",
+			"jwtError": "Token expired, Please try again requesting for a new reset link"
+		}
+	},
+	"plan": {
+		"requiredField": "Enter ",
+		"rules":"Rules",
+		"disabledInfoText":"Disabled in the Sandbox environment",
+		"downloadSampleFile":"Download Sample File",
+		"noFormulaText":"No formula chosen for calculation",
+		"chooseFormulaText":"Choose a formula below to enable this feature.",
+		"noFormulaSelected":"No formula currently selected for {{title}}. Enable this feature by choosing ",
+		"details": {
+			"name": "Plan Name",
+			"title": "Plan Details",
+			"namePH": "Enter plan name...",
+			"description": "Description",
+			"descriptionPH": "Describe your product...",
+			"planCode": "Plan Code",
+			"planCodePH": "Enter plan code...",
+			"integerCode": "Integer Code",
+			"intCodePH": "e.g. 101",
+			"planRequired": "This is required field",
+			"requiredField": "Enter ",
+			"integerCodeValidation": "Enter a valid Integer Code",
+			"tooltipPlanCode":"Short code of the plan",
+			"tooltipTextName":"Short name of the plan",
+			"tooltipTextDescription":"Long description of the plan",
+			"tooltipTextEffectiveDate":"Date on which plan is effective for policy issuance",
+			"tooltipTextPolicyTerm" :"Coverage duration of policy issued on plan",
+			"tooltipTextPolicyCurrency":"Base currency of policy issued on plan"
+		
+		},
+		"terms": {
+			"title": "Terms",
+			"effectiveDate": "Plan Effective Date",
+			"effectiveStartDate": "This is required field",
+			"effectiveEndDate": "Plan Effective End Date",
+			"policyError":"This is required field",
+			"policyTerm": "Policy Term",
+			"policyCurrencies": "Policy Currency",
+			"coolOffPeriod": "Cool-off Period",
+			"effectiveEndDateError": "Effective End Date cannot be same or earlier than effective start date",
+			"policyTermError": "The policy term in years is out of bounds",
+			"coolOffPeriodError": "Value must be between 0 and 150",
+			"autoRenewAllowed": "Auto-renewal",
+			"isContributionPlan": "Contributory Plan",
+			"minNumberInsured": "Minimum Number of Insureds",
+			"nonExpiryTerm":"Non-expiry Term"
+		},
+		"billing": {
+			"toolBillingCurrencies":"Currencies option for issuing policy premium bill",
+		    "toolBillingMethod":"Billing methods option to collect policy premium e.g bank transfer",
+		    "toolBillingModes": "Modes indicates frequency of premium payment of policy",
+			"title": "Billing & Payments",
+			"billingCurrencies": "Billing Currencies",
+			"currenciesPH": "Currency",
+			"requiredField":"Enter ",
+			"billingMethods": "Billing Methods",			
+			"placeHolder": "Select/ Add Options",
+			"billingModes": "Billing Modes",			
+			"emptyBillingMode": "Billing Mode cannot be empty",			
+			"modalFactorValidation": "Enter a valid Modal Factor",			
+			"gracePeriod": "Grace Period",			
+			"gracePeriodError": "Value must be between 0 and 150",
+			"billingMethodsHelpText":"System pre-configured as one billing method under this environment",
+			"billingPaymentRules":"Billing & Payment Rules"
+		},
+		"deathBenefitModule": {
+			"title": "Death Benefit",
+			"deathBenefitModuleTitle": "Death Benefit Formulas",
+			"requiredField": "Enter ",
+			"modules": "Modules",
+			"deathBenefitPercentage": "Death Benefit Percentage",
+			"deathBenefitError": "Value must be greater than 0%",
+			"placeholder": "Enter benefit percentage…",
+			"rulesTitle":"Death Benefit Rules",
+			"deathBenefitModuleRequired": "Must choose at least one formula for death benefit.",
+			"benefitTitle": "Benefits",
+			"widgetInfo":"<p class='mb-2'><strong>Death claims function calculates claim amount as per Formula with also parameter of death benefit percentage</strong></p><p><strong>Claim function have pre-defined rules, if you want to put more validation rules, then configure Rules<br /> 1. Claim incident < Paid to date<br /> 2. Coverage is active and enforced</strong></p>"
+		},
+		"benefitModule": {
+			"cancerTitle": "Cancer Benefit",
+			"cancerBenefitModuleTitle": "Cancer Benefit Formulas",
+			"cancerBenefitPercentage": "Benefit Percentage",
+			"cancerRulesTitle":"Cancer Benefit Rules",
+			"nonCancerTitle": "Non Cancer Benefit",
+			"nonCancerBenefitModuleTitle": "Non Cancer Benefit Formulas",
+			"nonCancerBenefitPercentage": "Benefit Percentage",
+			"nonCancerRulesTitle":"Cancer Benefit Rules",
+			"benefitTitle": "Benefits",
+			"benefitModuleTitle": "Benefit Formulas",
+			"benefitPercentage": "Benefit Percentage"
+
+		},
+		"coi":{
+			"title": "Cost of Insurance (COI)",
+			"summary":"COI Rate Table Summary",
+			"formulaRequired":"Must choose at least one formula for COI.",
+			"formulas":"COI Formulas",
+			"rate":"COI Rate Table",
+			"formulasPlaceHolder":"Formulas",
+			"taxRate":"Tax Rate",
+			"taxRateErrorMessage": "Value must be between 0 and 100",
+			"premiumModifierName": "Modifier Name",
+			"premiumModifierRate": "Modifier Rate",
+			"premiumModifierExcess": "Modifier Excess",
+			"modiferValuePercError": "Value must be between -100 and +1000%",
+			"premiumExcess": "COI Excess",
+			"toolSumAssured":"Allowable range of Sum Assured (base amount)  of policy",
+		    "toolTaxRate":"Tax rate is the charge applied on premium which is regulatory in nature e.g. Levy, GST ",
+	
+			"noSummary": "No Summary Available",
+			"rateTableBatchDelete": "Delete",
+			"rateTableBatchActivate": "Activate",
+			"rateTableBatchDeactivate": "De-activate",
+			"coimoduleRequired": "Must choose at least one formula for COI.",
+			"rateTableRequired": "Please upload a rate table",
+			"ujrahChargeRate":"Ujrah Charge Rate",
+			"tabaruChargeRate":"Tabarru Contribution Rate",
+			"formulasTitle":"Cost of Insurance (COI) Formulas",
+			"heading":"COI is the Regular Basic Premium amount paid by policy owner together with Top Up Deposit.",
+			"mibRate":"MIB Rate",
+			"widgetInfo":"<p>COI Function requires a Formula, select one from the Formulas button.</p><p>COI Function is made up of pre-defined parameters that need your input. Each parameter is made up of pre-defined business rules. Hover your cursor over each parameter to view the business rules.</p>"
+		},
+		"commission":{
+			"title": "Commision",
+			"summary":"Commision Rate Table Summary",
+			"formulas":"Commision Formulas",
+			"rate":"Commision Rate Table",
+			"formulasPlaceHolder":"Formulas",
+			"noSummary": "No Summary Available",
+			"rateTableBatchDelete": "Delete",
+			"rateTableBatchActivate": "Activate",
+			"rateTableBatchDeactivate": "De-activate",
+			"formulasTitle":"Commision Formulas"
+		},
+		"investmentConfiguration":{
+			"charges": "Charges",
+			"deleteCharges": "Delete",
+			"minimum":"Minimum",
+			"withdrawal": "Fund Withdrawal",
+			"withdrawalAmount": "Withdrawal Amount",
+			"minWithdrawalAmount": "Minimum Withdrawal Amount",
+			"maxWithdrawalAmount": "Maximum Withdrawal Amount",
+			"withdrawalValue": "must be > 0 and <= Maximum Withdrawal Amount",
+			"withdrawalError": "must be > 0",
+			"numFreeWithdrawal": "No. of fund withdrawals",
+			"lockInPeriod": "Lock-in Period",
+			"frequencyError": "Please select the frequency",
+			"minWithdrawalAmountError": "Please enter the minimum withdrawal amount",
+			"maxWithdrawalAmountError": "Please enter the maximum withdrawal amount",
+			"minMaxWithdrawalError": "Maximum withdrawal amount should be greater than minimum withdrawal amount",
+			"minAccountBalanceValue": "The minimum account balance must be greater than or equal to 0",
+			"minAccountBalance": "Minimum Account Balance",
+			"maximum":"Maximum",
+			"fundDepositAmountRegular": "Regular Premium",
+			"fundDepositAmountSubsequent": "Top-up Deposit",
+			"fundTakafulDepositAmountRegular":"Regular Top Up Deposit",
+			"fundTakafulDepositAmountSubsequent":"Lump Sum Top Up Deposit",
+			"investmentOptions": "Investment Options",
+			"surrender":"Surrender",
+			"endowment":"Endowment",
+			"rulesTitle":"Withdrawal Rules"
+		},
+		"underwriting":{
+			"title": "Underwriting",
+			"extraLoading": "Maximum Extra-loading",
+			"validExtraLoading": "Please provide a valid input",
+			"policyOwnerAge": "Policy Owner Age",
+			"minPolicyOwnerAge": "Minimum Policy Owner Age",
+			"maxPolicyOwnerAge": "Maximum Policy Owner Age",
+			"minFaceAmt": "Minimum Sum Assured",
+			"maxFaceAmt": "Maximum Sum Assured",
+			"minPolicyOwnerAgeErrorlt": "Value must be less than Maximum Policy Owner Age",
+			"minPolicyOwnerAgeError": "Value must be between 0 and 120",
+			"issueAge": "Issue Age",
+			"minIssueAge": "Minimum Issue Age",
+			"maxIssueAge": "Maximum Issue Age",
+			"minIssueValue": "The minimum issue age is out of bounds.",
+			"maxIssueValue": "The maximum issue age is out of bounds.",
+			"faceMaxValue": "Value must be > 0",
+			"faceAmount": "Sum Assured",
+			"underwritingCategory": "Underwriting Category",
+			"underwritingQuestions": "Underwriting Questions",
+			"conditionAction": "Condition to Action",
+			"specialPremium": "Special Premium",
+			"specialCOI": "Special COI",
+			"faceValue": "Value must be > 0 and <= Maximum Sum Assured",
+			"minSumAssured": "Minimum Sum Assured",
+			"maxSumAssured": "Maximum Sum Assured",
+			"coverageTerm" : "Coverage Term",
+			"medical":"Medical",
+			"nonMedical":"Non Medical",
+			"simplified":"Simplified",
+			"underwritingRules" : {
+				"title":"Underwriting Rules",
+				"parameterTitle" : "Parameters",
+				"parameterName":"Parameter Name",
+				"type" : "Type",
+				"addParameter" : "New parameter",
+				"newCondition":"New condition",
+				"newRule":"New rule"
+			},
+			"amountOfPremium":"Amount Of Premium",
+			"toolPolicyOwnerAge":"Allowable age range of customer (policyholder)",
+		    "toolIssueAge":"Allowable age range of Insured (policyholder)",
+			"widgetInfo":"<p>Underwriting Function is made up of pre-defined parameters that need your input.  Each parameter is made up of pre-defined business rules.  Hover your cursor over each parameter to view the business rules.</p><p>Need more business rules for Underwriting Function?  Create new rules from the Rules button</p>"
+		 },
+		 "renewal": {
+			"title": "Renewal",
+			"maxRenewalAge": "Maximum Renewal Age",
+			"maxRenewalValue": "The maximum renewal age is out of bounds.",
+			"ageCalculationMethod": "Age Calculation Method",
+			"renewalPremiumAdjustment": "Renewal Premium Adjustment",
+			"autoRenewAllowed": "Auto-renewal",
+			"rulesTitle":"Renewal Rules",
+			"summary":"Renewal Rate Table Summary",
+			"noSummary": "No Summary Available",
+			"rate": "Renewal Rate Table",
+			"rateTableBatchDelete": "Delete",
+			"rateTableBatchActivate": "Activate",
+			"rateTableBatchDeactivate": "De-activate",
+			"widgetInfo":"<p>Renewal Function requires a Formula, select one from the Formulas button.</p><p>Need more business rules for Renewal Function?  Create new rules from the Rules button</p>"
+		 },
+		 "noClaimDiscount": {
+			"title": "No Claim Discount",
+			"noClaimConsecutiveYears": "Number Of Consecutive Years With No Claims",
+			"noClaimDiscountRate": "No Claim Discount Rate",
+			"noClaimConsecutiveYearsError": "Value must be between 1 and 100 (inclusive)",
+			"noClaimDiscountRateError": "Value must be between 0% and 100%",
+			"configureFormula": "No Claim Discount",			
+			"rulesTitle":"Endowment Rules"
+		 },
+		 "reinstatement": {
+			"title": "Reinstatement",
+			"reinstatementFee": "Reinstatement Fee",
+			"reinstatementAllowedDuration": "Reinstatement Allowed Duration",
+			"reinstatementAllowedDurationType": "Reinstatement Allowed Duration Type",
+			"reinstatementFormula": "Reinstatement Formulas",
+			"reinstatementAllowedDurationError": "Value must be between 0 and 999",
+			"rulesTitle":"Reinstatement Rules"
+		 },
+		 "financialChanges": {
+			"fundTitle": "Fund Allocation Rules",
+			"faceAmountTitle": "Sum Assured Rules",
+			"title":"Financial Changes",
+			"billingModeChangeTitle":"Billing Mode Change Rules",
+			"billingModeChange":"Billing Mode Change"
+		 },
+		 "lapsation":{
+			 "title":"Lapsation",
+			 "rulesTitle":"Lapsation Rules",
+			 "gracePeriod":"Period after due date during which payment is allowed without any charges and penalties"
+
+		 }, 
+		 "surrender":{
+			"surrenderRatePercentage": "Surrender Rate Percentage",
+			"surrenderRatePercentageError": "Please enter a surrender rate percentage between 0% and 100.00%",
+			"configureFormula": "Surrender",
+			"formulas": "Formulas",
+			"choosefile": "Choose File",
+			"upload": "Upload",
+			"yearofCoverage": "Year of Coverage",
+			"surrenderChargeAmount": "Surrender Charge Amount",
+			"uploadCSVError": "Please upload a CSV file",
+			"rulesTitle":"Surrender Rules",
+			"coolingOffPeriod":"Period during which customer is allowed to cancel policy without charges"
+
+		 },
+		 "endowment":{
+			"title": "Endowment",
+			"configureFormula": "Endowment",
+			"formulas": "Formulas",
+			"choosefile": "Choose File",
+			"upload": "Upload",
+			"yearofCoverage": "Year of Coverage",
+			"endowmentChargeAmount": "Surrender Charge Amount",
+			"uploadCSVError": "Please upload a CSV file",
+			"rulesTitle":"Endowment Rules",
+			"isDividendWithdrawalAllowed":"Dividend Withdrawal Allowed",
+			"isParticipating":"Participating Plan",
+			"dividendRate":"Dividend Rate",
+			"dividentTitle":"Dividend"
+		 },
+		 "adminCharge":{
+           "title":"Policy Administration Charge",
+		   "heading":"General Fees & Charge"
+		 },
+		 "alertMessages" : {
+			"errorHeading": "Error - Plan not yet saved",
+			"errorMessage": "Enter all mandatory fields to save plan",
+		 	"validInfo": "Mandatory fields are missing",
+			"planPublised": "Published the plan",
+			"planCreated": "Plan has been saved",
+			"notPublished": "Not Published",
+			"publishStarted": "Publish Started",
+			"publishInProgress": "Publish In Progress",
+			"published": "Published",
+			"uploadRate": "Select file to upload",
+			"deleteConfirm": "Are you sure that you want to delete?",
+			"statusConfirm": "Are you sure that you want to change status",
+			"yes": "Yes",
+			"no": "No",
+			"invalidFile":"Invalid File Format"
+		 },
+		 "tooltipMessages": {
+			 "clonePlan": "Clone Plan",
+			 "editPlan": "Edit Plan"
+		 },
+		  "motor":{
+			"rate":{
+				"title":"Vehicle",
+				"summary":"Vehicle Rate Table Summary",
+				"rate":"Vehicle Rate Table"
+			},
+			"driver":{
+				"occupationRate":{
+					"rate":"Occupation Rate Table"
+				},
+				"geographicalRate":{
+					"rate":"Geographical Rate Table"
+				},
+				"maritalStatusRate":{
+					"rate":"Marital Status Rate Table"
+				},
+				"title":"Driver"
+			},
+			"noClaimDiscount":{
+              "title":"No Claim Discount",
+			  "rate":"Discount Table"
+			}
+		 },
+		 "rulesCategory":{
+			 "IG_RULE_SUBCATEGORY_PREVALIDATION_TITLE":"Validation Rules",
+			 "IG_RULE_SUBCATEGORY_POSTVALIDATION_TITLE":"Post Validation Rules",
+			 "IG_RULE_SUBCATEGORY_CALCULATION_TITLE":"Calculation Rules",
+			 "IG_RULE_SUBCATEGORY_PREVALIDATION_DESCRIPTION":"Validation rules are defined to validate data input and are processed before performing any major financial activity under a business process. Any Fail condition will reject the Surrender process.",
+			 "IG_RULE_SUBCATEGORY_POSTVALIDATION_DESCRIPTION":"Validation rules are defined to validate data input and are processed after performing any major financial activity under a bussiness process",
+			 "IG_RULE_SUBCATEGORY_CALCULATION_DESCRIPTION":"Calculations rules are defined to modify / alter principal amount of a business process e.g. claim amount, premium amount. Any Pass condition will include the Modifier rate or Modifier excess in the refund fee amount.",
+			 "ruleNameHelpText":"Rule description for identification.",
+			 "processHelpText":"Rules will be processed by priority.",
+			 "parameterHelpText":"Name of an input business object for rules (e.g., Age).",
+			 "parameterTypeHelpText":"Data type of the input business object (e.g., Numeric).",
+			 "constantHelpText":"Numeric, String or Date format YYYY-MM-DD",
+			 "IG_RULE_CATEGORY_SURRENDER":"Surrender",
+			 "IG_RULE_CATEGORY_CANCEL":"Cancellation",
+			 "IG_RULE_CATEGORY_LAPSATION":"Lapsation",
+			 "IG_RULE_CATEGORY_REINSTATEMENT":"Reinstatement",
+			 "IG_RULE_CATEGORY_PREMIUM":"Underwriting",
+			 "IG_RULE_CATEGORY_FACE_AMOUNT_CHANGE":"Sum Assured Change",
+			 "IG_RULE_CATEGORY_CLAIM":"Claim",
+			 "IG_RULE_CATEGORY_DEATH_CLAIM":"Death Claim",
+			 "internal": "Pre-defined",
+			 "external": "Custom"
+		 },
+		 "premium":{
+			"title":"Premium",
+			"summary":"Premium Rate Table Summary",
+			"rate":"Premium Rate Table",
+			"formulasTitle":"Premium Formulas",
+			"widgetInfo":"<p>Premium Function requires a Formula, select one from the Formulas button.</p><p>Premium Function is made up of pre-defined parameters that need your input. Each parameter is made up of pre-defined business rules. Hover your cursor over each parameter to view the business rules.</p>"
+		 },
+		 "medical":{
+			 "benefit":{
+				 "title":"Benefits",
+				 "benefitsRequired":"Plan requires at least one benefit to be configured",
+				 "benefitId":"Benefit Id",
+				 "benefitName":"Benefit Name",
+				 "benefitDescription":"Benefit Description",
+				 "benefitExclusion":"Benefit Exclusion",
+				 "limitClaimOccurence":"Limit per claim occurence",
+				 "deductibleClaimOccurence":"Deductible claim occurence",
+				 "agrregatedBenefitLimit":"Aggregated Benefit Limit"
+			 }
+			},
+		 "disbursement":{
+			"title":"Disbursement",
+			"formulas": "Formulas"
+		 },
+		 "cashValue":{
+			"title":"Cash Value",
+			"summary":"Cash Value Rate Table Summary",
+			"rate":"Cash Value Rate Table",
+			"formulas": "Formulas",
+			"rules":"Rules",
+			"formulasTitle":"Cash Value Formulas",
+			"rulesTitle":"Cash Value Rules"
+		 },
+		 "annuityPayment":{
+			 "title":"Annuity Payment",
+			 "summary":"Annuity Rate Table Summary",
+			 "rate":"Annuity Rate Table"
+		 },
+		 "cancellation": {
+			 "title": "Cancellation",
+			"configureFormula": "Cancellation Formulas",
+			"rulesTitle":"Cancellation Rules"
+		 },
+		 "surrenderCancellation":{
+			 "title":"Surrender / Cancellation",
+			 "configureFormula":"Surrender / Cancellation Formulas",
+			"rulesTitle":"Surrender / Cancellation Rules",
+			"widgetInfo":"<p>Surrender Function requires a Formula, select one from the Formulas button.</p> <p>Surrender Function is made up of pre-defined parameters that need your input. Each parameter is made up of pre-defined business rules. Hover your cursor over each parameter to view the business rules.</p> <p>Need more business rules for Surrender Function? Create new rules from the Rules button</p>"
+		 },
+		 "lapsationReinstatement":{
+			 "title":"Lapsation / Reinstatement",
+			 "configureFormula":"Lapsation / Reinstatement Formulas",
+			 "rulesTitle":"Lapsation / Reinstatement Rules",
+			"widgetInfo":"<p>Lapsation Function is made up of pre-defined parameters that need your input. Each parameter is made up of pre-defined business rules. Hover your cursor over each parameter to view the business rules.</p> <p>Need more business rules for Lapsation Function? Create new rules from the Rules button</p>"
+		 }
+	}
+}

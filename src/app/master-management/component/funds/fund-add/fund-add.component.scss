@@ -1,0 +1,7 @@
+@import "../../../../../assets/scss/variables.scss";
+.is-invalid {
+  color: $color-error !important;
+}
+.ng-dropdown-panel .ng-dropdown-panel-items {
+  max-height: 50px !important;
+}

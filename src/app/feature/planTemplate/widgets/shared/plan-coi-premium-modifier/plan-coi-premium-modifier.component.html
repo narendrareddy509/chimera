@@ -1,0 +1,156 @@
+              <form #modifierForm="ngForm">
+                <div class="row px-2 m-0">
+                  <div class=" col-8" *ngIf="coiModules.length > 0">
+                    <div class="m-0">
+                      <div class="form-group">
+                        <label for="example-text-input" class="form-control-label">
+                          {{"plan.coi.formulas" | translate
+                          }}</label>
+                        <ng-select
+                          name="coiModules" 
+                          bindLabel="uiDisplayElement" bindValue="moduleOID" 
+                          [disabled]="disableControl"
+                          [items]="coiModules" [clearable]="false" 
+                          [(ngModel)]="coiSelectedModule"
+                          placeholder="{{'plan.coi.formulasPlaceHolder' | translate }}"
+                          (ngModelChange)="onCoiModuleSelection($event)"></ng-select>
+                        <div class="formula-description">{{selectedModuleDescription}}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="pr-4 m-0">
+                      <div class="form-group" [ngClass]="{
+                   'is-invalid':
+                     saveClicked 
+                     && (taxRate.invalid ||  taxRate?.errors?.min  
+                     || taxRate?.errors?.max)
+                    }">
+                        <label class="form-control-label">{{"plan.coi.taxRate" | translate }} </label>
+                        <div class="input-group">
+                          <input class="form-control" [disabled]="disableControl" 
+                          placeholder="0"
+                            [(ngModel)]="taxPercentage"
+                             name="taxRate" type="number" [min]="0" [max]="100"
+                            #taxRate="ngModel" />
+                          <div class="input-group-append">
+                            <span class="input-group-text">%</span>
+                          </div>
+                        </div>
+                        <div *ngIf="
+                   saveClicked &&
+                   (taxRate.invalid ||  taxRate?.errors?.min  || taxRate?.errors?.max)                        "
+                          class="invalid-feedback d-block">
+                          {{ "plan.coi.taxRateErrorMessage" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>                
+                  <div class="col-12">
+                      <table class="table table-ign table-border">
+                        <thead>
+                          <tr>
+                            <th width="60">
+  
+                            </th>
+                            <th>
+                              {{ "plan.coi.premiumModifierName" | translate }}
+                            </th>
+                            <th>
+                              {{
+                              "plan.coi.premiumModifierRate" | translate
+                              }}
+                            </th>
+                            <th>
+                              {{
+                              "plan.coi.premiumModifierExcess" | translate
+                              }}
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="
+                      let pm of premiumModifiers;
+                      let pmIndex = index
+                    ">
+                            <td>
+                              <button type="button" class="btn btn-primary btn-sm" [disabled]="disableControl"
+                                (click)="deletePremiumModifier(pmIndex)">
+                                <i-feather name="x"></i-feather>
+                              </button>
+                            </td>
+                            <td>
+                              <div class="form-group" [ngClass]="{
+                                'is-invalid':
+                                  saveClicked &&
+                                  premiumModifierName.invalid
+                              }">
+                                <input class="form-control" [disabled]="disableControl" type="string" placeholder=""
+                                  [(ngModel)]="pm.modifierName" required #premiumModifierName="ngModel"
+                                  name="premiumModifierName{{pmIndex}}" />
+                                <div *ngIf="
+                              saveClicked &&
+                              premiumModifierName.invalid" class="invalid-feedback">
+                                  {{ "plan.requiredField" | translate }}{{ "plan.coi.premiumModifierName" | translate
+                                  }}
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="form-group" [ngClass]="{
+                                'is-invalid':
+                                  saveClicked 
+                                  && (premiumModifierPerc.invalid || premiumModifierPerc?.errors?.min || premiumModifierPerc?.errors?.max)
+                              }">
+                                <div class="input-group">
+                                  <input class="form-control" type="string" required [disabled]="disableControl"
+                                    placeholder="" [(ngModel)]="pm.modifierPercentage"
+                                    name="premiumModifierPerc{{pmIndex}}" type="number"
+                                    #premiumModifierPerc="ngModel" [min]="-100" [max]="1000" />
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                  </div>
+                                </div>
+                                <div
+                                  *ngIf="
+                                saveClicked &&
+                                (premiumModifierPerc.invalid ||  premiumModifierPerc?.errors?.min  || premiumModifierPerc?.errors?.max)                        "
+                                  class="invalid-feedback d-block">
+                                  {{ "plan.coi.modiferValuePercError" | translate }}
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="form-group" [ngClass]="{
+                                'is-invalid':
+                                  saveClicked &&
+                                  premiumModifierExcess.invalid
+                              }">
+                                <input class="form-control" [disabled]="disableControl" type="number" placeholder=""
+                                  [(ngModel)]="pm.modifierExcess" name="premiumModifierExcess{{pmIndex}}"
+                                  #premiumModifierExcess="ngModel" required />
+                                <div *ngIf="
+                              saveClicked &&
+                              premiumModifierExcess.invalid" class="invalid-feedback d-block">
+                                  {{ "plan.requiredField" | translate }}{{
+                                  "plan.coi.premiumExcess" | translate
+                                  }}
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td colspan="4">
+                              <button type="button" class="btn btn-sm btn-primary" [disabled]="disableControl"
+                                (click)="addPremiumModifier()">
+                                <i-feather name="plus"></i-feather>
+                              </button>
+                            </td>
+                          </tr>
+                        </tfoot>
+                      </table>    
+  </div>
+                </div>
+              </form>

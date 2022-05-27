@@ -1,0 +1,289 @@
+<div class="modal-header bg-light pb-4">
+    <h6 class="modal-title" id="modal-basic-title">
+        <img src="../../../../../assets/images/Rules-blue.svg" />
+        {{
+        heading | translate
+        }}
+    </h6>
+    <ng-template #rt let-r="result" let-t="term">
+        <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+    </ng-template>
+    <div class="input-group col-4 pr-0 search-wrapper">
+        <input [disabled]="disableControl" type="search" class="form-control mr-1" placeholder="Search"
+            [(ngModel)]="searchRule" />
+        <!-- <button class="btn btn-outline-primary btn-sm mr-3" [disabled]="disableControl" (click)="saveRules()">
+        <i-feather name="save" class="md"></i-feather>
+        Save Rules
+      </button> -->
+        <button class="btn btn-outline-primary btn-sm" ngbAutofocus (click)="saveRules()">
+            <i-feather name="x"></i-feather>
+        </button>
+    </div>
+</div>
+<div class="modal-body set-margin">
+    <div class="mt-2" *ngFor="let ruleCategoryIndex of ruleCategoryList">
+        <h6 *ngIf="ruleCategoryList.length > 1" class="modal-title"> {{"plan.rulesCategory."+ruleCategoryIndex |
+            translate}}</h6>
+        <div class="row mb-1 mx-0" *ngFor="let ruleCategoryRow of getRulesByCategory(ruleCategoryIndex);let k = index">
+            <div class="col-8 bg-light-dark pt-2">
+                <h5 class="text-primary-blue-900"> {{"plan.rulesCategory."+ruleCategoryRow.name+"_TITLE" | translate}}
+                </h5>
+                <p *ngIf="!ruleCategoryRow.isEdit" class="text-grey-600">
+                    {{"plan.rulesCategory."+ruleCategoryRow.name+"_DESCRIPTION" | translate}}
+                </p>
+            </div>
+            <div class="col-4 bg-light-dark pt-2 pb-2">
+                <a class="btn btn-primary btn-sm ml-1 pointer rounded-0 float-right" role="button"
+                    [disabled]="disableControl" (click)="ruleCategoryRow.isEdit = true;"
+                    *ngIf="!ruleCategoryRow.isEdit">
+                    <i-feather name="edit-3" class="md"></i-feather>
+                </a>
+                <button class="btn btn-primary btn-sm ml-1 pointer rounded-0 float-right" [disabled]="disableControl"
+                    *ngIf="ruleCategoryRow.isEdit" (click)="onSaveRuleCategoryClick(ruleCategoryRow)">
+                    <i-feather name="check" class="md"></i-feather>
+                </button>
+
+            </div>
+            <div *ngIf="ruleCategoryRow.isEdit">
+                <table class="table table-hover tbl-underwriting">
+                    <!-- table Head -->
+                    <thead class="bg-light">
+                        <tr>
+                            <ng-container *ngFor="let key of tableHeaders">
+                                <th scope="col" class="{{key.toLowerCase()}}">
+                                    {{key === 'Action' ? '' : key}}
+                                    <i-feather name="info" class="md" *ngIf="key === 'Rule Name'"
+                                        ngbTooltip="{{'plan.rulesCategory.ruleNameHelpText' | translate }}"></i-feather>
+                                    <i-feather name="info" class="md" *ngIf="key === 'Input'"
+                                        ngbTooltip="{{'plan.rulesCategory.parameterHelpText' | translate }}">
+                                    </i-feather>
+                                    <i-feather name="info" class="md" *ngIf="key === 'Input Type'"
+                                        ngbTooltip="{{'plan.rulesCategory.parameterTypeHelpText' | translate }}">
+                                    </i-feather>
+                                </th>
+                            </ng-container>
+                        </tr>
+                    </thead>
+                    <tbody class="tableData" cdkDropList #k="cdkDropList"
+                        (cdkDropListDropped)="drop($event,ruleCategoryRow.name)">
+                        <tr cdkDrag [cdkDragData]="rate"
+                            *ngFor="let rate of getRulesBySubCategory(ruleCategoryRow.name,ruleCategoryIndex) | filter:searchRule;let i = index">
+                            <td *ngFor="let key of tableHeaders" [ngSwitch]="key.toLowerCase()">
+                                <ng-container *ngSwitchCase="'order'">
+                                    <a class="btn btn-primary btn-sm ml-1 pointer rounded-0" role="button"
+                                        [disabled]="disableControl"
+                                        (click)="!disableControl && removeRule(i,rate['id'] ? rate['id'] : rate['hashedId'] )">
+                                        <i-feather name="minus" class="md"></i-feather>
+                                    </a>
+                                    <p class="m-0 ml-3" style="display: inline-block;">{{i+1}}</p>
+                                    <table class="table  mb-0 mt-5 {{rate.isEdit ? '':'hidden'}}">
+                                        <thead>
+                                            <tr>
+                                                <th *ngFor="let head of editTableHeaders" class="{{head}}">
+                                                    {{head === 'remove_param' ? '' : head }}
+                                                    <i-feather name="info" class="md" *ngIf="head === 'Constant'"
+                                                        ngbTooltip="{{'plan.rulesCategory.constantHelpText' | translate }}">
+                                                    </i-feather>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let row of rate.ruleParameters;let j=index">
+                                                <td *ngFor="let head of editTableHeaders"
+                                                    [ngSwitch]="head.toLowerCase()">
+                                                    <ng-container *ngSwitchCase="'remove_param'">
+                                                        <a class="btn btn-primary btn-sm pointer rounded-0 mr-1"
+                                                            role="button" [disabled]="disableControl"
+                                                            (click)="!disableControl && removeCondition(rate,j)">
+                                                            <i-feather name="minus" class="md"></i-feather>
+                                                        </a>
+                                                    </ng-container>
+                                                    <ng-container *ngSwitchCase="'order'">
+                                                        <p class="m-0">{{j+1}}</p>
+                                                    </ng-container>
+
+                                                    <ng-container *ngSwitchCase="'operator'">
+                                                        <select [disabled]="disableControl" [(ngModel)]="row[head]"
+                                                            *ngIf="rate['parameterType'] == 'Numeric' || rate['parameterType'] == 'Date'">
+                                                            <option *ngFor="let option of globalNumberOperators"
+                                                                [value]="option.key">{{option.text}}
+                                                            </option>
+                                                        </select>
+                                                        <select [disabled]="disableControl" [(ngModel)]="row[head]"
+                                                            *ngIf="rate['parameterType'] == 'String'">
+                                                            <option *ngFor="let option of globalStringOperators"
+                                                                [value]="option.key">{{option.text}}
+                                                            </option>
+                                                        </select>
+                                                    </ng-container>
+                                                    <ng-container *ngSwitchCase="'constant'">
+                                                        <input [disabled]="disableControl" type="number"
+                                                            [(ngModel)]="row['parameterDecimalValue']"
+                                                            *ngIf="rate['parameterType'] == 'Numeric'" />
+                                                        <div class="datePicker" *ngIf="rate['parameterType'] == 'Date'">
+                                                            <div class="input-group">
+                                                                <input class="form-control" placeholder="yyyy-mm-dd"
+                                                                    [(ngModel)]="row['parameterDateValue']"
+                                                                    ngbDatepicker #de="ngbDatepicker"
+                                                                    [disabled]="disableControl"
+                                                                    onkeydown="return false">
+                                                                <div class="input-group-append"
+                                                                    (click)="!disableControl ? de.toggle():null">
+                                                                    <i-feather name="calendar"></i-feather>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <input [disabled]="disableControl" type="text"
+                                                            [(ngModel)]="row['parameterTextValue']"
+                                                            *ngIf="rate['parameterType'] == 'String'" />
+                                                    </ng-container>
+                                                    <ng-container *ngSwitchCase="'modifier excess'">
+                                                        <input [disabled]="disableControl" type="number"
+                                                            [(ngModel)]="row[head]"
+                                                            *ngIf="ruleCategoryRow.name == 'IG_RULE_SUBCATEGORY_CALCULATION'" />
+                                                    </ng-container>
+                                                    <ng-container *ngSwitchCase="'modifier rate'">
+                                                        <div class="input-group-append"
+                                                            *ngIf="ruleCategoryRow.name == 'IG_RULE_SUBCATEGORY_CALCULATION'">
+                                                            <input [disabled]=" disableControl" class="form-control"
+                                                                type="number" [(ngModel)]="row[head]" />
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text">%</span>
+                                                            </div>
+                                                        </div>
+                                                    </ng-container>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="8">
+                                                    <button class="btn btn-primary btn-sm pointer rounded-0"
+                                                        role="button" [disabled]="disableControl"
+                                                        (click)="addCondition(rate)">
+                                                        <i-feather name="plus" class="md"></i-feather> {{
+                                                        "plan.underwriting.underwritingRules.newCondition" | translate
+                                                        }}
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </ng-container>
+                                <ng-container *ngSwitchCase="'action'">
+                                    <a class="btn btn-primary btn-sm ml-1 pointer rounded-0" role="button"
+                                        [disabled]="disableControl" (click)="rate.isEdit = true;isRuleEditMode = true"
+                                        *ngIf="!rate.isEdit">
+                                        <i-feather name="edit-3" class="md"></i-feather>
+                                    </a>
+                                    <button class="btn btn-outline-primary btn-sm ml-1 pointer rounded-0" cdkDragHandle
+                                        role="button" [disabled]="rate.isEdit && disableControl">
+                                        <i-feather name="move" class="md"></i-feather>
+                                    </button>
+                                    <button class="btn btn-primary btn-sm ml-1 pointer rounded-0"
+                                        (click)="onSaveRuleClick(rate)" *ngIf="rate.isEdit" [disabled]="disableControl">
+                                        <i-feather name="check" class="md"></i-feather>
+                                    </button>
+                                </ng-container>
+                                <ng-container *ngSwitchCase="'rule'">
+                                    <span *ngIf="!rate.isEdit">{{ rate['ruleName'] }}</span>
+
+                                    <input [disabled]="disableControl" type="text" [(ngModel)]="rate['ruleName']"
+                                        *ngIf="rate.isEdit"
+                                        [ngClass]="{'is-invalid' : rate.saveClicked && rate.ruleName === ''}" />
+                                    <span class="invalid-feedback" *ngIf="rate.saveClicked && rate.ruleName === ''">Rule
+                                        name is
+                                        required.</span>
+
+                                </ng-container>
+                                <ng-container *ngSwitchCase="'description'">
+                                    <span *ngIf="!rate.isEdit">{{ rate['ruleDescription'] }}</span>
+                                    <input [disabled]="disableControl || rate.selectedRuleType !== rate.exhashedId"
+                                        type="text" [(ngModel)]="rate['ruleExDescription']"
+                                        *ngIf="rate.isEdit && rate.ruleCategory !== 'IG_RULE_CATEGORY_PREMIUM'" />
+                                    <input [disabled]="disableControl || rate.selectedRuleType !== rate.inhashedId"
+                                        type="text" [(ngModel)]="rate['ruleInDescription']" class="mt-1"
+                                        *ngIf="rate.isEdit && rate.ruleCategory !== 'IG_RULE_CATEGORY_PREMIUM'" />
+                                    <input [disabled]="disableControl" type="text" [(ngModel)]="rate['ruleDescription']"
+                                        *ngIf="rate.isEdit && rate.ruleCategory == 'IG_RULE_CATEGORY_PREMIUM'" />
+
+
+                                </ng-container>
+                                <ng-container *ngSwitchCase="'input'">
+                                    <span *ngIf="!rate.isEdit">{{ rate['input'] }}</span>
+                                    <input [disabled]="disableControl" type="text" [(ngModel)]="rate['input']"
+                                        *ngIf="rate.isEdit && rate.ruleCategory == 'IG_RULE_CATEGORY_PREMIUM'" />
+                                    <div class="form-inline"
+                                        *ngIf="rate.isEdit && rate.ruleCategory !== 'IG_RULE_CATEGORY_PREMIUM'">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio"
+                                                name="group{{i}}{{ruleCategoryRow.name}}" style="height: 0.8rem;
+                    width: auto;" id="exampleCheck-ext-{{i}}-{{ruleCategoryRow.name}}"
+                                                [(ngModel)]="rate.selectedRuleType" [value]="rate.exhashedId">
+                                            <label class="form-check-label ml-1"
+                                                for="exampleCheck-ext-{{i}}-{{ruleCategoryRow.name}}">
+                                                {{"plan.rulesCategory.external" | translate}}
+                                            </label>
+                                        </div>
+                                        <input [disabled]="disableControl || rate.selectedRuleType !== rate.exhashedId"
+                                            style="width: 70%;" type="text" [(ngModel)]="rate['externalparameterName']"
+                                            class="ml-1"
+                                            [ngClass]="{'is-invalid' : rate.saveClicked && rate['externalparameterName'] === ''}" />
+                                    </div>
+                                    <div class="form-inline mt-1"
+                                        *ngIf="rate.isEdit && rate.ruleCategory !== 'IG_RULE_CATEGORY_PREMIUM'">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio"
+                                                name="group{{i}}{{ruleCategoryRow.name}}" style="height: 0.8rem;
+                      width: auto;" id="exampleCheck-int-{{i}}-{{ruleCategoryRow.name}}"
+                                                [(ngModel)]="rate.selectedRuleType" [value]="rate.inhashedId">
+                                            <label class="form-check-label ml-1"
+                                                for="exampleCheck-int-{{i}}-{{ruleCategoryRow.name}}">
+                                                {{"plan.rulesCategory.internal" | translate}}
+                                            </label>
+                                        </div>
+                                        <select
+                                            [disabled]="disableControl  || rate.selectedRuleType !== rate.inhashedId"
+                                            class="ml-2" style="width: 60%;"
+                                            (ngModelChange)="selectedParamNameItem($event,rate)"
+                                            [(ngModel)]="rate['internalparameterName']">
+                                            <option *ngFor="let option of rule_params" [value]="option.code">
+                                                {{option.name}}
+                                            </option>
+                                        </select>
+
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngSwitchCase="'input type'">
+                                   
+                                    <select
+                                        [disabled]="(disableControl && rate.ruleCategory !== 'IG_RULE_CATEGORY_PREMIUM')  || rate.selectedRuleType !== rate.exhashedId "
+                                        [(ngModel)]="rate['parameterType']">
+                                        <option *ngFor="let option of globalParamTypes" [value]="option">{{option}}
+                                        </option>
+                                    </select>
+
+                                </ng-container>
+                                <ng-container *ngSwitchDefault>
+                                    <span [ngClass]="{'parameter-rule' : key === 'Rule ID'}">{{ rate[getKeys(key)]
+                                        }}</span>
+                                </ng-container>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <td [attr.colspan]="tableHeaders.length">
+                            <button class="btn btn-primary btn-sm" [disabled]="disableControl"
+                                (click)="addNewRule(ruleCategoryRow.name,ruleCategoryIndex)">
+                                <i-feather name="plus" class="md"></i-feather>
+                                {{
+                                "plan.underwriting.underwritingRules.newRule" | translate
+                                }}
+                            </button>
+                        </td>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

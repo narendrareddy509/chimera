@@ -1,0 +1,38 @@
+@import "../../../../../assets/scss/variables.scss";
+
+tbody {
+  display: block;
+  overflow: auto;
+  td {
+    height: 48px;
+    padding: 0;
+  }
+}
+
+.mode-name {
+  // width: 40%;
+  span {
+    display: block;
+    padding: 8px 15px;
+    border: 1px solid #f8f8f8;
+  }
+}
+.mode-value {
+  input {
+    height: 40px;
+    &.is-invalid {
+      border: 1px solid $color-error !important;
+    }
+  }
+  width: 40%;
+  padding-right: 0;
+}
+.mode-action {
+  width: 10%;
+  padding-left: 0;
+}
+.tblBillingMethod {
+  td {
+    padding: 7px 0;
+  }
+}

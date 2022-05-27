@@ -1,0 +1,16 @@
+<div class="row px-2 m-0">
+  <div class="col-12">
+    <h6> {{"plan."+heading+".summary" | translate }}</h6>
+    <ul class="list-group mb-4" *ngIf="coiRateTableKeys.length==0">
+      <li class="list-group-item" style="text-align: center;">{{ "plan.coi.noSummary" | translate }}</li>
+    </ul>
+    <div class="rate-summary" *ngIf="coiRateTableKeys.length >0">
+      <ul>
+        <li *ngFor="let summary of (prepareSummary() | keyvalue)">
+          <span class="pm-label mr-2">{{ summary.key }}</span>
+          {{ summary.value | minMax }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

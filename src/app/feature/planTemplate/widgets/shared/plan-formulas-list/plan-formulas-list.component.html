@@ -1,0 +1,102 @@
+<div class="modal-header bg-light pb-4">
+  <h6 class="modal-title m-0 font-light" id="modal-basic-title">
+    <img src="../../../../../assets/images/formulas-icon-blue.svg" /> {{heading}}
+  </h6>
+  <button class="btn btn-outline-primary btn-sm float-right" (click)="saveFormulas()">
+    <i-feather name="x"></i-feather>
+  </button>
+</div>
+<div class="modal-body p-4">
+
+  <div class="row mb-3">
+    <div class="col-12 mb-3" [ngStyle]="{'cursor': disableControl ? '' : 'pointer' }" (click)="setFormula()">
+      <div class="card card-formula bg-primary-50" [ngClass]="{'selected':!selectedFormula}">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-6 d-flex align-items-center">
+              <div class="form-check d-flex align-items-center">
+                <input class="form-check-input" type="radio" name="formulaOptions" id="no-option"
+                  [ngModel]="(selectedFormula === undefined || selectedFormula === null ? 1 : 0)"
+                  [disabled]="disableControl" [value]="1" (click)="setFormula()">
+                <label class="form-check-label ml-1" for="no-option">
+                  {{"plan.noFormulaText" | translate}}
+                </label>
+              </div>
+            </div>
+            <div class="footnote-text col-6">
+              <p>
+                <strong>{{heading}}</strong> is disabled
+              </p>
+              <p>{{"plan.chooseFormulaText" | translate}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 mb-3" *ngFor="let formula of formulas;let m=index;"
+      [ngStyle]="{'cursor': disableControl ? '' : 'pointer' }" (click)="setFormula(formula)">
+      <div class="card card-formula bg-primary-50"
+        [ngClass]="{'selected':selectedFormula && selectedFormula.moduleOID === formula.moduleOID}">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-6 d-flex align-items-center">
+              <div class="form-check d-flex align-items-center">
+                <input class="form-check-input" type="radio" name="formulaOptions" id="{{formula.moduleId}}"
+                  [(ngModel)]="selectedFormula && selectedFormula.moduleOID" [disabled]="disableControl"
+                  [value]="formula.moduleOID" (click)="setFormula(formula)">
+                <label class="form-check-label ml-1" for="{{formula.moduleId}}"
+                  [innerHTML]="safeHtml(formula.uiDisplayElement)">
+                </label>
+              </div>
+            </div>
+            <div class="footnote-text col-6 d-flex align-items-center">
+              <div class="formula-info-wrapper" [innerHTML]="safeHtml(formula.uiHelpText)"></div>
+            </div>
+            <div class="row" *ngIf="showDeathBenefitPercent">
+
+              <div class="col-6">
+                <div class="form-group" [ngClass]="{
+              'is-invalid':
+                saveClicked &&
+                (deathBenefitPercent.invalid ||
+                  deathBenefitPercent?.errors?.min)
+            }">
+                  <label [ngClass]="
+                              formula.selected
+                                ? 'form-control-label text-white' : 'form-control-label'">{{
+                    "plan.deathBenefitModule.deathBenefitPercentage"
+                    | translate
+                    }}
+                    <span class="text-danger">*</span>
+                  </label>
+                  <div class="input-group">
+                    <input type="number" class="form-control" [disabled]="disableControl"
+                      [(ngModel)]="deathBenefitPercentage" name="deathBenefitPercent" #deathBenefitPercent="ngModel"
+                      (click)="$event.stopPropagation();" required [min]="1" placeholder="{{
+                  'plan.deathBenefitModule.placeholder' | translate
+                }}" />
+
+                    <div class="input-group-append">
+                      <span class="input-group-text pt-0 pb-0">%</span>
+                    </div>
+                    <div *ngIf="
+                  saveClicked &&
+                  (deathBenefitPercent.invalid ||
+                    deathBenefitPercent?.errors?.min)
+                " class="invalid-feedback d-block">
+                      {{
+                      "plan.deathBenefitModule.deathBenefitError"
+                      | translate
+                      }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

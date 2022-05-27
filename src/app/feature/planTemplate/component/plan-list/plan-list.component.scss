@@ -1,0 +1,44 @@
+@import "../../../../../assets/scss/variables.scss";
+@import "../../../../../assets/scss/card.scss";
+
+.btn-settings i-feather {
+  margin-top: 3px;
+}
+.btn {
+  height: 36px;
+  font-size: 0.75rem;
+  border-radius: 0;
+}
+.tableData {
+  .btn {
+    width: 36px;
+    line-height: 2;
+    &.disabled {
+      background-color: $blue-50 !important;
+      color: $blue-200;
+      border: 1px solid transparent !important;
+    }
+  }
+  .badge {
+    border-radius: unset;
+    height: 20px;
+    line-height: 15px;
+  }
+}
+.plan-tab-list {
+  a {
+    border-radius: 0;
+    background-color: transparent;
+    color: $blue-600;
+    cursor: pointer;
+    &.disabled {
+      opacity: 20%;
+    }
+  }
+}
+.plan-list .breadcrumb {
+  padding: 0.25rem 0.5rem;
+}
+.plan-list {
+  padding: 55px 45px;
+}
